@@ -1,4 +1,4 @@
-package hotsun.com.gzmq;
+package com.hotsun.mqxxgl;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("hotsun.com.gzmq", appContext.getPackageName());
+        assertEquals("com.hotsun.mqxxgl", appContext.getPackageName());
     }
 }

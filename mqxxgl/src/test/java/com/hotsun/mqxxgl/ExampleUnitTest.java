@@ -1,4 +1,4 @@
-package hotsun.com.gzmq;
+package com.hotsun.mqxxgl;
 
 import org.junit.Test;
 
