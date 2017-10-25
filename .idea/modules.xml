@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/GZMQ.iml" filepath="$PROJECT_DIR$/GZMQ.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mqxxgl/mqxxgl.iml" filepath="$PROJECT_DIR$/mqxxgl/mqxxgl.iml" />
+    </modules>
+  </component>
+</project>
