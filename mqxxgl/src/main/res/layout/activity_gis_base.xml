@@ -9,6 +9,20 @@
     <com.esri.arcgisruntime.mapping.view.MapView
         android:id="@+id/mapview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" />
+
+    <TextView
+
+        android:id="@+id/tv_dingwei"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="50dp"
+        android:layout_marginLeft="30dp"
+        android:background="@color/colorPrimary"
+        android:padding="10dp"
+        android:text="@string/dingwei"
+        android:textColor="@android:color/white"
+        android:textSize="20sp" />
 
 </RelativeLayout>

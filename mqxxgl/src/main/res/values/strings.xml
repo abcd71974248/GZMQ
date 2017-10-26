@@ -3,4 +3,7 @@
 
     <string name="serverurl">http://98.52.9.129:6080/arcgis/rest/services/SampleWorldCities/MapServer</string>
     <string name="gzserver">http://98.52.9.129:6080/arcgis/rest/services/gzfp/gzfp/MapServer</string>
+
+
+    <string name="dingwei">定位</string>
 </resources>
