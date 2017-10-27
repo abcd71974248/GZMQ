@@ -43,4 +43,5 @@ dependencies {
         exclude module: 'stax'
         exclude module: 'xpp3'
     }
+    compile 'io.reactivex:rxandroid:1.2.0'
 }

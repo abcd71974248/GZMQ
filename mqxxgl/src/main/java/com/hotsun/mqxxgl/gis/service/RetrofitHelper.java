@@ -1,6 +1,9 @@
 package com.hotsun.mqxxgl.gis.service;
 
 import android.content.Context;
+import android.support.annotation.MainThread;
+import android.util.AndroidException;
+
 import com.hotsun.mqxxgl.gis.util.ToastUtil;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -8,6 +11,7 @@ import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Response;
 import retrofit2.Retrofit;
+import rx.android.schedulers.AndroidSchedulers;
 
 /**
  * Created by li on 2017/5/5.
@@ -20,6 +24,7 @@ public class RetrofitHelper {
     private static NetworkMonitor networkMonitor;
     private static RetrofitHelper instance = null;
     private Retrofit mRetrofit = null;
+
 
     public static RetrofitHelper getInstance(Context context){
         if(instance == null){
