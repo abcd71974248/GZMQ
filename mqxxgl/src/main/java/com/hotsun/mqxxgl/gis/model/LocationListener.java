@@ -12,9 +12,9 @@ import com.hotsun.mqxxgl.gis.view.ILocationView;
  * Created by li on 2017/10/24.
  */
 
-public class LocationListener implements LocationDisplay.LocationChangedListener,ILocationView {
+public class LocationListener implements LocationDisplay.LocationChangedListener {
 
-    private Point point;
+    private Point gpspoint;
     private MapView mapView;
     private boolean isFirstLocation = false;
 
@@ -25,23 +25,18 @@ public class LocationListener implements LocationDisplay.LocationChangedListener
     @Override
     public void onLocationChanged(LocationDisplay.LocationChangedEvent locationChangedEvent) {
         LocationDataSource.Location location = locationChangedEvent.getLocation();
-        point = location.getPosition();
-        if(!isFirstLocation && point != null && !point.isEmpty()){
-            mapView.setViewpointCenterAsync(point,1.0);
+        gpspoint = location.getPosition();
+        if(!isFirstLocation && gpspoint != null && !gpspoint.isEmpty()){
+            mapView.setViewpointCenterAsync(gpspoint,3000);
             isFirstLocation = true;
         }else{
-            if(point == null){
-                point = new Point(0,0);
+            if(gpspoint == null){
+                gpspoint = new Point(0,0);
                 return;
             }
-            Viewpoint viewpoint = new Viewpoint(point,1.0,1.0);
+            Viewpoint viewpoint = new Viewpoint(gpspoint,3000,1.0);
             mapView.getMap().setInitialViewpoint(viewpoint);
         }
-    }
-
-    @Override
-    public Point getCurPoint() {
-        return point;
     }
 
 }

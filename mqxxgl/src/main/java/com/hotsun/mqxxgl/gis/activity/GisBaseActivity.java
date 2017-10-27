@@ -112,4 +112,9 @@ public class GisBaseActivity extends AppCompatActivity implements IGisBaseView, 
     public Point getCurPoint() {
         return locationPresenter.getCurPoint();
     }
+
+    @Override
+    public Point getCurGpsPoint() {
+        return locationPresenter.getCurGpsPoint();
+    }
 }

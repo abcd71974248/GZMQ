@@ -13,6 +13,7 @@ import com.hotsun.mqxxgl.gis.model.LocationListener;
 public class LocationPresenter {
 
     private MapView mapView;
+    private LocationDisplay display;
     private LocationListener myLocationListener;
 
     public LocationPresenter(MapView mapView){
@@ -24,7 +25,7 @@ public class LocationPresenter {
      * 初始化定位设置
      */
     public void initLocation(MapView mapView) {
-        LocationDisplay display = mapView.getLocationDisplay();
+        display = mapView.getLocationDisplay();
         display.setAutoPanMode(LocationDisplay.AutoPanMode.NAVIGATION);
         display.startAsync();
         myLocationListener = new LocationListener(mapView);
@@ -35,14 +36,19 @@ public class LocationPresenter {
      *定位到当前位置
      */
     public void zoomTolocation(){
-        Point point = myLocationListener.getCurPoint();
+        Point point = display.getLocation().getPosition();
         if(point != null && !point.isEmpty()){
             mapView.setViewpointCenterAsync(point,1.5);
         }
     }
     /**返回当前点位信息*/
     public Point getCurPoint(){
-        return myLocationListener.getCurPoint();
+        return display.getMapLocation();
+    }
+
+    /**返回当前点位信息*/
+    public Point getCurGpsPoint(){
+        return display.getLocation().getPosition();
     }
 
 }

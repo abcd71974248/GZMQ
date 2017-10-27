@@ -9,5 +9,7 @@ import com.esri.arcgisruntime.geometry.Point;
 
 public interface ILocationView {
 
+    Point getCurGpsPoint();
+
     Point getCurPoint();
 }
