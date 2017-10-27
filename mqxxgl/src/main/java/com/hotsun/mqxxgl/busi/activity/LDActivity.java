@@ -4,6 +4,7 @@ package com.hotsun.mqxxgl.busi.activity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.menu.SubMenuBuilder;
+import android.util.Log;
 
 
 import com.google.gson.Gson;
@@ -38,6 +39,7 @@ public class LDActivity extends AppCompatActivity  {
         String limit="12";
         String conditionText="";
 
+        Log.d("mess","进来了");
         ConditionText condition=new ConditionText();
         condition.setPage(page);
         condition.setStart(start);
