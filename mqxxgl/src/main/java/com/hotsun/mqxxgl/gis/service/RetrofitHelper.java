@@ -1,9 +1,9 @@
 package com.hotsun.mqxxgl.gis.service;
 
 import android.content.Context;
-import android.support.annotation.MainThread;
-import android.util.AndroidException;
 
+import com.hotsun.mqxxgl.R;
+import com.hotsun.mqxxgl.busi.service.RetrofitService;
 import com.hotsun.mqxxgl.gis.util.ToastUtil;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -11,7 +11,8 @@ import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Response;
 import retrofit2.Retrofit;
-import rx.android.schedulers.AndroidSchedulers;
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
 
 /**
  * Created by li on 2017/5/5.
@@ -24,7 +25,6 @@ public class RetrofitHelper {
     private static NetworkMonitor networkMonitor;
     private static RetrofitHelper instance = null;
     private Retrofit mRetrofit = null;
-
 
     public static RetrofitHelper getInstance(Context context){
         if(instance == null){
@@ -58,17 +58,17 @@ public class RetrofitHelper {
         okHttpClientBuilder.addNetworkInterceptor(new MyNetworkInterceptor());
         okHttpClientBuilder.connectTimeout(5, TimeUnit.SECONDS);
 
-//        mRetrofit = new Retrofit.Builder()
-//                .baseUrl(mContext.getResources().getString(R.string.serverhost))
-//                .client(okHttpClientBuilder.build())
-//                .addConverterFactory(SimpleXmlConverterFactory.create())
-//                //.addConverterFactory(GsonConverterFactory.create())
-//                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-//                .build();
-//    }
+        mRetrofit = new Retrofit.Builder()
+                .baseUrl(mContext.getResources().getString(R.string.serverhost))
+                .client(okHttpClientBuilder.build())
+                .addConverterFactory(SimpleXmlConverterFactory.create())
+                //.addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .build();
+     }
 
-//    public RetrofitService getServer(){
-//        return mRetrofit.create(RetrofitService.class);
+    public RetrofitService getServer(){
+        return mRetrofit.create(RetrofitService.class);
     }
 
     private class MyNetworkInterceptor implements Interceptor {
