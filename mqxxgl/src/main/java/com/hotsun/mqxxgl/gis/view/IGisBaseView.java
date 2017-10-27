@@ -7,6 +7,9 @@ import com.esri.arcgisruntime.geometry.Point;
  * Created by li on 2017/10/26.
  */
 
-public interface IGisBaseView {
+public interface IGisBaseView extends ILocationView{
+
+
+
 
 }

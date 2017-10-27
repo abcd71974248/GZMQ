@@ -12,9 +12,9 @@ import com.esri.arcgisruntime.mapping.view.MapView;
  * 地图触摸
  */
 
-public class MyTouchListener extends DefaultMapViewOnTouchListener{
+public class MapTouchListener extends DefaultMapViewOnTouchListener{
 
-    public MyTouchListener(Context context, MapView mapView) {
+    public MapTouchListener(Context context, MapView mapView) {
         super(context, mapView);
     }
 

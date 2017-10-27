@@ -3,20 +3,21 @@ package com.hotsun.mqxxgl.gis.presenter;
 import com.esri.arcgisruntime.geometry.Point;
 import com.esri.arcgisruntime.mapping.view.LocationDisplay;
 import com.esri.arcgisruntime.mapping.view.MapView;
-import com.hotsun.mqxxgl.gis.model.MyLocationListener;
+import com.hotsun.mqxxgl.gis.model.LocationListener;
 
 /**
  * Created by li on 2017/10/26.
+ * 定位类
  */
 
 public class LocationPresenter {
 
-    MapView mapView;
-    MyLocationListener myLocationListener;
+    private MapView mapView;
+    private LocationListener myLocationListener;
 
     public LocationPresenter(MapView mapView){
         this.mapView = mapView;
-        myLocationListener = new MyLocationListener(mapView);
+        myLocationListener = new LocationListener(mapView);
     }
 
     /**
@@ -26,7 +27,7 @@ public class LocationPresenter {
         LocationDisplay display = mapView.getLocationDisplay();
         display.setAutoPanMode(LocationDisplay.AutoPanMode.NAVIGATION);
         display.startAsync();
-        myLocationListener = new MyLocationListener(mapView);
+        myLocationListener = new LocationListener(mapView);
         display.addLocationChangedListener(myLocationListener);
     }
 
@@ -35,7 +36,13 @@ public class LocationPresenter {
      */
     public void zoomTolocation(){
         Point point = myLocationListener.getCurPoint();
-        mapView.setViewpointCenterAsync(point,1.5);
+        if(point != null && !point.isEmpty()){
+            mapView.setViewpointCenterAsync(point,1.5);
+        }
+    }
+    /**返回当前点位信息*/
+    public Point getCurPoint(){
+        return myLocationListener.getCurPoint();
     }
 
 }
