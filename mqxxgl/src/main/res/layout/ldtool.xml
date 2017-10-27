@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:background="#FF8542"
+    android:layout_height="wrap_content">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+
+        android:layout_height="fill_parent">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:contentDescription="@null"
+            android:src="@drawable/ttt" />
+    <TextView
+        android:padding="3dp"
+        android:text="增加"
+        android:textSize="18dp"
+        android:layout_width="50dp"
+        android:gravity="center"
+        android:textColor="#F0F0F0"
+        android:layout_height="wrap_content" />
+    </LinearLayout>
+    <TextView
+        android:padding="7dp"
+        android:text="修改"
+        android:layout_width="80dp"
+        android:gravity="center"
+        android:textColor="#F0F0F0"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:padding="7dp"
+        android:text="删除"
+        android:layout_width="80dp"
+        android:gravity="center"
+        android:textColor="#F0F0F0"
+        android:layout_height="wrap_content" />
+</LinearLayout>
