@@ -26,6 +26,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".permissions.PermissionsActivity" />
+        <activity android:name=".busi.activity.LDActivity" />
         <activity android:name=".gis.activity.PointEditeActivity"></activity>
     </application>
 
