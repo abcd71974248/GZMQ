@@ -38,7 +38,7 @@ public class LocationPresenter {
     public void zoomTolocation(){
         Point point = display.getLocation().getPosition();
         if(point != null && !point.isEmpty()){
-            mapView.setViewpointCenterAsync(point,1.5);
+            mapView.setViewpointCenterAsync(point,3000);
         }
     }
     /**返回当前点位信息*/

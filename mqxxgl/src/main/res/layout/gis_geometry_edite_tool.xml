@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:layout_alignParentBottom="true">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        android:padding="5dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="@drawable/left_edit"
+            android:contentDescription="@null"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:background="@drawable/center_edit"
+            android:contentDescription="@null"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="@drawable/right_edit"
+            android:contentDescription="@null"/>
+    </LinearLayout>
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="15dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/addfeature"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:background="@drawable/xbbj_add"
+            android:button="@null"
+            android:onClick="addFeature"/>
+
+        <RadioButton
+            android:id="@+id/copyButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:background="@drawable/xbbj_copy"
+            android:button="@null"
+            android:onClick="copyFeature"/>
+
+        <RadioButton
+            android:id="@+id/deleteButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:background="@drawable/xbbj_delete"
+            android:button="@null"
+            android:onClick="deleteFeature"/>
+
+        <RadioButton
+            android:id="@+id/qiegeButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:background="@drawable/xbbj_qiege"
+            android:button="@null"
+            android:onClick="qiegeFeature"/>
+
+        <RadioButton
+            android:id="@+id/hebingButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:background="@drawable/xbbj_hebing"
+            android:button="@null"
+            android:onClick="mergeFeature"/>
+
+        <RadioButton
+            android:id="@+id/xiubanButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:background="@drawable/xbbj_xiub"
+            android:button="@null"
+            android:onClick="xiubFeature"/>
+
+        <RadioButton
+            android:id="@+id/attributButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:background="@drawable/xbbj_attribte"
+            android:button="@null"
+            android:onClick="attributeFeture"/>
+
+        <RadioButton
+            android:id="@+id/selectButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:background="@drawable/xbbj_select"
+            android:button="@null"
+            android:onClick="selectFeature"/>
+
+        <RadioButton
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:background="@drawable/xbbj_mapremove"
+            android:button="@null"
+            android:onClick="mapRemove"/>
+
+    </RadioGroup>
+
+</FrameLayout>

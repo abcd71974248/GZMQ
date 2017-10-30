@@ -1,9 +1,9 @@
 package com.hotsun.mqxxgl.gis.presenter;
 
+
 import android.content.Context;
 
 import com.esri.arcgisruntime.mapping.view.MapView;
-import com.hotsun.mqxxgl.gis.model.MapTouchListener;
 
 /**
  * Created by li on 2017/10/26.
@@ -12,11 +12,12 @@ import com.hotsun.mqxxgl.gis.model.MapTouchListener;
 
 public class BasePresenter {
 
-    private MapTouchListener myTouchListener;
+    private Context mContext;
+    private MapView mapView;
 
-    public void initMapTouchListener(Context context,MapView mapView){
-         myTouchListener = new MapTouchListener(context,mapView);
-        mapView.setOnTouchListener(myTouchListener);
+    public BasePresenter(Context context, MapView mapView){
+        this.mContext = context;
+        this.mapView = mapView;
     }
 
 }

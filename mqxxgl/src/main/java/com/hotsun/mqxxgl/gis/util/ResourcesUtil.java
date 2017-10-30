@@ -5,6 +5,9 @@ import android.os.storage.StorageManager;
 
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by li on 2017/10/27.
@@ -17,8 +20,9 @@ public class ResourcesUtil {
     private Context mContext;
     private ResourcesUtil resourcesUtil;
 
-    private final String ROOT_MAPS = "/gzfp";
-    private final String otitan_map = "/otitan.map";
+    private final String ROOT_MAPS = "/maps";
+    public final String otitan_map = "/otitan.map";
+    public final String otms = "/otms";
 
 
     public synchronized ResourcesUtil getInstance(Context context) {
@@ -51,12 +55,12 @@ public class ResourcesUtil {
 
     /**获取基础离线地图数据path*/
     public String getBaseTitlePath(){
-        String basePath = otitan_map + "title.tpk";
+        String basePath = otitan_map + "/title.tpk";
         return getFilePath(basePath);
     }
 
     /** 取文件可用地址 */
-    private String getFilePath(String path) {
+    public String getFilePath(String path) {
         String dataPath = "文件可用地址";
         String[] memoryPath = getMemoryPath();
         for(int i = 0; i < memoryPath.length; i++) {
@@ -68,6 +72,58 @@ public class ResourcesUtil {
         }
         return dataPath;
     }
+    /**获取文件夹的名字*/
+    public String getFolderPath(String foldername){
+        String dataPath = "文件夹可用地址";
+        String[] memoryPath = getMemoryPath();
+        for (int i = 0; i < memoryPath.length; i++) {
+            File file = new File(memoryPath[i] + ROOT_MAPS + foldername);
+            if (file.exists() && file.isDirectory()) {
+                dataPath = memoryPath[i] + ROOT_MAPS + foldername;
+                break;
+            } else {
+                if (foldername.equals("")) {
+                    file.mkdirs();
+                }
+            }
+        }
+        return dataPath;
+    }
+    /**获取otms下的文件夹*/
+    public List<File> getOtmsFiles(){
+        List<File> folds = new ArrayList<>();
+        String otmspath = getFolderPath(otms);
+        File[] files = new File(otmspath).listFiles();
+        if(files == null ){
+            return folds;
+        }
+        for (File file : files){
+            if(file.exists() && file.isDirectory()){
+                folds.add(file);
+            }
+        }
+        return folds;
+    }
+    /**获取otms文件夹下的对应文件夹内的离线数据*/
+    public HashMap<String,File> getOtmsFoldesFile(String path){
+        HashMap<String,File> hashMap = new HashMap<>();
+        File[] files = new File(path).listFiles();
+        if(files == null){
+            return hashMap;
+        }
+        if(files.length == 0){
+            hashMap.put(path,null);
+            return hashMap;
+        }
+        for (File file : files){
+            if(file.exists() && file.isFile() && file.getName().endsWith(".geodatabase")){
+                hashMap.put(path,file);
+            }
+        }
+        return hashMap;
+    }
+
+
 
 
 }
