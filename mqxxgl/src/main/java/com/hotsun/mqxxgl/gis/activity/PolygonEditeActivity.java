@@ -5,13 +5,12 @@ import android.os.Bundle;
 
 import com.hotsun.mqxxgl.R;
 
-public class PointEditeActivity extends AppCompatActivity {
+public class PolygonEditeActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.gis_activity_point_edite);
-
+        setContentView(R.layout.gis_activity_polygon_edite);
 
     }
 }
