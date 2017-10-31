@@ -6,12 +6,13 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.esri.arcgisruntime.geometry.Point;
 import com.esri.arcgisruntime.mapping.view.MapView;
 import com.hotsun.mqxxgl.R;
-import com.hotsun.mqxxgl.gis.model.MapTouchListener;
+import com.hotsun.mqxxgl.gis.drawTool.DrawTool;
 import com.hotsun.mqxxgl.gis.presenter.BasePresenter;
 import com.hotsun.mqxxgl.gis.presenter.LayerPresenter;
 import com.hotsun.mqxxgl.gis.presenter.LocationPresenter;
@@ -23,9 +24,10 @@ public class GisBaseActivity extends AppCompatActivity implements IGisBaseView, 
 
     private MapView mapView;
     private Context mContext;
+    private DrawTool drawTool;
     private BasePresenter basePresenter;
     private LocationPresenter locationPresenter;
-    private LayerPresenter layerPresenter = new LayerPresenter();
+    private LayerPresenter layerPresenter;
     /*动态检测权限*/
     private static final int REQUEST_CODE = 0; // 权限请求码
     // 所需的定位权限
@@ -38,7 +40,7 @@ public class GisBaseActivity extends AppCompatActivity implements IGisBaseView, 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_gis_base);
+        setContentView(R.layout.gis_activity_base);
 
         initView();
         initPresenter();
@@ -54,7 +56,7 @@ public class GisBaseActivity extends AppCompatActivity implements IGisBaseView, 
         mapView = (MapView) findViewById(R.id.mapview);
         mapView.setAttributionTextVisible(false);
 
-        TextView tv_dw = (TextView) findViewById(R.id.tv_dingwei);
+        ImageView tv_dw = (ImageView) findViewById(R.id.share_mylocation);
         tv_dw.setOnClickListener(this);
     }
 
@@ -63,32 +65,39 @@ public class GisBaseActivity extends AppCompatActivity implements IGisBaseView, 
      */
     private void initPresenter() {
         mPermissionsChecker = new PermissionsChecker(this);
-        basePresenter = new BasePresenter();
+        basePresenter = new BasePresenter(mContext,mapView);
         locationPresenter = new LocationPresenter(mapView);
+        layerPresenter = new LayerPresenter(mContext,mapView);
     }
 
     /**
      * 初始化数据
      */
     private void initData() {
+        drawTool = new DrawTool(mContext,mapView);
         locationPresenter.initLocation(mapView);
-        layerPresenter.addBaseLayer(mContext, mapView);
-        basePresenter.initMapTouchListener(mContext, mapView);
+        layerPresenter.addBaseLayer();
+        layerPresenter.addGraphicLayer();
+        layerPresenter.loadGeodatabase();
 
-        MapTouchListener myTouchListener = new MapTouchListener(mContext, mapView);
-        mapView.setOnTouchListener(myTouchListener);
+    }
+    /**清除地图的上的所有标绘*/
+    public void cleanAll(View view){
+        mapView.getGraphicsOverlays().clear();
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.tv_dingwei:
+            case R.id.share_mylocation:
                 locationPresenter.zoomTolocation();
                 break;
             default:
                 break;
         }
     }
+
+
 
     @Override
     protected void onResume() {

@@ -11,17 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <TextView
-        android:id="@+id/tv_dingwei"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="50dp"
-        android:layout_marginLeft="30dp"
-        android:background="@drawable/background_view_button"
-        android:padding="10dp"
-        android:text="@string/dingwei"
-        android:textColor="@android:color/white"
-        android:textSize="20sp" />
+    <include layout="@layout/gis_left_tools" />
+
+    <include layout="@layout/gis_geometry_edite_tool" />
 
 </RelativeLayout>
