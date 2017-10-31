@@ -3,7 +3,6 @@ package com.hotsun.mqxxgl.gis.service;
 import android.content.Context;
 
 import com.hotsun.mqxxgl.R;
-import com.hotsun.mqxxgl.busi.service.RetrofitService;
 import com.hotsun.mqxxgl.gis.util.ToastUtil;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -67,8 +66,8 @@ public class RetrofitHelper {
                 .build();
      }
 
-    public RetrofitService getServer(){
-        return mRetrofit.create(RetrofitService.class);
+    public GisRetrofitService getServer(){
+        return mRetrofit.create(GisRetrofitService.class);
     }
 
     private class MyNetworkInterceptor implements Interceptor {
