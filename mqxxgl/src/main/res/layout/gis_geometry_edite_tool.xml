@@ -122,7 +122,7 @@
             android:layout_weight="1"
             android:background="@drawable/xbbj_select"
             android:button="@null"
-            android:onClick="selectFeature"/>
+            android:onClick="selectFeatures"/>
 
         <RadioButton
             android:layout_width="0dp"
@@ -131,7 +131,7 @@
             android:layout_weight="1"
             android:background="@drawable/xbbj_mapremove"
             android:button="@null"
-            android:onClick="mapRemove"/>
+            android:onClick="mapReInitial"/>
 
     </RadioGroup>
 

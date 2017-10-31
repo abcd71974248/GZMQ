@@ -1,8 +1,17 @@
 package com.hotsun.mqxxgl.gis.presenter;
 
+import com.esri.arcgisruntime.geometry.Geometry;
+import com.esri.arcgisruntime.geometry.GeometryEngine;
+import com.esri.arcgisruntime.geometry.GeometryType;
 import com.esri.arcgisruntime.geometry.Point;
+import com.esri.arcgisruntime.geometry.SpatialReference;
+import com.esri.arcgisruntime.mapping.view.Graphic;
+import com.esri.arcgisruntime.mapping.view.GraphicsOverlay;
 import com.esri.arcgisruntime.mapping.view.LocationDisplay;
 import com.esri.arcgisruntime.mapping.view.MapView;
+import com.esri.arcgisruntime.symbology.PictureFillSymbol;
+import com.esri.arcgisruntime.symbology.SimpleMarkerSymbol;
+import com.esri.arcgisruntime.symbology.Symbol;
 import com.hotsun.mqxxgl.gis.model.LocationListener;
 
 /**
@@ -26,7 +35,7 @@ public class LocationPresenter {
      */
     public void initLocation(MapView mapView) {
         display = mapView.getLocationDisplay();
-        display.setAutoPanMode(LocationDisplay.AutoPanMode.NAVIGATION);
+        display.setAutoPanMode(LocationDisplay.AutoPanMode.COMPASS_NAVIGATION);
         display.startAsync();
         myLocationListener = new LocationListener(mapView);
         display.addLocationChangedListener(myLocationListener);

@@ -23,11 +23,12 @@ import com.esri.arcgisruntime.symbology.SimpleFillSymbol;
 import com.esri.arcgisruntime.symbology.SimpleLineSymbol;
 import com.esri.arcgisruntime.symbology.SimpleMarkerSymbol;
 import com.hotsun.mqxxgl.gis.model.MySpatialReference;
+import com.hotsun.mqxxgl.gis.view.IDrawTool;
 
 /**
  * 图形勾绘工具类
  */
-public class DrawTool extends Subject {
+public class DrawTool extends Subject implements IDrawTool{
 
     private Context mContext;
     private MapView mapView;
@@ -161,9 +162,14 @@ public class DrawTool extends Subject {
         return points;
     }
 
-    class MapTouchListener extends DefaultMapViewOnTouchListener {
+    @Override
+    public Graphic getDrawGraphic() {
+        return drawGraphic;
+    }
 
-        public MapTouchListener(Context context, MapView mapView) {
+    private class MapTouchListener extends DefaultMapViewOnTouchListener {
+
+        private MapTouchListener(Context context, MapView mapView) {
             super(context, mapView);
         }
 
@@ -175,11 +181,31 @@ public class DrawTool extends Subject {
                 return false;
             }
 
+            if(active && (drawType == POINT || drawType == ENVELOPE
+                    || drawType == CIRCLE
+                    || drawType == FREEHAND_POLYLINE || drawType == FREEHAND_POLYGON)
+                    && event.getAction() == MotionEvent.ACTION_DOWN){
+                switch (drawType) {
+                    case POINT:
+                        pointBuilder.setXY(point.getX(), point.getY());
+                        break;
+                    case ENVELOPE:
+                        envelopeBuilder.setXY(point.getX(), point.getY(),point.getX(), point.getY());
+                        break;
+                    case CIRCLE:
+                    case FREEHAND_POLYGON:
+                    case FREEHAND_POLYLINE:
+                        pointCollection.add(point);
+                        break;
+                }
+                return true;
+            }
+
             return super.onTouch(view, event);
         }
 
         @Override
-        public boolean onSingleTapUp(MotionEvent e) {
+        public boolean onSingleTapConfirmed(MotionEvent e) {
             Point point = screenTomap(e);
             Graphic graphic = new Graphic(point,new SimpleMarkerSymbol(SimpleMarkerSymbol.Style.CIRCLE, Color.RED,20));
             GraphicsOverlay graphicsOverlay = new GraphicsOverlay(GraphicsOverlay.RenderingMode.STATIC);
@@ -187,6 +213,19 @@ public class DrawTool extends Subject {
             graphicsOverlay.getGraphics().add(graphic);
 
             return super.onSingleTapUp(e);
+        }
+
+        @Override
+        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+            if (active
+                    && (drawType == ENVELOPE || drawType == FREEHAND_POLYGON
+                    || drawType == FREEHAND_POLYLINE || drawType == CIRCLE)) {
+                switch (drawType) {
+
+                }
+                return false;
+            }
+            return super.onFling(e1, e2, velocityX, velocityY);
         }
 
     }
@@ -199,5 +238,7 @@ public class DrawTool extends Subject {
         Point point = mapView.screenToLocation(screenpoint);
         return point;
     }
+
+
 
 }

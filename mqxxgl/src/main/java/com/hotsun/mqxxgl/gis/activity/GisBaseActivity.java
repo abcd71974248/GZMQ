@@ -9,7 +9,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.esri.arcgisruntime.data.FeatureType;
 import com.esri.arcgisruntime.geometry.Point;
+import com.esri.arcgisruntime.layers.FeatureLayer;
 import com.esri.arcgisruntime.mapping.view.MapView;
 import com.hotsun.mqxxgl.R;
 import com.hotsun.mqxxgl.gis.drawTool.DrawTool;
@@ -55,9 +57,6 @@ public class GisBaseActivity extends AppCompatActivity implements IGisBaseView, 
         mContext = GisBaseActivity.this;
         mapView = (MapView) findViewById(R.id.mapview);
         mapView.setAttributionTextVisible(false);
-
-        ImageView tv_dw = (ImageView) findViewById(R.id.share_mylocation);
-        tv_dw.setOnClickListener(this);
     }
 
     /**
@@ -68,6 +67,7 @@ public class GisBaseActivity extends AppCompatActivity implements IGisBaseView, 
         basePresenter = new BasePresenter(mContext,mapView);
         locationPresenter = new LocationPresenter(mapView);
         layerPresenter = new LayerPresenter(mContext,mapView);
+        layerPresenter.loadGeodatabase();
     }
 
     /**
@@ -79,19 +79,59 @@ public class GisBaseActivity extends AppCompatActivity implements IGisBaseView, 
         layerPresenter.addBaseLayer();
         layerPresenter.addGraphicLayer();
         layerPresenter.loadGeodatabase();
-
     }
     /**清除地图的上的所有标绘*/
     public void cleanAll(View view){
         mapView.getGraphicsOverlays().clear();
     }
+    /**当前位置定位*/
+    public void mylocation(View view){
+        locationPresenter.zoomTolocation();
+    }
+    /**勾绘小班后重新初始化触摸*/
+    public void mapReInitial(View view){
+
+    }
+    /**选择Feature*/
+    public void selectFeatures(View view){
+
+    }
+    /**属性编辑*/
+    public void attributeFeture(View view){
+
+    }
+    /**修班*/
+    public void xiubFeature(View view){
+
+    }
+    /**合并图斑*/
+    public void mergeFeature(View view){
+
+    }
+    /**切割图斑*/
+    public void qiegeFeature(View view){
+
+    }
+    /**删除图斑*/
+    public void deleteFeature(View view){
+
+    }
+    /**复制图斑*/
+    public void copyFeature(View view){
+
+    }
+    /**添加图斑*/
+    public void addFeature(View view){
+        FeatureLayer layer = layerPresenter.myFeatureLayers.get(0).getLayer();
+        layerPresenter.getEditSymbo(layer);
+        int drawType = drawTool.FREEHAND_POLYLINE;
+        drawTool.activate(drawType);
+    }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.share_mylocation:
-                locationPresenter.zoomTolocation();
-                break;
+
             default:
                 break;
         }
