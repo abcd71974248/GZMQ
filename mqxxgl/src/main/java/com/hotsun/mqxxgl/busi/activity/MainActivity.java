@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-
 import com.hotsun.mqxxgl.R;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -27,10 +26,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         {
             case R.id.btnShow:
                 // 生成一个Intent对象
-                Intent intent=new Intent();
-                intent.putExtra("testIntent", "123");
-                intent.setClass(MainActivity.this, LDActivity.class); //设置跳转的Activity
-                startActivity(intent);
+                     Intent intent=new Intent();
+                    intent.putExtra("testIntent", "123");
+                    intent.setClass(this, DistrictPickerActivity.class); //设置跳转的Activity
+                     this.startActivity(intent);
+
+
                 break;
 
         }
