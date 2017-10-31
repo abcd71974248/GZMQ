@@ -5,9 +5,34 @@ package com.hotsun.mqxxgl.busi.model;
  */
 
 public class ConditionText {
+    String userID;
+    String sessionID;
+    String zuid;
     String page;
-    String start;
-    String limit;
+
+    public String getUserID() {
+        return userID;
+    }
+
+    public void setUserID(String userID) {
+        this.userID = userID;
+    }
+
+    public String getSessionID() {
+        return sessionID;
+    }
+
+    public void setSessionID(String sessionID) {
+        this.sessionID = sessionID;
+    }
+
+    public String getZuid() {
+        return zuid;
+    }
+
+    public void setZuid(String zuid) {
+        this.zuid = zuid;
+    }
 
     public String getPage() {
         return page;
@@ -17,31 +42,25 @@ public class ConditionText {
         this.page = page;
     }
 
-    public String getStart() {
-        return start;
+    public String getHzxm() {
+        return hzxm;
     }
 
-    public void setStart(String start) {
-        this.start = start;
+    public void setHzxm(String hzxm) {
+        this.hzxm = hzxm;
     }
 
-    public String getLimit() {
-        return limit;
+    public String getMph() {
+        return mph;
     }
 
-    public void setLimit(String limit) {
-        this.limit = limit;
+    public void setMph(String mph) {
+        this.mph = mph;
     }
 
-    public String getConditionText() {
-        return conditionText;
-    }
+    String hzxm;
+    String mph;
 
-    public void setConditionText(String conditionText) {
-        this.conditionText = conditionText;
-    }
-
-    String conditionText;
 
 
 }

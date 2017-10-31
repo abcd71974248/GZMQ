@@ -1,6 +1,7 @@
 package com.hotsun.mqxxgl.busi.activity;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.menu.SubMenuBuilder;
@@ -11,23 +12,34 @@ import com.google.gson.Gson;
 import com.hotsun.mqxxgl.R;
 import com.hotsun.mqxxgl.busi.model.ConditionText;
 import com.hotsun.mqxxgl.busi.model.FwLdxx;
+import com.hotsun.mqxxgl.busi.model.ResponseResults;
+import com.hotsun.mqxxgl.busi.service.BusiRetrofitHelper;
 import com.hotsun.mqxxgl.gis.service.RetrofitHelper;
+import com.hotsun.mqxxgl.gis.util.ToastUtil;
 
 
+import java.util.HashMap;
+import java.util.Map;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import rx.Observable;
 import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 
 public class LDActivity extends AppCompatActivity  {
+
+    private Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ldlist);
-        getUserinfo();
+        mContext = LDActivity.this;
 
+        getUserinfo();
 
     }
 
@@ -42,32 +54,42 @@ public class LDActivity extends AppCompatActivity  {
         Log.d("mess","进来了");
         ConditionText condition=new ConditionText();
         condition.setPage(page);
-        condition.setStart(start);
-        condition.setLimit(limit);
-        condition.setConditionText(conditionText);
+        condition.setHzxm("");
+        condition.setMph("");
+        condition.setSessionID("864906032912696,864906032989942|20171027172938819");
+        condition.setUserID("35");
+        condition.setZuid("520300000000017202");
 
-        String json = gson.toJson(condition);
-        Observable<String> observer = RetrofitHelper.getInstance(LDActivity.this).getServer().GetUserInfo(json);
-        observer.subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<String>() {
-                    @Override
-                    public void onCompleted() {
+        String route = gson.toJson(condition);
+
+        Map<String,Object> res=new HashMap<String, Object>();
+        res.put("userID",35);
+        res.put("sessionID","864906032912696,864906032989942|20171027172938819");
+        res.put("zuid","520300000000017202");
+        res.put("page",1);
+        res.put("hzxm","");
+        res.put("mph","");
+
+//        Observable<String> observer = BusiRetrofitHelper.getInstance(LDActivity.this).getServer().GetUserInfo(condition.getUserID(),condition.getSessionID(), condition.getZuid(),
+//                condition.getPage(),condition.getHzxm(),condition.getMph());
+
+        Call<ResponseResults> call = BusiRetrofitHelper.getInstance(LDActivity.this).getServer(route);
+        call.enqueue(new Callback<ResponseResults>() {
+            @Override
+            public void onResponse(Call<ResponseResults> call, Response<ResponseResults> response) {
 
 
+                Log.i("=========",response.body().getStatus());
+                ToastUtil.setToast(mContext,response.body().getStatus());
+            }
 
-                    }
+            @Override
+            public void onFailure(Call<ResponseResults> call, Throwable t) {
+                Log.i("sssss",t.getMessage());
+            }
+        });
+        Log.i("postjson", route);
 
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onNext(String s) {
-
-                    }
-                });
 
     }
 
