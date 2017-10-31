@@ -1,5 +1,7 @@
 package com.hotsun.mqxxgl.busi.service;
 
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
@@ -14,7 +16,8 @@ import rx.Observable;
 public interface RetrofitService {
 
     @POST("http://98.52.9.127:8080/mqxxgl/ldfwxxgl/ldxx/getList.do")
-    Observable<String> GetUserInfo(@Query("json") String json);
+    @FormUrlEncoded
+    Observable<String> GetUserInfo(@Field("json") String json);
 
 
 

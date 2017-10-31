@@ -29,6 +29,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".busi.activity.DistrictPickerActivity" />
+        <activity android:name=".busi.activity.LDActivity" />
         <activity android:name=".permissions.PermissionsActivity" />
         <activity android:name=".gis.activity.PointEditeActivity" />
         <activity android:name=".gis.activity.PolygonEditeActivity"></activity>

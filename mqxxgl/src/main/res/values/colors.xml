@@ -65,4 +65,5 @@
     <color name="base_start_color_default">#FFFFFF</color>
     <color name="base_end_color_default">#FFFFFF</color>
 
+    <color name="province_line_border">#C7C7C7</color>
 </resources>

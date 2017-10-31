@@ -1,12 +1,10 @@
 package com.hotsun.mqxxgl.busi.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
 import com.hotsun.mqxxgl.R;
 
@@ -30,7 +28,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 // 生成一个Intent对象
                      Intent intent=new Intent();
                     intent.putExtra("testIntent", "123");
-                    intent.setClass(this, LDActivity.class); //设置跳转的Activity
+                    intent.setClass(this, DistrictPickerActivity.class); //设置跳转的Activity
                      this.startActivity(intent);
 
 
