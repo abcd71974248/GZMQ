@@ -6,6 +6,7 @@ import com.hotsun.mqxxgl.R;
 import com.hotsun.mqxxgl.busi.model.ConditionText;
 import com.hotsun.mqxxgl.busi.model.FwLdxx;
 import com.hotsun.mqxxgl.busi.model.ResponseResults;
+import com.hotsun.mqxxgl.busi.model.sysbeans.TSysUsers;
 import com.hotsun.mqxxgl.gis.service.LiveNetworkMonitor;
 import com.hotsun.mqxxgl.gis.service.NetworkMonitor;
 import com.hotsun.mqxxgl.gis.util.ToastUtil;
@@ -27,12 +28,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * 初始化 Retrofit
  */
 
-public class BusiRetrofitHelper {
+public  class  BusiRetrofitHelper {
 
     private Context mContext;
     private static NetworkMonitor networkMonitor;
     private static BusiRetrofitHelper instance = null;
-    private Retrofit mRetrofit = null;
+    protected Retrofit mRetrofit = null;
 
     public static BusiRetrofitHelper getInstance(Context context){
         if(instance == null){
@@ -42,7 +43,7 @@ public class BusiRetrofitHelper {
         return instance;
     }
 
-    private BusiRetrofitHelper(Context ctx){
+    protected BusiRetrofitHelper(Context ctx){
         this.mContext = ctx;
         init();
     }
@@ -74,13 +75,13 @@ public class BusiRetrofitHelper {
                 .build();
      }
 
-    public Call<ResponseResults> getServer(String route){
+//    public  Call<ResponseResults> getServer(String route){
 
-        PostRoute postRoute=mRetrofit.create(PostRoute.class);
-        RequestBody body=RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),route);
-        Call<ResponseResults> call=postRoute.postFlyRoute(body);
-        return call;
-    }
+//        PostRoute postRoute=mRetrofit.create(PostRoute.class);
+//        RequestBody body=RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),route);
+//        Call<ResponseResults> call=postRoute.postFlyRoute(body);
+//        return null;
+//    }
 
     private class MyNetworkInterceptor implements Interceptor {
         @Override

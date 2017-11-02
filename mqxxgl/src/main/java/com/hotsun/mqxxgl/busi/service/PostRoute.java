@@ -3,6 +3,7 @@ package com.hotsun.mqxxgl.busi.service;
 import com.hotsun.mqxxgl.busi.model.ConditionText;
 import com.hotsun.mqxxgl.busi.model.FwLdxx;
 import com.hotsun.mqxxgl.busi.model.ResponseResults;
+import com.hotsun.mqxxgl.busi.model.sysbeans.TSysUsers;
 
 import java.util.Map;
 
@@ -38,5 +39,9 @@ public interface PostRoute {
     @POST("/cpimAppService/familyPopulation/family/getJthxxList.do")
     Call<ResponseResults> postFlyRoute(@Body RequestBody route);//传入的参数为RequestBody
 
+
+    @Headers({ "Content-Type: application/json; charset=utf-8","Accept: application/json"})
+    @POST("/cpimAppService/android_login.do")
+    Call<TSysUsers> userLoginPostRoute(@Body RequestBody route);//传入的参数为RequestBody
 
 }
