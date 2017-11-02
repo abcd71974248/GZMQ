@@ -10,4 +10,23 @@
     <string name="string_help_text">当前应用缺少必要权限。请点击"设置"-"权限"-打开所需权限。最后点击两次后退按钮，即可返回。</string>
     <string name="quit">退出</string>
     <string name="settings">设置</string>
+    <string name="register_ssxzqybm">行政区域编码</string>
+    <string name="register_ssxzqybm_hint">请输入所属12位行政区域编码</string>
+    <string name="register_ssxzqymc">行政区域全称</string>
+    <string name="register_ssdwname">所属单位名称</string>
+    <string name="register_userbh">用户编号</string>
+    <string name="register_userbh_hint">请输入用户编号</string>
+    <string name="register_usermm">用户密码</string>
+    <string name="register_usermm_hint">请输入密码</string>
+    <string name="register_lxsjhm">手机号码</string>
+    <string name="register_lxsjhm_hint">请输入11位手机号码</string>
+    <string name="register_reg_submit">注册绑定</string>
+    <string name="lockpwd_login_submit">立即登录</string>
+    <string name="login_set_ipconfig">设置服务器连接信息</string>
+    <string name="ipconfig">中心IP地址配置</string>
+    <string name="ipaddr">IP地址</string>
+    <string name="ipport">端口号</string>
+    <string name="testconnect">检测连接</string>
+    <string name="save_clientipconfig">保存并回到登录页面</string>
+    <string name="icons">&#xf060;</string>
 </resources>
