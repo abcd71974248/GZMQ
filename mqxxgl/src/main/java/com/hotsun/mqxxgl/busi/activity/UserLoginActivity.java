@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.hotsun.mqxxgl.MyApplication;
 import com.hotsun.mqxxgl.R;
 import com.hotsun.mqxxgl.busi.model.ConditionText;
 import com.hotsun.mqxxgl.busi.model.DeviceUuidFactory;
@@ -15,6 +16,7 @@ import com.hotsun.mqxxgl.busi.model.requestParams.UserLoginVo;
 import com.hotsun.mqxxgl.busi.model.sysbeans.TSysUsers;
 import com.hotsun.mqxxgl.busi.service.BusiRetrofitHelper;
 import com.hotsun.mqxxgl.busi.service.UserLoginRetrofit;
+import com.hotsun.mqxxgl.busi.util.MD5Utils;
 import com.hotsun.mqxxgl.busi.util.UIHelper;
 
 import java.util.HashMap;
@@ -98,18 +100,19 @@ public class UserLoginActivity extends AppCompatActivity  implements  View.OnCli
         String uuid = deviceUuidFactory.getDeviceUuid().toString();
 
         if (userNumber.trim().length() < 2) {
-            UIHelper.ToastErrorMessage(this, "用户编号不能为空");
+            UIHelper.ToastErrorMessage(mContext, "用户编号不能为空");
             return false;
         }
         if (password.trim().length() < 1) {
-            UIHelper.ToastErrorMessage(this, "用户密码不能为空");
+            UIHelper.ToastErrorMessage(mContext, "用户密码不能为空");
             return false;
         }
 
         Gson gson = new Gson();
         UserLoginVo userLoginVo = new UserLoginVo();
         userLoginVo.setUserNumber(userNumber);
-        userLoginVo.setPassword(password);
+        String md5Password= MD5Utils.md5(password);
+        userLoginVo.setPassword(md5Password);
         userLoginVo.setUUID(uuid);
         String route = gson.toJson(userLoginVo);
 
@@ -120,22 +123,24 @@ public class UserLoginActivity extends AppCompatActivity  implements  View.OnCli
             @Override
             public void onResponse(Call<TSysUsers> call, Response<TSysUsers> response) {
 
-                Log.i("hhhhhhhhhh",response.body().toString());
+                TSysUsers tSysUsers=(TSysUsers)response.body();
 
-//                List<HashMap<String, Object>> data = new ArrayList<HashMap<String,Object>>();
-//                    for(AppInfo app : allNews){
-//                          HashMap<String, Object> item = new HashMap<String, Object>();
-//                         item.put("name", app.getName());
-//                          item.put("count", app.getCount());
-//                        data.add(item);
-//                  }
-//                 //创建SimpleAdapter适配器将数据绑定到item显示控件上
-//                  SimpleAdapter adapter = new SimpleAdapter(this, data, R.layout.item,
-//                           new String[]{"name", "count"}, new int[]{R.id.name, R.id.count});
-//                  //实现列表的显示
-//                  listView.setAdapter(adapter);
-//                  //条目点击事件
-//                 listView.setOnItemClickListener(new ItemClickListener());
+                if (tSysUsers==null)
+                {
+                    UIHelper.ToastErrorMessage(mContext, "请求服务器出错！");
+                    return;
+                }
+                else  if (tSysUsers.getStatus().equals("failure"))
+                {
+                    UIHelper.ToastErrorMessage(mContext, tSysUsers.getMsg());
+                    return;
+                }else if(tSysUsers.getStatus().equals("success")){
+                    MyApplication myApplication=new MyApplication();
+                    myApplication.settSysUsers(tSysUsers);
+                    UIHelper.ToastGoodMessage(mContext,"登录成功！");
+
+
+                }
 
 
             }
@@ -145,7 +150,7 @@ public class UserLoginActivity extends AppCompatActivity  implements  View.OnCli
                 Log.i("sssss",t.getMessage());
             }
         });
-        Log.i("postjson", route);
+
         return true;
 
     }
