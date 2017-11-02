@@ -73,22 +73,36 @@ public class LDActivity extends AppCompatActivity  {
 //        Observable<String> observer = BusiRetrofitHelper.getInstance(LDActivity.this).getServer().GetUserInfo(condition.getUserID(),condition.getSessionID(), condition.getZuid(),
 //                condition.getPage(),condition.getHzxm(),condition.getMph());
 
-        Call<ResponseResults> call = BusiRetrofitHelper.getInstance(LDActivity.this).getServer(route);
-        call.enqueue(new Callback<ResponseResults>() {
-            @Override
-            public void onResponse(Call<ResponseResults> call, Response<ResponseResults> response) {
+//        Call<ResponseResults> call = BusiRetrofitHelper.getInstance(LDActivity.this).getServer(route);
+//        call.enqueue(new Callback<ResponseResults>() {
+//            @Override
+//            public void onResponse(Call<ResponseResults> call, Response<ResponseResults> response) {
+//
+//                Log.i("sssss",response.body().toString());
+//                List<HashMap<String, Object>> data = new ArrayList<HashMap<String,Object>>();
+//                    for(AppInfo app : allNews){
+//                          HashMap<String, Object> item = new HashMap<String, Object>();
+//                         item.put("name", app.getName());
+//                          item.put("count", app.getCount());
+//                        data.add(item);
+//                  }
+//                 //创建SimpleAdapter适配器将数据绑定到item显示控件上
+//                  SimpleAdapter adapter = new SimpleAdapter(this, data, R.layout.item,
+//                           new String[]{"name", "count"}, new int[]{R.id.name, R.id.count});
+//                  //实现列表的显示
+//                  listView.setAdapter(adapter);
+//                  //条目点击事件
+//                 listView.setOnItemClickListener(new ItemClickListener());
 
 
-                Log.i("=========",response.body().getStatus());
-                ToastUtil.setToast(mContext,response.body().getStatus());
-            }
+//        }
 
-            @Override
-            public void onFailure(Call<ResponseResults> call, Throwable t) {
-                Log.i("sssss",t.getMessage());
-            }
-        });
-        Log.i("postjson", route);
+//            @Override
+//            public void onFailure(Call<ResponseResults> call, Throwable t) {
+//                Log.i("sssss",t.getMessage());
+//            }
+//        });
+//        Log.i("postjson", route);
 
 
     }
