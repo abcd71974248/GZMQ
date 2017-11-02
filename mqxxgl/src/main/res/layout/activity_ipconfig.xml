@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/rel_ipcfg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/selector_body"
+        android:padding="20dp" >
+
+        <TextView
+            android:id="@+id/tv_title_ipaddr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="5dp"
+            android:text="@string/ipaddr"
+            android:textColor="@color/text_color"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/edtTxt_ipconfig_ipaddr"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_title_ipaddr"
+            android:hint="@string/ipaddr"
+            android:inputType="text"
+            android:maxLength="15"
+            android:singleLine="true"
+            android:textColor="@color/text_color"
+            android:textColorHint="@color/light_gray"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_title_ipport"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/edtTxt_ipconfig_ipaddr"
+            android:layout_marginTop="5dp"
+            android:text="@string/ipport"
+            android:textColor="@color/text_color"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/edtTxt_ipconfig_ipport"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_title_ipport"
+            android:hint="@string/ipport"
+            android:inputType="number"
+            android:maxLength="4"
+            android:singleLine="true"
+            android:textColor="@color/text_color"
+            android:textColorHint="@color/light_gray"
+            android:textCursorDrawable="@null"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/btn_save_setipconfig"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_below="@id/edtTxt_ipconfig_ipport"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/button_selector"
+            android:gravity="center"
+            android:text="@string/testconnect"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+
+        <Button
+            android:id="@+id/btn_save_clientipconfig"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_below="@id/edtTxt_ipconfig_ipport"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            android:layout_marginTop="80dp"
+            android:background="@drawable/button_selector"
+            android:gravity="center"
+            android:text="@string/save_clientipconfig"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+    </RelativeLayout>
+
+</RelativeLayout>

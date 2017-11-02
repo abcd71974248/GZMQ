@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/rel_userlogin"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="55dp"
+        android:background="@drawable/selector_body"
+        android:padding="20dp" >
+
+        <TextView
+            android:id="@+id/tv_title_userbh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="@string/register_userbh"
+            android:textColor="@color/text_color"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/edtTxt_userlogin_userbh"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_title_userbh"
+            android:hint="@string/register_userbh_hint"
+            android:inputType="text"
+            android:maxLength="12"
+            android:singleLine="true"
+            android:textColor="@color/text_color"
+            android:textColorHint="@color/light_gray"
+            android:textCursorDrawable="@null"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_title_usermm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/edtTxt_userlogin_userbh"
+            android:layout_marginTop="5dp"
+            android:text="@string/register_usermm"
+            android:textColor="@color/text_color"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/edtTxt_userlogin_usermm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_title_usermm"
+            android:hint="@string/register_usermm_hint"
+            android:inputType="textPassword"
+            android:maxLength="20"
+            android:singleLine="true"
+            android:textColor="@color/text_color"
+            android:textColorHint="@color/light_gray"
+            android:textCursorDrawable="@null"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/btn_userlogin_submit"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_below="@id/edtTxt_userlogin_usermm"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/button_selector"
+            android:gravity="center"
+            android:text="@string/lockpwd_login_submit"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_set_ipconfig"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="210dp"
+            android:layout_alignParentRight="true"
+            android:text="@string/login_set_ipconfig"
+            android:textColor="@color/login_set_ipconfig"
+            android:textSize="14sp" />
+    </RelativeLayout>
+
+
+    <include layout="@layout/include_header"/>
+</RelativeLayout>
