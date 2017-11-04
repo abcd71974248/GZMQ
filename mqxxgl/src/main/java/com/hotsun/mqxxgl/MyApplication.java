@@ -14,7 +14,7 @@ public class MyApplication extends MultiDexApplication {
 
 
 
-    public TSysUsers tSysUsers;
+    public static TSysUsers tSysUsers;
 
     @Override
     public void onCreate() {

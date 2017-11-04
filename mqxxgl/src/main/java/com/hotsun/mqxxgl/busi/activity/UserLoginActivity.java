@@ -2,6 +2,7 @@ package com.hotsun.mqxxgl.busi.activity;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -18,6 +19,8 @@ import com.hotsun.mqxxgl.busi.service.BusiRetrofitHelper;
 import com.hotsun.mqxxgl.busi.service.UserLoginRetrofit;
 import com.hotsun.mqxxgl.busi.util.MD5Utils;
 import com.hotsun.mqxxgl.busi.util.UIHelper;
+import com.hotsun.mqxxgl.gis.service.LiveNetworkMonitor;
+import com.hotsun.mqxxgl.gis.service.NetworkMonitor;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -116,9 +119,13 @@ public class UserLoginActivity extends AppCompatActivity  implements  View.OnCli
         userLoginVo.setUUID(uuid);
         String route = gson.toJson(userLoginVo);
 
-        UserLoginRetrofit userLoginRetrofit=new UserLoginRetrofit(UserLoginActivity.this);
 
+        UserLoginRetrofit userLoginRetrofit=new UserLoginRetrofit(UserLoginActivity.this);
         Call<TSysUsers> call = userLoginRetrofit.getServer(route);
+        if(call==null)
+        {
+            return false;
+        }
         call.enqueue(new Callback<TSysUsers>() {
             @Override
             public void onResponse(Call<TSysUsers> call, Response<TSysUsers> response) {
@@ -138,6 +145,9 @@ public class UserLoginActivity extends AppCompatActivity  implements  View.OnCli
                     MyApplication myApplication=new MyApplication();
                     myApplication.settSysUsers(tSysUsers);
                     UIHelper.ToastGoodMessage(mContext,"登录成功！");
+                    Intent intent = new Intent();
+                    intent.setClass(UserLoginActivity.this, MainActivity.class);
+                    startActivity(intent);
 
 
                 }

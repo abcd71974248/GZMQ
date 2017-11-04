@@ -13,26 +13,25 @@ import retrofit2.Call;
  * Created by yuan on 2017-11-01.
  */
 
-public class UserLoginRetrofit extends BusiRetrofitHelper{
+public class HomemoduleRetrofit extends BusiRetrofitHelper{
 
     private Context mContext;
 
-    public UserLoginRetrofit(Context ctx) {
+    public HomemoduleRetrofit(Context ctx) {
         super(ctx);
         this.mContext=ctx;
         BusiRetrofitHelper.getInstance(ctx);
-
     }
 
-    public Call<TSysUsers> getServer(String route){
+    public Call<ResponseResults> getServer(String route){
 
         if (!UIHelper.isNetConntion(mContext))
         {
             return null;
         }
-        PostRoute postRoute=mRetrofit.create(PostRoute.class);
+        SyncPostRoute syncPostRoute=mRetrofit.create(SyncPostRoute.class);
         RequestBody body=RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),route);
-        Call<TSysUsers> call=postRoute.userLoginPostRoute(body);
+        Call<ResponseResults> call=syncPostRoute.syncPostRoute(body);
         return call;
     }
 

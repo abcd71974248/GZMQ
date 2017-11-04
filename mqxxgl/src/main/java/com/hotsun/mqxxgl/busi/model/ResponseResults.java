@@ -19,16 +19,16 @@ public class ResponseResults implements Serializable{
 		this.status = status;
 	}
 
-	public List<Map<String, Object>> getResults() {
+	public List<Map<String, String>> getResults() {
 		return results;
 	}
 
-	public void setResults(List<Map<String, Object>> results) {
+	public void setResults(List<Map<String, String>> results) {
 		this.results = results;
 	}
 
 	private String status;
-	private List<Map<String, Object>> results;
+	private List<Map<String, String>> results;
 
 
 

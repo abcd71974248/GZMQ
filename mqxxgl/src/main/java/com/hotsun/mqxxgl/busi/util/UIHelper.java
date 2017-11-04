@@ -17,6 +17,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hotsun.mqxxgl.R;
+import com.hotsun.mqxxgl.gis.service.LiveNetworkMonitor;
+import com.hotsun.mqxxgl.gis.service.NetworkMonitor;
 
 
 public class UIHelper {
@@ -99,6 +101,17 @@ public class UIHelper {
 			}
 		}
 		return false;
+	}
+
+	// 检测网络是否连接
+	public static boolean isNetConntion(Context mContext) {
+		NetworkMonitor mat = new LiveNetworkMonitor(mContext);
+		if(!mat.isConnected())
+		{
+			UIHelper.ToastErrorMessage(mContext, "无网络连接，请检查网络！");
+			return false;
+		}
+		return true;
 	}
 
 	/**

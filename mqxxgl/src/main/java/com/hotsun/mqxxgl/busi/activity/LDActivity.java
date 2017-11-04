@@ -14,6 +14,7 @@ import com.hotsun.mqxxgl.busi.model.ConditionText;
 import com.hotsun.mqxxgl.busi.model.FwLdxx;
 import com.hotsun.mqxxgl.busi.model.ResponseResults;
 import com.hotsun.mqxxgl.busi.service.BusiRetrofitHelper;
+import com.hotsun.mqxxgl.busi.util.UIHelper;
 import com.hotsun.mqxxgl.gis.service.RetrofitHelper;
 import com.hotsun.mqxxgl.gis.util.ToastUtil;
 
@@ -21,13 +22,6 @@ import com.hotsun.mqxxgl.gis.util.ToastUtil;
 import java.util.HashMap;
 import java.util.Map;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import rx.Observable;
-import rx.Observer;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 public class LDActivity extends AppCompatActivity  {
 
@@ -39,6 +33,9 @@ public class LDActivity extends AppCompatActivity  {
         setContentView(R.layout.activity_ldlist);
         mContext = LDActivity.this;
 
+        String mid = getIntent().getStringExtra("mid");
+
+        UIHelper.ToastMessage(mContext,mid);
         getUserinfo();
 
     }

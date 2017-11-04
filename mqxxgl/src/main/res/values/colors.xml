@@ -144,4 +144,73 @@
     <color name="login_set_ipconfig">#0867CD</color>
     <color name="login_btn_normal">#007AFF</color>
     <color name="header_title">#2D3137</color>
+
+    <color name="griditems_bg">#ffe8ecef</color>
+    <color name="commo_text_color">#ff333333</color>
+    <color name="line">#ffd3dde6</color>
+
+    <color name="jtda_color">#F29A2B</color>
+    <color name="ldda_color">#2794E2</color>
+    <color name="fwda_color">#2794E2</color>
+    <color name="qygk_color">#2BAB91</color>
+    <color name="pjjy_color">#F29A2B</color>
+    <color name="ldjy_color">#2BAB91</color>
+    <color name="shbz_color">#04B7C4</color>
+    <color name="jhsy_color">#F29A2B</color>
+    <color name="cyfw_color">#04B7C4</color>
+    <color name="zzgl_color">#2794E2</color>
+
+    <color name="jtrkgl_color">#F29A2B</color>
+    <color name="cjrq_color">#2BAB91</color>
+    <color name="kclr_color">#2794E2</color>
+    <color name="lset_color">#2794E2</color>
+
+    <color name="ldxxgl_color">#2794E2</color>
+    <color name="ldssgl_color">#04B7C4</color>
+
+    <color name="fwxxgl_color">#2794E2</color>
+    <color name="shhjgl_color">#2BAB91</color>
+
+    <color name="qygk_jbxx_color">#F29A2B</color>
+    <color name="qygk_fwry_color">#2794E2</color>
+    <color name="qygk_xxxx_color">#F05D4E</color>
+    <color name="qygk_rkqk_color">#F29A2B</color>
+    <color name="qygk_sdxx_color">#2BAB91</color>
+    <color name="qygk_cgxx_color">#2BAB91</color>
+    <color name="qygk_jtjj_color">#04B7C4</color>
+    <color name="qygk_tsfw_color">#04B7C4</color>
+
+    <color name="pjjy_snrq_color">#F29A2B</color>
+    <color name="pjjy_jycd_color">#F05D4E</color>
+    <color name="pjjy_pkxs_color">#F05D4E</color>
+
+    <color name="ldjy_jyzk_color">#04B7C4</color>
+    <color name="ldjy_ssll_color">#F05D4E</color>
+    <color name="ldjy_wcwg_color">#2794E2</color>
+    <color name="ldjy_ldjn_color">#2794E2</color>
+    <color name="ldjy_qzxq_color">#2794E2</color>
+    <color name="ldjy_pxxq_color">#2794E2</color>
+
+    <color name="shbz_ylaobx_color">#04B7C4</color>
+    <color name="shbz_ylbx_color">#04B7C4</color>
+
+    <color name="jhsy_syqk_color">#F29A2B</color>
+    <color name="jhsy_hydx_color">#F29A2B</color>
+    <color name="jhsy_cssd_color">#04B7C4</color>
+    <color name="jhsy_dszn_color">#2BAB91</color>
+    <color name="jhsy_cszn_color">#F05D4E</color>
+    <color name="jhsy_cjzn_color">#2BAB91</color>
+
+    <color name="cyfw_mbhz_color">#F29A2B</color>
+    <color name="cyfw_xyrq_color">#F05D4E</color>
+    <color name="cyfw_yjrq_color">#F05D4E</color>
+    <color name="cyfw_mykh_color">#F05D4E</color>
+    <color name="cyfw_jkxc_color">#2BAB91</color>
+
+    <color name="zzgl_jfdj_color">#F29A2B</color>
+    <color name="zzgl_jftj_color">#F05D4E</color>
+    <color name="zzgl_tjsf_color">#04B7C4</color>
+    <color name="zzgl_sjbg_color">#F05D4E</color>
+    <color name="zzgl_rwdd_color">#04B7C4</color>
+
 </resources>

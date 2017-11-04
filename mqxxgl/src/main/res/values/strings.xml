@@ -29,4 +29,66 @@
     <string name="testconnect">检测连接</string>
     <string name="save_clientipconfig">保存并回到登录页面</string>
     <string name="icons">&#xf060;</string>
+    <string name="jtda_icon">&#xf0c0;</string>
+    <string name="ldda_icon">&#xe904;</string>
+    <string name="fwda_icon">&#xe900;</string>
+    <string name="qygk_icon">&#xe9cb;</string>
+    <string name="pjjy_icon">&#xe921;</string>
+    <string name="ldjy_icon">&#xf16c;</string>
+    <string name="shbz_icon">&#xe999;</string>
+    <string name="jhsy_icon">&#xf228;</string>
+    <string name="cyfw_icon">&#xf0f0;</string>
+    <string name="zzgl_icon">&#xf0b1;</string>
+    <string name="jtrkgl_icon">&#xf0c0;</string>
+    <string name="cjrq_icon">&#xf29b;</string>
+    <string name="kclr_icon">&#xf29d;</string>
+    <string name="lset_icon">&#xf1ae;</string>
+
+    <string name="ldxxgl_icon">&#xf0f7;</string>
+    <string name="ldssgl_icon">&#xf187;</string>
+
+    <string name="fwxxgl_icon">&#xf015;</string>
+    <string name="shhjgl_icon">&#xf18c;</string>
+
+    <string name="qygk_jbxx_icon">&#xf00b;</string>
+    <string name="qygk_fwry_icon">&#xf0b1;</string>
+    <string name="qygk_xxxx_icon">&#xf2b4;</string>
+    <string name="qygk_rkqk_icon">&#xf0c0;</string>
+    <string name="qygk_sdxx_icon">&#xf07a;</string>
+    <string name="qygk_cgxx_icon">&#xe9a4;</string>
+    <string name="qygk_jtjj_icon">&#xf157;</string>
+    <string name="qygk_tsfw_icon">&#xe9b1;</string>
+
+    <string name="pjjy_snrq_icon">&#xf0c0;</string>
+    <string name="pjjy_jycd_icon">&#xf1ab;</string>
+    <string name="pjjy_pkxs_icon">&#xe9df;</string>
+
+    <string name="ldjy_jyzk_icon">&#xe972;</string>
+    <string name="ldjy_ssll_icon">&#xf29a;</string>
+    <string name="ldjy_wcwg_icon">&#xf238;</string>
+    <string name="ldjy_ldjn_icon">&#xf1a8;</string>
+    <string name="ldjy_qzxq_icon">&#xf2b5;</string>
+    <string name="ldjy_pxxq_icon">&#xf277;</string>
+
+    <string name="shbz_ylaobx_icon">&#xf08a;</string>
+    <string name="shbz_ylbx_icon">&#xf0fa;</string>
+
+    <string name="jhsy_syqk_icon">&#xf00b;</string>
+    <string name="jhsy_hydx_icon">&#xf182;</string>
+    <string name="jhsy_cssd_icon">&#xf0ea;</string>
+    <string name="jhsy_dszn_icon">&#xf182;</string>
+    <string name="jhsy_cszn_icon">&#xf0c0;</string>
+    <string name="jhsy_cjzn_icon">&#xf193;</string>
+
+    <string name="cyfw_mbhz_icon">&#xf236;</string>
+    <string name="cyfw_xyrq_icon">&#xf2c5;</string>
+    <string name="cyfw_yjrq_icon">&#xf0fc;</string>
+    <string name="cyfw_mykh_icon">&#xf2ce;</string>
+    <string name="cyfw_jkxc_icon">&#xf1d9;</string>
+
+    <string name="zzgl_jfdj_icon">&#xf298;</string>
+    <string name="zzgl_jftj_icon">&#xf0e3;</string>
+    <string name="zzgl_tjsf_icon">&#xf21c;</string>
+    <string name="zzgl_sjbg_icon">&#xe9b9;</string>
+    <string name="zzgl_rwdd_icon">&#xe9ba;</string>
 </resources>
