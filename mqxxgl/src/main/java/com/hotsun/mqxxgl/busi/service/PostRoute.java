@@ -45,10 +45,10 @@ public interface PostRoute {
     Call<TSysUsers> userLoginPostRoute(@Body RequestBody route);//传入的参数为RequestBody
 
     @Headers({ "Content-Type: application/json; charset=utf-8","Accept: application/json"})
-    @POST("/cpimAppService/xzbmQuery/getCunbm.do")
+    @POST("/cpimAppService/android_xzbmQuery/getCunbm.do")
     Call<ResponseResults> getCunbmPostRoute(@Body RequestBody route);//传入的参数为RequestBody
 
     @Headers({ "Content-Type: application/json; charset=utf-8","Accept: application/json"})
-    @POST("/cpimAppService/xzbmQuery/getZubm.do")
+    @POST("/cpimAppService/android_xzbmQuery/getZubm.do")
     Call<ResponseResults> getZubmPostRoute(@Body RequestBody route);//传入的参数为RequestBody
 }
