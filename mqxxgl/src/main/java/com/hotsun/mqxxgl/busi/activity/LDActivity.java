@@ -2,10 +2,13 @@ package com.hotsun.mqxxgl.busi.activity;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.menu.SubMenuBuilder;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 
 
 import com.google.gson.Gson;
@@ -38,7 +41,16 @@ public class LDActivity extends AppCompatActivity  {
         UIHelper.ToastMessage(mContext,mid);
         getUserinfo();
 
+        TextView qycxButton = (TextView) findViewById(R.id.qycxbutton);
+        qycxButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent qycxIntent = new Intent(LDActivity.this,DistrictPickerActivity.class);
+                startActivity(qycxIntent);
+            }
+        });
     }
+
 
 
     private  void getUserinfo(){
