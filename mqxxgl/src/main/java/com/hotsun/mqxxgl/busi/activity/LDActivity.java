@@ -8,27 +8,44 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.menu.SubMenuBuilder;
 import android.util.Log;
 import android.view.View;
+import android.widget.ListView;
 import android.widget.TextView;
 
 
 import com.google.gson.Gson;
+import com.hotsun.mqxxgl.MyApplication;
 import com.hotsun.mqxxgl.R;
 import com.hotsun.mqxxgl.busi.model.ConditionText;
 import com.hotsun.mqxxgl.busi.model.FwLdxx;
 import com.hotsun.mqxxgl.busi.model.ResponseResults;
+import com.hotsun.mqxxgl.busi.model.requestParams.ModulePagVO;
+import com.hotsun.mqxxgl.busi.presenter.MyLdListAdapter;
 import com.hotsun.mqxxgl.busi.service.BusiRetrofitHelper;
+import com.hotsun.mqxxgl.busi.service.ModulePagRetrofit;
 import com.hotsun.mqxxgl.busi.util.UIHelper;
 import com.hotsun.mqxxgl.gis.service.RetrofitHelper;
 import com.hotsun.mqxxgl.gis.util.ToastUtil;
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+import static android.R.id.list;
 
 
 public class LDActivity extends AppCompatActivity  {
 
     private Context mContext;
+    private ArrayList<String> list;
+    private ListView ldListview;
+    private MyLdListAdapter myLdListAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +55,22 @@ public class LDActivity extends AppCompatActivity  {
 
         String mid = getIntent().getStringExtra("mid");
 
-        UIHelper.ToastMessage(mContext,mid);
-        getUserinfo();
+
+        ldListview = (ListView) findViewById(R.id.ld_list);
+
+
+
+
+
+
+        list = new ArrayList<>();
+        for (int i = 0; i < 200; i++) {
+            list.add("我" + i + "个条目");
+        }
+        myLdListAdapter = new MyLdListAdapter(mContext,list);
+        ldListview.setAdapter(myLdListAdapter);
+
+
 
         TextView qycxButton = (TextView) findViewById(R.id.qycxbutton);
         qycxButton.setOnClickListener(new View.OnClickListener() {
@@ -53,67 +84,58 @@ public class LDActivity extends AppCompatActivity  {
 
 
 
-    private  void getUserinfo(){
-        Gson gson = new Gson();
-        String page="12";
-        String start="1";
-        String limit="12";
-        String conditionText="";
-
-        Log.d("mess","进来了");
-        ConditionText condition=new ConditionText();
-        condition.setPage(page);
-        condition.setHzxm("");
-        condition.setMph("");
-        condition.setSessionID("864906032912696,864906032989942|20171027172938819");
-        condition.setUserID("35");
-        condition.setZuid("520300000000017202");
-
-        String route = gson.toJson(condition);
-
-        Map<String,Object> res=new HashMap<String, Object>();
-        res.put("userID",35);
-        res.put("sessionID","864906032912696,864906032989942|20171027172938819");
-        res.put("zuid","520300000000017202");
-        res.put("page",1);
-        res.put("hzxm","");
-        res.put("mph","");
-
-//        Observable<String> observer = BusiRetrofitHelper.getInstance(LDActivity.this).getServer().GetUserInfo(condition.getUserID(),condition.getSessionID(), condition.getZuid(),
-//                condition.getPage(),condition.getHzxm(),condition.getMph());
-
-//        Call<ResponseResults> call = BusiRetrofitHelper.getInstance(LDActivity.this).getServer(route);
+//    private boolean getLdList() {
+//
+//        String userID= MyApplication.tSysUsers.getUserID();
+//        String sessionID=MyApplication.tSysUsers.getSessionID();
+//
+//        Gson gson = new Gson();
+//        ModulePagVO modulePagVO = new ModulePagVO();
+//        modulePagVO.setUserID(userID);
+//        modulePagVO.setSessionID(sessionID);
+//        modulePagVO.setSysid(sysid);
+//
+//        String route = gson.toJson(modulePagVO);
+//
+//        ModulePagRetrofit modulePagRetrofit=new ModulePagRetrofit(ModulepageActivity.this);
+//
+//        Call<ResponseResults> call = modulePagRetrofit.getServer(route);
 //        call.enqueue(new Callback<ResponseResults>() {
 //            @Override
 //            public void onResponse(Call<ResponseResults> call, Response<ResponseResults> response) {
 //
-//                Log.i("sssss",response.body().toString());
-//                List<HashMap<String, Object>> data = new ArrayList<HashMap<String,Object>>();
-//                    for(AppInfo app : allNews){
-//                          HashMap<String, Object> item = new HashMap<String, Object>();
-//                         item.put("name", app.getName());
-//                          item.put("count", app.getCount());
-//                        data.add(item);
-//                  }
-//                 //创建SimpleAdapter适配器将数据绑定到item显示控件上
-//                  SimpleAdapter adapter = new SimpleAdapter(this, data, R.layout.item,
-//                           new String[]{"name", "count"}, new int[]{R.id.name, R.id.count});
-//                  //实现列表的显示
-//                  listView.setAdapter(adapter);
-//                  //条目点击事件
-//                 listView.setOnItemClickListener(new ItemClickListener());
-
-
-//        }
-
+//                ResponseResults responseResults=(ResponseResults)response.body();
+//                if (responseResults.getStatus().equals("failure"))
+//                {
+//                    UIHelper.ToastErrorMessage(mContext, "请求服务器出错！");
+//                    return;
+//                }
+//
+//                List<Map<String, String>> results=responseResults.getResults();
+////                TSysAppMdls tSysAppMdls=
+//
+////                List<Map<String, Object>> results=responseResults.getResults();
+////                String[] imgs={};
+////                for(int i=0;i<results.size();i++)
+////                {
+////
+////                    imgs[i]=results.get(i).get("icocss").toString();
+////                }
+//
+//
+//                initView(results);
+//
+//
+//            }
+//
 //            @Override
 //            public void onFailure(Call<ResponseResults> call, Throwable t) {
 //                Log.i("sssss",t.getMessage());
 //            }
 //        });
-//        Log.i("postjson", route);
-
-
-    }
+//
+//        return true;
+//
+//    }
 
 }

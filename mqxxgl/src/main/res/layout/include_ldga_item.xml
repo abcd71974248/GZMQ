@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content"
+
+            android:layout_width="0dp"
+            android:layout_weight="2">
+        <TextView
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:text="村名称："
+            android:textColor="@color/black"
+            android:textSize="13sp" />
+        <TextView
+            android:id="@+id/activity_cunmc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="东街社区"
+            android:textColor="@color/black"
+            android:textSize="13sp" />
+        </LinearLayout>
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:orientation="horizontal"
+            android:layout_width="0dp"
+            android:layout_marginLeft="10dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2">
+        <TextView
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:text="组名称："
+            android:textColor="@color/black"
+            android:textSize="13sp" />
+        <TextView
+            android:layout_width="60dp"
+            android:text="第一小区"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/black"
+            android:textSize="13sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="25dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+        <TextView
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:text="楼栋名称："
+            android:textColor="@color/black"
+            android:textSize="13sp" />
+        <TextView
+            android:id="@+id/ldname"
+            android:layout_width="0dp"
+            android:text="文昌第居"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/black"
+            android:textSize="13sp" />
+
+
+    </LinearLayout>
+
+    <com.hotsun.mqxxgl.busi.view.IconFontTextview
+        android:id="@+id/btn_ldxx_desc"
+        android:paddingLeft="15dp"
+        android:paddingTop="8dp"
+        android:layout_width="35dp"
+        android:layout_height="60dp"
+        android:layout_marginRight="0dp"
+        android:textSize="30sp"
+        android:textColor="@color/green_light"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:text="@string/icon_caret_right" />
+    </RelativeLayout>
+    <include layout="@layout/include_item_hide_layout" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="@color/cp_bg_line_c" />
+
+</LinearLayout>

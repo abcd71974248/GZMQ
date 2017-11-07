@@ -14,7 +14,7 @@
         layout="@layout/ldtool"/>
 
     <ListView
-        android:id="@+id/lv_list"
+        android:id="@+id/ld_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#FFFFFF"
