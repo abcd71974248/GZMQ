@@ -72,7 +72,7 @@
             android:textColor="@color/black"
             android:textSize="13sp" />
         <TextView
-            android:id="@+id/ldname"
+            android:id="@+id/ldxx_ldname"
             android:layout_width="0dp"
             android:text="文昌第居"
             android:layout_height="wrap_content"

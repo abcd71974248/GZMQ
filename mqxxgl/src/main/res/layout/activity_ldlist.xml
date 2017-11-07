@@ -3,12 +3,30 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
     <Button
         android:id="@+id/qycxbutton"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
+        android:layout_weight="5"
         android:layout_height="wrap_content"
         android:text="区域查询" />
+    <Button
+        android:id="@+id/qycxbutton_onclick"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:text="查询" />
+    </LinearLayout>
+    <TextView
+        android:id="@+id/ldqycxx_zcode"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:textSize="20dp" />
 
     <include
         layout="@layout/ldtool"/>

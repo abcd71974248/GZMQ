@@ -51,4 +51,8 @@ public interface PostRoute {
     @Headers({ "Content-Type: application/json; charset=utf-8","Accept: application/json"})
     @POST("/cpimAppService/android_xzbmQuery/getZubm.do")
     Call<ResponseResults> getZubmPostRoute(@Body RequestBody route);//传入的参数为RequestBody
+
+    @Headers({ "Content-Type: application/json; charset=utf-8","Accept: application/json"})
+    @POST("/cpimAppService/ldfwxxgl/ldxx/android_getList.do")
+    Call<ResponseResults> getLdxxPostRoute(@Body RequestBody route);//传入的参数为RequestBody
 }

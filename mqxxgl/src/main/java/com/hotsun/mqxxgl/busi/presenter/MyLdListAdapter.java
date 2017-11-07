@@ -15,6 +15,8 @@ import com.hotsun.mqxxgl.busi.activity.LDActivity;
 import com.hotsun.mqxxgl.busi.view.BaseViewHolder;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeoutException;
 
 import static android.R.id.list;
@@ -30,16 +32,16 @@ public  class MyLdListAdapter extends BaseAdapter implements View.OnClickListene
 	public int clickPosition = -1;
 
 
-	private ArrayList<String> list;
+	private List<Map<String, String>> results;
 
-	public MyLdListAdapter(Context mContext,ArrayList<String> list) {
+	public MyLdListAdapter(Context mContext,List<Map<String, String>> results) {
 		super();
-        this.list=list;
+        this.results=results;
 		this.mContext = mContext;
 	}
 	@Override
 	public int getCount() {
-		return list.size();
+		return results.size();
 	}
 
 	@Override
@@ -62,8 +64,8 @@ public  class MyLdListAdapter extends BaseAdapter implements View.OnClickListene
 		} else {
 			vh = (MyViewHolder) convertView.getTag();
 		}
-		Log.i("我的",list.get(position));
-		vh.tv_test.setText(list.get(position));
+		vh.tv_cunmc.setText(results.get(position).get("cunmc"));
+		vh.tv_ldmc.setText(results.get(position).get("ldmc"));
 		//刷新adapter的时候，getview重新执行，此时对在点击中标记的position做处理
 		if (clickPosition == position) {//当条目为刚才点击的条目时
 			if (vh.selectorImg.isSelected()) {//当条目状态图标为选中时，说明该条目处于展开状态，此时让它隐藏，并切换状态图标的状态。
@@ -135,7 +137,8 @@ public  class MyLdListAdapter extends BaseAdapter implements View.OnClickListene
 
 	class MyViewHolder {
 		View itemView;
-		TextView tv_test;
+		TextView tv_cunmc;
+		TextView tv_ldmc;
 		TextView hide_1, hide_2, hide_3, hide_4, hide_5;
 		TextView selectorImg;
 		LinearLayout ll_hide;
@@ -143,7 +146,8 @@ public  class MyLdListAdapter extends BaseAdapter implements View.OnClickListene
 		public MyViewHolder(View itemView) {
 
 			this.itemView = itemView;
-			tv_test =(TextView) itemView.findViewById(R.id.activity_cunmc);
+			tv_cunmc =(TextView) itemView.findViewById(R.id.activity_cunmc);
+			tv_ldmc=(TextView) itemView.findViewById(R.id.ldxx_ldname);
 			selectorImg = BaseViewHolder.get(itemView, R.id.btn_ldxx_desc);
 			hide_1 = (TextView) itemView.findViewById(R.id.hide_1);
 			hide_2 = (TextView) itemView.findViewById(R.id.hide_2);

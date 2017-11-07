@@ -1,14 +1,17 @@
 package com.hotsun.mqxxgl.busi.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
 import com.google.gson.Gson;
+import com.hotsun.mqxxgl.MyApplication;
 import com.hotsun.mqxxgl.R;
 import com.hotsun.mqxxgl.busi.model.GetCunbm;
 import com.hotsun.mqxxgl.busi.model.GetZubm;
@@ -44,6 +47,7 @@ public class DistrictPickerActivity extends BaseActivity implements View.OnClick
         setUpViews();
         setUpListener();
         setUpData();
+
     }
 
     private void setUpViews() {
@@ -77,9 +81,10 @@ public class DistrictPickerActivity extends BaseActivity implements View.OnClick
 //        updateAreas();
 
         GetCunbm getCunbm = new GetCunbm();
-        getCunbm.setSessionID("864906032912696,864906032989942|20171102174214110");
-        getCunbm.setUserID("35");
-        getCunbm.setXzCode("520323100000000");
+
+        getCunbm.setSessionID(MyApplication.tSysUsers.getSessionID());
+        getCunbm.setUserID(MyApplication.tSysUsers.getUserID());
+        getCunbm.setXzCode(MyApplication.tSysUsers.getXzCode());
 
         Gson gson = new Gson();
         String route = gson.toJson(getCunbm);
@@ -100,8 +105,8 @@ public class DistrictPickerActivity extends BaseActivity implements View.OnClick
                     if(i == 0){
                         mCurrentCityName = lists.get(0).get("cunname").toString();
                         GetZubm getZubm = new GetZubm();
-                        getZubm.setSessionID("864906032912696,864906032989942|20171102174214110");
-                        getZubm.setUserID("35");
+                        getZubm.setSessionID(MyApplication.tSysUsers.getSessionID());
+                        getZubm.setUserID(MyApplication.tSysUsers.getUserID());
                         getZubm.setCunID(lists.get(0).get("cunid").toString());
 
                         Gson gson = new Gson();
@@ -137,8 +142,8 @@ public class DistrictPickerActivity extends BaseActivity implements View.OnClick
                         });
                     }else{
                         GetZubm getZubm = new GetZubm();
-                        getZubm.setSessionID("864906032912696,864906032989942|20171102174214110");
-                        getZubm.setUserID("35");
+                        getZubm.setSessionID(MyApplication.tSysUsers.getSessionID());
+                        getZubm.setUserID(MyApplication.tSysUsers.getUserID());
                         getZubm.setCunID(lists.get(i).get("cunid").toString());
 
                         Gson gson = new Gson();
@@ -271,5 +276,20 @@ public class DistrictPickerActivity extends BaseActivity implements View.OnClick
     private void showSelectedResult() {
         Toast.makeText(DistrictPickerActivity.this, "当前选中:"+mCurrentCityName+","
                 +mCurrentDistrictName+","+mCurrentZipCode, Toast.LENGTH_SHORT).show();
+
+
+
+        Intent intent = new Intent();
+        // 获取用户计算后的结果
+       intent.putExtra("mCurrentDistrictName", mCurrentDistrictName); //将计算的值回传回去
+       intent.putExtra("mCurrentZipCode", mCurrentZipCode); //将计算的值回传回去
+       //通过intent对象返回结果，必须要调用一个setResult方法，
+       //setResult(resultCode, data);第一个参数表示结果返回码，一般只要大于1就可以，但是
+       setResult(2, intent);
+       finish(); //结束当前的activity的生命周期
+
+
     }
+
+
 }
