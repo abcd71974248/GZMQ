@@ -3,7 +3,8 @@ package com.hotsun.mqxxgl.gis.presenter;
 
 import android.content.Context;
 
-import com.esri.arcgisruntime.mapping.view.MapView;
+import com.esri.android.map.MapView;
+
 
 /**
  * Created by li on 2017/10/26.

@@ -2,37 +2,33 @@ package com.hotsun.mqxxgl.gis.presenter;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteTableLockedException;
-import android.widget.BaseAdapter;
+import android.view.View;
+import android.widget.ExpandableListView;
 
-import com.esri.arcgisruntime.data.ArcGISFeature;
-import com.esri.arcgisruntime.data.FeatureTemplate;
-import com.esri.arcgisruntime.data.FeatureType;
-import com.esri.arcgisruntime.data.Geodatabase;
-import com.esri.arcgisruntime.data.GeodatabaseFeatureTable;
-import com.esri.arcgisruntime.data.TileCache;
-import com.esri.arcgisruntime.geometry.SpatialReference;
-import com.esri.arcgisruntime.layers.ArcGISTiledLayer;
-import com.esri.arcgisruntime.layers.FeatureLayer;
-import com.esri.arcgisruntime.mapping.ArcGISMap;
-import com.esri.arcgisruntime.mapping.Basemap;
-import com.esri.arcgisruntime.mapping.LayerList;
-import com.esri.arcgisruntime.mapping.view.BackgroundGrid;
-import com.esri.arcgisruntime.mapping.view.GraphicsOverlay;
-import com.esri.arcgisruntime.mapping.view.MapView;
-import com.esri.arcgisruntime.util.ListenableList;
+import com.esri.android.map.FeatureLayer;
+import com.esri.android.map.GraphicsLayer;
+import com.esri.android.map.Layer;
+import com.esri.android.map.MapView;
+import com.esri.android.map.TiledLayer;
+import com.esri.android.map.ags.ArcGISLocalTiledLayer;
+import com.esri.android.map.ags.ArcGISTiledMapServiceLayer;
+import com.esri.core.geodatabase.Geodatabase;
+import com.esri.core.geodatabase.GeodatabaseFeature;
+import com.esri.core.geodatabase.GeodatabaseFeatureTable;
+import com.esri.core.geometry.Geometry;
+import com.esri.core.map.FeatureTemplate;
+import com.esri.core.map.FeatureType;
+import com.esri.core.table.TableException;
 import com.hotsun.mqxxgl.R;
+import com.hotsun.mqxxgl.gis.adapter.ExpandableAdapter;
 import com.hotsun.mqxxgl.gis.model.LayerTemplate;
 import com.hotsun.mqxxgl.gis.model.MyFeatureLayer;
-import com.hotsun.mqxxgl.gis.model.MySpatialReference;
 import com.hotsun.mqxxgl.gis.service.LiveNetworkMonitor;
 import com.hotsun.mqxxgl.gis.service.NetworkMonitor;
 import com.hotsun.mqxxgl.gis.util.ResourcesUtil;
-import com.hotsun.mqxxgl.gis.util.ToastUtil;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.security.Key;
-import java.sql.ResultSetMetaData;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -47,48 +43,40 @@ public class LayerPresenter {
 
     private MapView mapView;
     private Context mContext;
-    private GraphicsOverlay graphicsOverlay;
+    private GraphicsLayer graphicsOverlay;
     public List<MyFeatureLayer> myFeatureLayers = new ArrayList<>();
-
+    private HashMap<String,Boolean> checkStates = new HashMap<>();
 
     public LayerPresenter(Context context, MapView mapView) {
         this.mContext = context;
         this.mapView = mapView;
-        graphicsOverlay = new GraphicsOverlay(GraphicsOverlay.RenderingMode.STATIC);
+        graphicsOverlay = new GraphicsLayer(GraphicsLayer.RenderingMode.STATIC);
     }
 
     /**
      * 加载地图
      */
-    public void addBaseLayer() {
-        ArcGISTiledLayer tiledLayer = getTitleLayer(mContext);
-        if (tiledLayer == null) {
-            ToastUtil.setToast(mContext, "没有地图数据");
-            return;
-        }
-        Basemap basemap = new Basemap(getTitleLayer(mContext));
-        ArcGISMap map = new ArcGISMap(basemap);
-        mapView.setMap(map);
-        BackgroundGrid backgroundGrid = new BackgroundGrid(0xffffff, 0xffffff, 3, 3);
-        mapView.setBackgroundGrid(backgroundGrid);
+    public void addBaseLayer(MapView mapView) {
+        TiledLayer tiledLayer = getTitleLayer(mContext);
+        mapView.addLayer(tiledLayer);
+        mapView.setMapBackground(0xffffff, 0xffffff, 3, 3);
     }
 
     /**
      * 获取离线地图
      */
-    private ArcGISTiledLayer getTitleLayer(Context context) {
-        ArcGISTiledLayer tiledLayer;
+    private TiledLayer getTitleLayer(Context context) {
         ResourcesUtil resourcesUtil = new ResourcesUtil(context);
         String titlepath = resourcesUtil.getBaseTitlePath();
+        TiledLayer tiledLayer;
         if (new File(titlepath).exists()) {
             //离线数据存在
-            TileCache tileCache = new TileCache(titlepath);
-            tiledLayer = new ArcGISTiledLayer(tileCache);
+            tiledLayer = new ArcGISLocalTiledLayer(titlepath);
         } else {
             NetworkMonitor networkMonitor = new LiveNetworkMonitor(context);
             if (networkMonitor.isConnected()) {
                 String serverUrl = context.getResources().getString(R.string.gzserver);
-                tiledLayer = new ArcGISTiledLayer(serverUrl);
+                tiledLayer = new ArcGISTiledMapServiceLayer(serverUrl);
             } else {
                 tiledLayer = null;
             }
@@ -100,53 +88,103 @@ public class LayerPresenter {
      * 移除graphiclayer
      */
     private void removeGraphicLayer() {
-        ListenableList<GraphicsOverlay> overlays = mapView.getGraphicsOverlays();
-        Iterator<GraphicsOverlay> iterator = overlays.iterator();
-        if (iterator.hasNext()) {
-            mapView.getGraphicsOverlays().remove(iterator.next());
+        Layer[] overlays = mapView.getLayers();
+        for (Layer layer : overlays) {
+            if(layer instanceof GraphicsLayer){
+                mapView.removeLayer(layer);
+            }
+        }
+    }
+
+    public void clearAllGraphics(){
+        Layer[] overlays = mapView.getLayers();
+        for (Layer layer : overlays) {
+            if(layer instanceof GraphicsLayer){
+                ((GraphicsLayer) layer).removeAll();
+            }
         }
     }
 
     /**
      * 添加GraphicsOverlay
      */
-    public void addGraphicLayer() {
-        graphicsOverlay = new GraphicsOverlay(GraphicsOverlay.RenderingMode.STATIC);
-        mapView.getGraphicsOverlays().add(graphicsOverlay);
+    public GraphicsLayer addGraphicLayer() {
+        graphicsOverlay = new GraphicsLayer(GraphicsLayer.RenderingMode.STATIC);
+        mapView.addLayer(graphicsOverlay);
+        return graphicsOverlay;
     }
 
     /**
      * 加载geodatabase数据
      */
-    public void loadGeodatabase() {
-        String geopath = "";
-        ResourcesUtil util = new ResourcesUtil(mContext);
-        List<File> folds = util.getOtmsFiles();
-        HashMap<String, File> map = util.getOtmsFoldesFile(folds.get(0).getPath());
-        for (String key : map.keySet()) {
-            File file = map.get(key);
-            if (file.getName().endsWith(".geodatabase")) {
-                geopath = file.getPath();
-                break;
+    public void loadGeodatabase(File geoFile) {
+        Geodatabase geodatabase = null;
+        try {
+            geodatabase = new Geodatabase(geoFile.getPath());
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        if(geodatabase != null){
+            addGeodatabase(geodatabase,geoFile);
+        }
+    }
+
+    /**定位到图层所在位置*/
+    public void zoomToLayer(File file){
+        for(MyFeatureLayer myFeatureLayer : myFeatureLayers){
+            if(myFeatureLayer.getGeodata().equals(file)){
+                mapView.setExtent(myFeatureLayer.getLayer().getFullExtent());
             }
         }
-        final File geoFile = new File(geopath);
-        final Geodatabase geodatabase = new Geodatabase(geopath);
-        geodatabase.loadAsync();
-        geodatabase.addDoneLoadingListener(new Runnable() {
-            @Override
-            public void run() {
-                List<GeodatabaseFeatureTable> tables = geodatabase.getGeodatabaseFeatureTables();
-                LayerList layerList = mapView.getMap().getOperationalLayers();
-                for (GeodatabaseFeatureTable gdbFeatureTable : tables) {
-                    final FeatureLayer layer = new FeatureLayer(gdbFeatureTable);
-                    layerList.add(layer);
-                    MyFeatureLayer myFeatureLayer = new MyFeatureLayer(geoFile, false, layer);
-                    myFeatureLayers.add(myFeatureLayer);
-                }
-                mapView.invalidate();
+    }
+
+    private void addGeodatabase(Geodatabase geodatabase,File geoFile){
+        List<GeodatabaseFeatureTable> tables = geodatabase.getGeodatabaseTables();
+        for (GeodatabaseFeatureTable gdbFeatureTable : tables) {
+            if (gdbFeatureTable.hasGeometry()){
+                FeatureLayer layer = new FeatureLayer(gdbFeatureTable);
+                mapView.addLayer(layer);
+                MyFeatureLayer myFeatureLayer = new MyFeatureLayer(geoFile, false, layer);
+                myFeatureLayers.add(myFeatureLayer);
             }
-        });
+        }
+    }
+
+    /**移除加载的geodatabase*/
+    public void removeGeodatabase(File file){
+        Iterator<MyFeatureLayer> iterator = myFeatureLayers.iterator();
+        while (iterator.hasNext()){
+            MyFeatureLayer myFeatureLayer = iterator.next();
+            if(myFeatureLayer.getGeodata().equals(file)){
+                mapView.removeLayer(myFeatureLayer.getLayer());
+                iterator.remove();
+            }
+        }
+    }
+
+    /**添加Geometry*/
+    public void addGeometry(final Geometry geometry, final MyFeatureLayer myFeatureLayer){
+        final FeatureLayer layer = myFeatureLayer.getLayer();
+    }
+
+    /**初始化otms数据*/
+    public void initOtmsData(LayerPresenter presenter,View viewTckz){
+
+        ExpandableListView listView = (ExpandableListView) viewTckz.findViewById(R.id.tc_expandlistview);
+        initExpandableListView(presenter,listView);
+    }
+    /**绑定ExpandableListView数据*/
+    private void initExpandableListView(LayerPresenter presenter,ExpandableListView listView){
+        ResourcesUtil util = new ResourcesUtil(mContext);
+        List<File> folds = util.getOtmsFiles();
+        HashMap<String, List<File>> map = util.getOtmsFoldesFile(folds);
+        ExpandableAdapter adapter = new ExpandableAdapter(mContext,folds,map,checkStates,presenter);
+        listView.setAdapter(adapter);
+        checkStates = adapter.getCheckStates();
+    }
+
+    public interface ICheckBox{
+        HashMap<String,Boolean> getCheckStates();
     }
 
     /**
@@ -159,27 +197,27 @@ public class LayerPresenter {
             List<FeatureTemplate> featureTemp = ((GeodatabaseFeatureTable) flayer.getFeatureTable()).getFeatureTemplates();
             for (FeatureTemplate featureTemplate : featureTemp) {
                 try {
-                    ArcGISFeature g = ((GeodatabaseFeatureTable) flayer.getFeatureTable()).createFeature(featureTemplate);
+                    GeodatabaseFeature g = ((GeodatabaseFeatureTable) flayer.getFeatureTable()).createFeatureWithTemplate(featureTemplate,null);
                     layerTemplate.setFeatureLayer(flayer);
                     layerTemplate.setLayerSymbol(flayer.getRenderer().getSymbol(g));
                     layerTemplate.setLayerTemplate(featureTemplate);
                     layerTemplate.setLayerAttributes(g.getAttributes());
-                } catch (SQLiteTableLockedException e) {
+                } catch (SQLiteTableLockedException | TableException e) {
                     e.printStackTrace();
                 }
             }
         } else {
             List<FeatureType> featureTypes = ((GeodatabaseFeatureTable) flayer.getFeatureTable()).getFeatureTypes();
             for (FeatureType featureType : featureTypes) {
-                List<FeatureTemplate> templates = featureType.getTemplates();
+                FeatureTemplate[] templates = featureType.getTemplates();
                 for (FeatureTemplate featureTemplate : templates) {
                     try {
-                        ArcGISFeature g = ((GeodatabaseFeatureTable) flayer.getFeatureTable()).createFeature(featureTemplate);
+                        GeodatabaseFeature g = ((GeodatabaseFeatureTable) flayer.getFeatureTable()).createFeatureWithTemplate(featureTemplate,null);
                         layerTemplate.setFeatureLayer(flayer);
                         layerTemplate.setLayerSymbol(flayer.getRenderer().getSymbol(g));
                         layerTemplate.setLayerTemplate(featureTemplate);
                         layerTemplate.setLayerAttributes(g.getAttributes());
-                    } catch (SQLiteTableLockedException e) {
+                    } catch (SQLiteTableLockedException | TableException e) {
                         e.printStackTrace();
                     }
                 }

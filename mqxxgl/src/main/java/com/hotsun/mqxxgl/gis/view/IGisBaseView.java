@@ -1,6 +1,10 @@
 package com.hotsun.mqxxgl.gis.view;
 
-import com.esri.arcgisruntime.geometry.Point;
+import android.content.Context;
+
+import com.esri.android.map.GraphicsLayer;
+import com.esri.android.map.Grid;
+import com.esri.android.map.MapView;
 
 /**
  * GIS基础接口
@@ -9,7 +13,11 @@ import com.esri.arcgisruntime.geometry.Point;
 
 public interface IGisBaseView extends ILocationView{
 
+    MapView getMapView();
 
+    Context getContext();
+
+    GraphicsLayer getGraphicsLayer();
 
 
 }

@@ -1,6 +1,6 @@
 package com.hotsun.mqxxgl.gis.drawTool;
 
-import com.esri.arcgisruntime.mapping.view.Graphic;
+import com.esri.core.map.Graphic;
 
 import java.util.EventObject;
 

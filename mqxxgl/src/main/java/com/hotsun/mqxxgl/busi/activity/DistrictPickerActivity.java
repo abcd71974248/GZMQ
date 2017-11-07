@@ -16,10 +16,8 @@ import com.hotsun.mqxxgl.R;
 import com.hotsun.mqxxgl.busi.model.GetCunbm;
 import com.hotsun.mqxxgl.busi.model.GetZubm;
 import com.hotsun.mqxxgl.busi.model.ResponseResults;
-import com.hotsun.mqxxgl.busi.service.BusiRetrofitHelper;
 import com.hotsun.mqxxgl.busi.service.GetCunbmRetrofit;
 import com.hotsun.mqxxgl.busi.service.GetZubmRetrofit;
-import com.hotsun.mqxxgl.gis.util.ToastUtil;
 
 import java.util.List;
 import java.util.Map;
@@ -27,9 +25,9 @@ import java.util.Map;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import widget.OnWheelChangedListener;
-import widget.WheelView;
-import widget.adapters.ArrayWheelAdapter;
+import com.hotsun.mqxxgl.widget.OnWheelChangedListener;
+import com.hotsun.mqxxgl.widget.WheelView;
+import com.hotsun.mqxxgl.widget.adapters.ArrayWheelAdapter;
 
 public class DistrictPickerActivity extends BaseActivity implements View.OnClickListener, OnWheelChangedListener {
 

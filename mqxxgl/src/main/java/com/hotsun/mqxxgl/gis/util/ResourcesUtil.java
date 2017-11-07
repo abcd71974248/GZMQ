@@ -105,25 +105,19 @@ public class ResourcesUtil {
         return folds;
     }
     /**获取otms文件夹下的对应文件夹内的离线数据*/
-    public HashMap<String,File> getOtmsFoldesFile(String path){
-        HashMap<String,File> hashMap = new HashMap<>();
-        File[] files = new File(path).listFiles();
-        if(files == null){
-            return hashMap;
-        }
-        if(files.length == 0){
-            hashMap.put(path,null);
-            return hashMap;
-        }
-        for (File file : files){
-            if(file.exists() && file.isFile() && file.getName().endsWith(".geodatabase")){
-                hashMap.put(path,file);
+    public HashMap<String,List<File>> getOtmsFoldesFile(List<File> folds){
+        HashMap<String,List<File>> hashMap = new HashMap<>();
+        for(File fold : folds){
+            File[] files = new File(fold.getPath()).listFiles();
+            List<File> fileList = new ArrayList<>();
+            for (File file : files){
+                if(file.exists() && file.isFile() && (file.getName().endsWith(".geodatabase") || file.getName().endsWith(".otms"))){
+                    fileList.add(file);
+                }
             }
+            hashMap.put(fold.getPath(),fileList);
         }
         return hashMap;
     }
-
-
-
 
 }

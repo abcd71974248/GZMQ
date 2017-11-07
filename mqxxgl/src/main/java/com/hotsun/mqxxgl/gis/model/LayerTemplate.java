@@ -1,9 +1,10 @@
 package com.hotsun.mqxxgl.gis.model;
 
-import com.esri.arcgisruntime.data.FeatureTemplate;
-import com.esri.arcgisruntime.layers.FeatureLayer;
-import com.esri.arcgisruntime.symbology.Renderer;
-import com.esri.arcgisruntime.symbology.Symbol;
+
+import com.esri.android.map.FeatureLayer;
+import com.esri.core.map.FeatureTemplate;
+import com.esri.core.renderer.Renderer;
+import com.esri.core.symbol.Symbol;
 
 import java.util.Map;
 

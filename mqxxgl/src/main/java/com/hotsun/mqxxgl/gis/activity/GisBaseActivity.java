@@ -9,15 +9,17 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.esri.arcgisruntime.data.FeatureType;
-import com.esri.arcgisruntime.geometry.Point;
-import com.esri.arcgisruntime.layers.FeatureLayer;
-import com.esri.arcgisruntime.mapping.view.MapView;
+import com.baidu.location.LocationClient;
+import com.esri.android.map.FeatureLayer;
+import com.esri.android.map.GraphicsLayer;
+import com.esri.android.map.MapView;
+import com.esri.core.geometry.Point;
 import com.hotsun.mqxxgl.R;
 import com.hotsun.mqxxgl.gis.drawTool.DrawTool;
 import com.hotsun.mqxxgl.gis.presenter.BasePresenter;
 import com.hotsun.mqxxgl.gis.presenter.LayerPresenter;
 import com.hotsun.mqxxgl.gis.presenter.LocationPresenter;
+import com.hotsun.mqxxgl.gis.util.ViewUtil;
 import com.hotsun.mqxxgl.gis.view.IGisBaseView;
 import com.hotsun.mqxxgl.permissions.PermissionsActivity;
 import com.hotsun.mqxxgl.permissions.PermissionsChecker;
@@ -30,6 +32,7 @@ public class GisBaseActivity extends AppCompatActivity implements IGisBaseView, 
     private BasePresenter basePresenter;
     private LocationPresenter locationPresenter;
     private LayerPresenter layerPresenter;
+    private GraphicsLayer graphicsLayer;
     /*动态检测权限*/
     private static final int REQUEST_CODE = 0; // 权限请求码
     // 所需的定位权限
@@ -38,6 +41,11 @@ public class GisBaseActivity extends AppCompatActivity implements IGisBaseView, 
             Manifest.permission.ACCESS_COARSE_LOCATION
     };
     private PermissionsChecker mPermissionsChecker; // 权限检测器
+    /*include*/
+    private View viewTckz;
+
+    /*定位client*/
+    private LocationClient locationClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +64,12 @@ public class GisBaseActivity extends AppCompatActivity implements IGisBaseView, 
     private void initView() {
         mContext = GisBaseActivity.this;
         mapView = (MapView) findViewById(R.id.mapview);
-        mapView.setAttributionTextVisible(false);
+        TextView tckzView = (TextView) findViewById(R.id.tckz_imageview);
+        tckzView.setOnClickListener(this);
+        viewTckz = findViewById(R.id.gis_view_tckz);
+        ViewUtil.setViewPrams(viewTckz);
+        ImageView tckzclose = (ImageView) findViewById(R.id.close_tuceng);
+        tckzclose.setOnClickListener(this);
     }
 
     /**
@@ -65,24 +78,22 @@ public class GisBaseActivity extends AppCompatActivity implements IGisBaseView, 
     private void initPresenter() {
         mPermissionsChecker = new PermissionsChecker(this);
         basePresenter = new BasePresenter(mContext,mapView);
-        locationPresenter = new LocationPresenter(mapView);
+        locationPresenter = new LocationPresenter(this);
         layerPresenter = new LayerPresenter(mContext,mapView);
-        layerPresenter.loadGeodatabase();
     }
 
     /**
      * 初始化数据
      */
     private void initData() {
-        drawTool = new DrawTool(mContext,mapView);
-        locationPresenter.initLocation(mapView);
-        layerPresenter.addBaseLayer();
-        layerPresenter.addGraphicLayer();
-        layerPresenter.loadGeodatabase();
+        layerPresenter.addBaseLayer(mapView);
+        graphicsLayer = layerPresenter.addGraphicLayer();
+        locationPresenter.initArcgisLocation(this);
+        drawTool = new DrawTool(this);
     }
     /**清除地图的上的所有标绘*/
     public void cleanAll(View view){
-        mapView.getGraphicsOverlays().clear();
+        layerPresenter.clearAllGraphics();
     }
     /**当前位置定位*/
     public void mylocation(View view){
@@ -122,16 +133,23 @@ public class GisBaseActivity extends AppCompatActivity implements IGisBaseView, 
     }
     /**添加图斑*/
     public void addFeature(View view){
+
         FeatureLayer layer = layerPresenter.myFeatureLayers.get(0).getLayer();
         layerPresenter.getEditSymbo(layer);
-        int drawType = drawTool.FREEHAND_POLYLINE;
+        int drawType = DrawTool.FREEHAND_POLYLINE;
         drawTool.activate(drawType);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-
+            case R.id.close_tuceng:
+                viewTckz.setVisibility(View.GONE);
+                break;
+            case R.id.tckz_imageview:
+                viewTckz.setVisibility(View.VISIBLE);
+                layerPresenter.initOtmsData(layerPresenter,viewTckz);
+                break;
             default:
                 break;
         }
@@ -158,12 +176,35 @@ public class GisBaseActivity extends AppCompatActivity implements IGisBaseView, 
     }
 
     @Override
-    public Point getCurPoint() {
-        return locationPresenter.getCurPoint();
+    public Point getCurGpsPoint() {
+        return null;
     }
 
     @Override
-    public Point getCurGpsPoint() {
-        return locationPresenter.getCurGpsPoint();
+    public Point getCurPoint() {
+        return null;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(locationClient != null){
+            locationClient.stop();
+        }
+    }
+
+    @Override
+    public MapView getMapView() {
+        return mapView;
+    }
+
+    @Override
+    public Context getContext() {
+        return mContext;
+    }
+
+    @Override
+    public GraphicsLayer getGraphicsLayer() {
+        return graphicsLayer;
     }
 }
