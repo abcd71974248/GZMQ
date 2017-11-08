@@ -3,112 +3,107 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
     <include layout="@layout/include_header" />
 
     <TextView
-        android:id="@+id/busi_ldxx_ldid"
+        android:id="@+id/busi_ldxxview_ldid"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:visibility="gone" />
 
     <include layout="@layout/activity_ldviewtool" />
 
     <RelativeLayout
-        android:id="@+id/rel_userlogin"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/selector_body"
-        android:padding="20dp"
-        android:layout_alignParentBottom="true">
+        android:padding="20dp">
 
         <TextView
-            android:id="@+id/addld_cunmc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="    村名称:"
+            android:id="@+id/busi_ldxxview_cunmcTitle"
             android:textColor="@color/text_color"
             android:textSize="14sp" />
 
         <TextView
-            android:id="@+id/addld_cunmctext"
+            android:id="@+id/busi_ldxxview_cunmc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text"
             android:paddingTop="10dp"
             android:text="香山村四季康城社交恐惧锁库存"
             android:textSize="14sp"
-            android:layout_toRightOf="@+id/addld_cunmc"/>
+            android:layout_toRightOf="@+id/busi_ldxxview_cunmcTitle"/>
 
         <TextView
-            android:id="@+id/addld_zumc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/addld_cunmc"
+            android:id="@+id/busi_ldxxview_zumcTitle"
+            android:layout_below="@+id/busi_ldxxview_cunmcTitle"
             android:layout_marginTop="20dp"
             android:text="    组名称:"
             android:textColor="@color/text_color"
             android:textSize="14sp" />
 
         <TextView
-            android:id="@+id/addld_zumctext"
+            android:id="@+id/busi_ldxxview_zumc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/addld_cunmctext"
-            android:inputType="text"
+            android:layout_below="@+id/busi_ldxxview_cunmcTitle"
             android:text="得唔得"
             android:layout_marginTop="20dp"
             android:textSize="14sp"
-            android:layout_toRightOf="@+id/addld_zumc"/>
+            android:layout_toRightOf="@+id/busi_ldxxview_zumcTitle"/>
 
         <TextView
-            android:id="@+id/addld_ldmc"
+            android:id="@+id/busi_ldxxview_ldmcTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/addld_zumc"
+            android:layout_below="@+id/busi_ldxxview_zumc"
             android:layout_marginTop="20dp"
             android:text="楼栋名称:"
             android:textColor="@color/text_color"
             android:textSize="14sp" />
 
         <TextView
-            android:id="@+id/addld_ldmctext"
+            android:id="@+id/busi_ldxxview_ldmc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/addld_zumctext"
+            android:layout_below="@+id/busi_ldxxview_zumc"
             android:inputType="text"
             android:layout_marginTop="20dp"
             android:text="打的"
             android:textSize="14sp"
-            android:layout_toRightOf="@+id/addld_ldmc"/>
+            android:layout_toRightOf="@+id/busi_ldxxview_ldmcTitle"/>
 
         <TextView
-            android:id="@+id/addld_lddz"
+            android:id="@+id/busi_ldxxview_lddzTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/addld_ldmc"
+            android:layout_below="@+id/busi_ldxxview_ldmcTitle"
             android:layout_marginTop="20dp"
             android:text="楼栋地址:"
             android:textColor="@color/text_color"
             android:textSize="14sp" />
 
         <TextView
-            android:id="@+id/addld_lddztext"
+            android:id="@+id/busi_ldxxview_lddz"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/addld_ldmctext"
+            android:layout_below="@+id/busi_ldxxview_ldmcTitle"
             android:inputType="text"
             android:layout_marginTop="20dp"
             android:textSize="14sp"
-            android:layout_toRightOf="@+id/addld_lddz"/>
+            android:layout_toRightOf="@+id/busi_ldxxview_lddzTitle"/>
 
         <TextView
-            android:id="@+id/addld_dys"
+            android:id="@+id/busi_ldxxview_dysTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/addld_lddz"
+            android:layout_below="@+id/busi_ldxxview_lddzTitle"
             android:layout_marginTop="20dp"
             android:text="    单元数:"
             android:textColor="@color/text_color"
@@ -118,11 +113,10 @@
             android:id="@+id/addld_dystext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/addld_lddztext"
-            android:inputType="text"
+            android:layout_below="@+id/busi_ldxxview_lddzTitle"
             android:layout_marginTop="20dp"
             android:textSize="14sp"
-            android:layout_toRightOf="@+id/addld_dys"/>
+            android:layout_toRightOf="@+id/busi_ldxxview_dysTitle"/>
 
         <TextView
             android:id="@+id/addld_lcs"
