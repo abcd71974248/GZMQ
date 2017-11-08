@@ -80,7 +80,7 @@
             android:layout_toRightOf="@+id/busi_ldxxview_ldmcTitle"/>
 
         <TextView
-            android:id="@+id/busi_ldxxview_lddzTitle"
+            android:id="@+id/busi_ldxxview_ldaddrTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/busi_ldxxview_ldmcTitle"
@@ -90,113 +90,150 @@
             android:textSize="14sp" />
 
         <TextView
-            android:id="@+id/busi_ldxxview_lddz"
+            android:id="@+id/busi_ldxxview_ldaddr"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/busi_ldxxview_ldmcTitle"
             android:inputType="text"
             android:layout_marginTop="20dp"
             android:textSize="14sp"
-            android:layout_toRightOf="@+id/busi_ldxxview_lddzTitle"/>
+            android:layout_toRightOf="@+id/busi_ldxxview_ldaddrTitle"/>
 
         <TextView
-            android:id="@+id/busi_ldxxview_dysTitle"
+            android:id="@+id/busi_ldxxview_cellnumTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/busi_ldxxview_lddzTitle"
+            android:layout_below="@+id/busi_ldxxview_ldaddrTitle"
             android:layout_marginTop="20dp"
             android:text="    单元数:"
             android:textColor="@color/text_color"
             android:textSize="14sp" />
 
         <TextView
-            android:id="@+id/addld_dystext"
+            android:id="@+id/busi_ldxxview_cellnum"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/busi_ldxxview_lddzTitle"
+            android:layout_below="@+id/busi_ldxxview_ldaddrTitle"
             android:layout_marginTop="20dp"
             android:textSize="14sp"
-            android:layout_toRightOf="@+id/busi_ldxxview_dysTitle"/>
+            android:layout_toRightOf="@+id/busi_ldxxview_cellnumTitle"/>
 
         <TextView
-            android:id="@+id/addld_lcs"
+            android:id="@+id/busi_ldxxview_floornumTitle_"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/addld_dys"
+            android:layout_below="@+id/busi_ldxxview_cellnumTitle"
             android:layout_marginTop="20dp"
             android:text="    楼层数:"
             android:textColor="@color/text_color"
             android:textSize="14sp" />
 
         <TextView
-            android:id="@+id/addld_lcstext"
+            android:id="@+id/busi_ldxxview_floornum"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/addld_dystext"
+            android:layout_below="@+id/busi_ldxxview_cellnumTitle"
             android:inputType="text"
             android:layout_marginTop="20dp"
             android:textSize="14sp"
-            android:layout_toRightOf="@+id/addld_lcs"/>
+            android:layout_toRightOf="@+id/busi_ldxxview_floornumTitle_"/>
 
         <TextView
-            android:id="@+id/addld_fwjg"
+            android:id="@+id/busi_ldxxview_fwjgnameTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/addld_lcs"
+            android:layout_below="@+id/busi_ldxxview_floornumTitle_"
             android:layout_marginTop="20dp"
             android:text="房屋结构"
             android:textColor="@color/text_color"
             android:textSize="14sp" />
 
         <TextView
-            android:id="@+id/addld_fwjgtext"
+            android:id="@+id/busi_ldxxview_fwjgname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/addld_lcstext"
+            android:layout_below="@+id/busi_ldxxview_floornumTitle_"
             android:inputType="text"
             android:layout_marginTop="20dp"
             android:textSize="14sp"
             android:layout_toRightOf="@+id/addld_fwjg"/>
 
         <TextView
-            android:id="@+id/addld_xjrq"
+            android:id="@+id/busi_ldxxview_xjrqTitle_"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/addld_fwjg"
+            android:layout_below="@+id/busi_ldxxview_fwjgnameTitle"
             android:layout_marginTop="20dp"
             android:text="修建日期:"
             android:textColor="@color/text_color"
             android:textSize="14sp" />
 
         <TextView
-            android:id="@+id/addld_xjrqtext"
+            android:id="@+id/busi_ldxxview_xjrq"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/addld_fwjgtext"
+            android:layout_below="@+id/busi_ldxxview_fwjgnameTitle"
             android:inputType="text"
             android:layout_marginTop="20dp"
             android:textSize="14sp"
-            android:layout_toRightOf="@+id/addld_xjrq"/>
+            android:layout_toRightOf="@+id/busi_ldxxview_xjrqTitle_"/>
 
         <TextView
-            android:id="@+id/addld_bz"
+            android:id="@+id/busi_ldxxview_zxlxnameTitle_"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/addld_xjrq"
+            android:layout_below="@+id/busi_ldxxview_xjrqTitle_"
             android:layout_marginTop="20dp"
-            android:text="        备注"
+            android:text="注销类型:"
             android:textColor="@color/text_color"
             android:textSize="14sp" />
 
         <TextView
-            android:id="@+id/addld_bztext"
+            android:id="@+id/busi_ldxxview_zxlxname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/addld_xjrqtext"
+            android:layout_below="@+id/busi_ldxxview_xjrqTitle_"
             android:inputType="text"
             android:layout_marginTop="20dp"
             android:textSize="14sp"
-            android:layout_toRightOf="@+id/addld_bz"/>
+            android:layout_toRightOf="@+id/busi_ldxxview_zxlxnameTitle_"/>
+        <TextView
+            android:id="@+id/busi_ldxxview_zxrqTitle_"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/busi_ldxxview_zxlxnameTitle_"
+            android:layout_marginTop="20dp"
+            android:text="注销日期:"
+            android:textColor="@color/text_color"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/busi_ldxxview_zxrq"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/busi_ldxxview_zxlxnameTitle_"
+            android:inputType="text"
+            android:layout_marginTop="20dp"
+            android:textSize="14sp"
+            android:layout_toRightOf="@+id/busi_ldxxview_zxrqTitle_"/>
+        <TextView
+            android:id="@+id/busi_ldxxview_bzTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/busi_ldxxview_zxrqTitle_"
+            android:layout_marginTop="20dp"
+            android:text="        备注:"
+            android:textColor="@color/text_color"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/busi_ldxxview_bz"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/busi_ldxxview_zxrqTitle_"
+            android:layout_marginTop="20dp"
+            android:textSize="14sp"
+            android:layout_toRightOf="@+id/busi_ldxxview_bzTitle"/>
 
         </RelativeLayout>
 

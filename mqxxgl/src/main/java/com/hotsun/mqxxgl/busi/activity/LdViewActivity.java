@@ -27,7 +27,18 @@ public class LdViewActivity extends AppCompatActivity{
 
     private Context mContext;
 
-//    TextView
+    TextView tv_cunmc;
+    TextView tv_zumc;
+    TextView tv_ldid;
+    TextView tv_ldmc;
+    TextView tv_ldaddr;
+    TextView tv_cellnum;
+    TextView tv_floornum;
+    TextView tv_zxlxname;
+    TextView tv_fwjgname;
+    TextView tv_xjrq;
+    TextView tv_zxrq;
+    TextView tv_bz;
 
 
     @Override
@@ -39,9 +50,19 @@ public class LdViewActivity extends AppCompatActivity{
         txtTitle.setText("楼栋信息管理");
         String ldid=getIntent().getStringExtra("ldid");
 
-        TextView ldview=(TextView)findViewById(R.id.addld_cunmctext);
+        tv_cunmc=(TextView)findViewById(R.id.busi_ldxxview_cunmc);
+        tv_zumc=(TextView)findViewById(R.id.busi_ldxxview_zumc);
+        tv_ldid=(TextView)findViewById(R.id.busi_ldxxview_ldid);
+        tv_ldmc=(TextView)findViewById(R.id.busi_ldxxview_ldmc);
+        tv_ldaddr=(TextView)findViewById(R.id.busi_ldxxview_ldaddr);
+        tv_cellnum=(TextView)findViewById(R.id.busi_ldxxview_cellnum);
+        tv_floornum=(TextView)findViewById(R.id.busi_ldxxview_floornum);
+        tv_zxlxname=(TextView)findViewById(R.id.busi_ldxxview_zxlxname);
+        tv_fwjgname=(TextView)findViewById(R.id.busi_ldxxview_fwjgname);
+        tv_xjrq=(TextView)findViewById(R.id.busi_ldxxview_xjrq);
+        tv_zxrq=(TextView)findViewById(R.id.busi_ldxxview_zxrq);
+        tv_bz=(TextView)findViewById(R.id.busi_ldxxview_bz);
 
-        ldview.setText(ldid);
 
         initView(ldid);
 
@@ -84,14 +105,27 @@ public class LdViewActivity extends AppCompatActivity{
                 }
                 final List<Map<String, String>> results=responseResults.getResults();
 
+                tv_cunmc.setText(results.get(0).get("cunmc"));
+                tv_zumc.setText(results.get(0).get("zumc"));
+                tv_ldid.setText(results.get(0).get("ldid"));
+                tv_ldmc.setText(results.get(0).get("ldmc"));
+                tv_ldaddr.setText(results.get(0).get("ldaddr"));
+                tv_cellnum.setText(results.get(0).get("cellnum"));
+                tv_floornum.setText(results.get(0).get("floornum"));
 
+                tv_zxlxname.setText(results.get(0).get("zxlxname"));
+                tv_fwjgname.setText(results.get(0).get("fwjgname"));
+                tv_xjrq.setText(results.get(0).get("xjrq"));
+                tv_zxrq.setText(results.get(0).get("zxrq"));
+                tv_bz.setText(results.get(0).get("bz"));
 
 
             }
 
             @Override
             public void onFailure(Call<ResponseResults> call, Throwable t) {
-                Log.i("sssss",t.getMessage());
+                UIHelper.ToastErrorMessage(mContext,t.getMessage());
+                return;
             }
         });
 
