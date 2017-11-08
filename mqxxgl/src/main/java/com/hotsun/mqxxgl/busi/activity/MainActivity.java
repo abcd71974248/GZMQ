@@ -48,13 +48,13 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
         setContentView(R.layout.activity_main);
         mContext = MainActivity.this;
 
+        gridview=(MyGridView) findViewById(R.id.gridview);
         getHomemodule();
 
-        initView();
     }
 
     private void initView() {
-        gridview=(MyGridView) findViewById(R.id.gridview);
+
         gridview.setAdapter(new MyGridAdapter(this,imgs,img_text,imgColor));
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
