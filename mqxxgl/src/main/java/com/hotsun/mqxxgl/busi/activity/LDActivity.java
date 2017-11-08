@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.view.menu.SubMenuBuilder;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -18,22 +17,12 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.hotsun.mqxxgl.MyApplication;
 import com.hotsun.mqxxgl.R;
-import com.hotsun.mqxxgl.busi.model.ConditionText;
-import com.hotsun.mqxxgl.busi.model.FwLdxx;
 import com.hotsun.mqxxgl.busi.model.ResponseResults;
 import com.hotsun.mqxxgl.busi.model.requestParams.GetLdxxVO;
-import com.hotsun.mqxxgl.busi.model.requestParams.LdConditionText;
-import com.hotsun.mqxxgl.busi.model.requestParams.ModulePagVO;
 import com.hotsun.mqxxgl.busi.presenter.MyLdListAdapter;
-import com.hotsun.mqxxgl.busi.service.BusiRetrofitHelper;
 import com.hotsun.mqxxgl.busi.service.GetLdxxListRetrofit;
-import com.hotsun.mqxxgl.busi.service.ModulePagRetrofit;
 import com.hotsun.mqxxgl.busi.util.UIHelper;
-import com.hotsun.mqxxgl.gis.service.RetrofitHelper;
-import com.hotsun.mqxxgl.gis.util.ToastUtil;
 
-
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,7 +31,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static android.R.id.list;
 
 
 public class LDActivity extends AppCompatActivity  {
@@ -66,9 +54,9 @@ public class LDActivity extends AppCompatActivity  {
 
         String mid = getIntent().getStringExtra("mid");
 
-
         ldListview = (ListView) findViewById(R.id.ld_list);
-
+        TextView txtTitle=(TextView)findViewById(R.id.text_title) ;
+        txtTitle.setText("楼栋清单");
 
 
 
@@ -159,7 +147,7 @@ public class LDActivity extends AppCompatActivity  {
                     return;
                 }
 
-                List<Map<String, String>> results=responseResults.getResults();
+                final List<Map<String, String>> results=responseResults.getResults();
 
                 myLdListAdapter = new MyLdListAdapter(mContext,results);
                 ldListview.setAdapter(myLdListAdapter);
@@ -168,16 +156,14 @@ public class LDActivity extends AppCompatActivity  {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                      TextView txtldga=(TextView)ldListview.getChildAt(position).findViewById(R.id.activity_cunmc);
-//                      Object asas=  parent.getAdapter().getItem(position);
-//                        UIHelper.ToastMessage(mContext,"dsadad");
+                        Map<String,String> ldlistResult= (Map<String,String>)parent.getAdapter().getItem(position);
+                        String ldid=ldlistResult.get("ldid");
+                        Intent intent = new Intent();
+                        intent.putExtra("ldid", ldid);
 
-                           Intent intent = new Intent();
-                        intent.putExtra("ldid",txtldga.getText());
+                        intent.setClass(LDActivity.this, LdViewActivity.class);
 
-                           intent.setClass(LDActivity.this, LdViewActivity.class);
-
-                           startActivity(intent);
+                        startActivity(intent);
 
 
 

@@ -15,7 +15,7 @@ public class MyApplication extends MultiDexApplication {
 
     public static ScreenTool.Screen screen;
 
-    public static TSysUsers tSysUsers;
+    public static TSysUsers tSysUsers=null;
 
     @Override
     public void onCreate() {

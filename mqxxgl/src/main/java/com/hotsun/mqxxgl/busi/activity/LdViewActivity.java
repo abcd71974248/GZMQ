@@ -21,15 +21,22 @@ public class LdViewActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ldview);
 
-        Bundle bundle=getIntent().getExtras();
-        String ldid=bundle.getString("ldid");
+        TextView txtTitle=(TextView)findViewById(R.id.text_title) ;
+        txtTitle.setText("楼栋信息管理");
+        String ldid=getIntent().getStringExtra("ldid");
 
         TextView ldview=(TextView)findViewById(R.id.addld_cunmctext);
 
         ldview.setText(ldid);
 
+        initView();
 
     }
+    private void initView() {
+
+
+    }
+
 
 
 }

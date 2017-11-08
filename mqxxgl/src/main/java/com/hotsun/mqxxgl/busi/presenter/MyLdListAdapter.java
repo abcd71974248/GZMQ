@@ -46,12 +46,12 @@ public  class MyLdListAdapter extends BaseAdapter implements View.OnClickListene
 
 	@Override
 	public Object getItem(int position) {
-		return null;
+		return results.get(position);
 	}
 
 	@Override
 	public long getItemId(int position) {
-		return 0;
+		return position;
 	}
 
 	@Override
@@ -73,7 +73,6 @@ public  class MyLdListAdapter extends BaseAdapter implements View.OnClickListene
 				vh.selectorImg.setSelected(false);
 				vh.selectorImg.setText(R.string.icon_caret_right);
 				vh.ll_hide.setVisibility(View.GONE);
-				Log.e("listviews","if执行");
 				clickPosition=-1;//隐藏布局后需要把标记的position去除掉，否则，滑动listview让该条目划出屏幕范围，
 				// 当该条目重新进入屏幕后，会重新恢复原来的显示状态。经过打log可知每次else都执行一次 （条目第二次进入屏幕时会在getview中寻找他自己的状态，相当于重新执行一次getview）
 				//因为每次滑动的时候没标记得position填充会执行click
@@ -82,7 +81,6 @@ public  class MyLdListAdapter extends BaseAdapter implements View.OnClickListene
 				vh.selectorImg.setText(R.string.icon_caret_desc);
 				vh.ll_hide.setVisibility(View.VISIBLE);
 
-				Log.e("listviewe","else执行");
 			}
 //                ObjectAnimator//
 //                        .ofInt(vh.ll_hide, "rotationX", 0.0F, 360.0F)//
@@ -97,7 +95,6 @@ public  class MyLdListAdapter extends BaseAdapter implements View.OnClickListene
 			vh.selectorImg.setSelected(false);
 			vh.selectorImg.setText(R.string.icon_caret_right);
 
-			Log.e("listview","状态改变");
 		}
 		vh.hide_1.setOnClickListener(this);
 		vh.hide_2.setOnClickListener(this);
@@ -106,7 +103,7 @@ public  class MyLdListAdapter extends BaseAdapter implements View.OnClickListene
 		vh.selectorImg.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Toast.makeText(mContext, "被点了", Toast.LENGTH_SHORT).show();
+
 				clickPosition = position;//记录点击的position
 				notifyDataSetChanged();//刷新adapter重新填充条目。在重新填充的过程中，被记录的position会做展开或隐藏的动作，具体的判断看上面代码
 				//在此处需要明确的一点是，当adapter执行刷新操作时，整个getview方法会重新执行，也就是条目重新做一次初始化被填充数据。

@@ -107,6 +107,11 @@ public class ModulepageActivity extends AppCompatActivity implements View.OnClic
 
     private boolean getModulepage() {
 
+        if (MyApplication.tSysUsers==null)
+        {
+            UIHelper.ToastErrorMessage(mContext,"操作失败，请重新登录!");
+            return false;
+        }
         String userID=MyApplication.tSysUsers.getUserID();
         String sessionID=MyApplication.tSysUsers.getSessionID();
 
