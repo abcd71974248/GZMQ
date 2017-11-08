@@ -4,6 +4,7 @@ import android.support.multidex.MultiDexApplication;
 
 import com.hotsun.mqxxgl.busi.model.requestParams.UserLoginVo;
 import com.hotsun.mqxxgl.busi.model.sysbeans.TSysUsers;
+import com.hotsun.mqxxgl.common.ScreenTool;
 
 /**
  * Created by li on 2017/10/27.
@@ -12,7 +13,7 @@ import com.hotsun.mqxxgl.busi.model.sysbeans.TSysUsers;
 
 public class MyApplication extends MultiDexApplication {
 
-
+    public static ScreenTool.Screen screen;
 
     public static TSysUsers tSysUsers;
 
@@ -20,6 +21,7 @@ public class MyApplication extends MultiDexApplication {
     public void onCreate() {
         super.onCreate();
 
+        screen = ScreenTool.getScreenPix(this);
     }
     public TSysUsers gettSysUsers() {
         return tSysUsers;

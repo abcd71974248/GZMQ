@@ -1,63 +1,78 @@
 package com.hotsun.mqxxgl.gis.presenter;
 
-import com.esri.arcgisruntime.geometry.Geometry;
-import com.esri.arcgisruntime.geometry.GeometryEngine;
-import com.esri.arcgisruntime.geometry.GeometryType;
-import com.esri.arcgisruntime.geometry.Point;
-import com.esri.arcgisruntime.geometry.SpatialReference;
-import com.esri.arcgisruntime.mapping.view.Graphic;
-import com.esri.arcgisruntime.mapping.view.GraphicsOverlay;
-import com.esri.arcgisruntime.mapping.view.LocationDisplay;
-import com.esri.arcgisruntime.mapping.view.MapView;
-import com.esri.arcgisruntime.symbology.PictureFillSymbol;
-import com.esri.arcgisruntime.symbology.SimpleMarkerSymbol;
-import com.esri.arcgisruntime.symbology.Symbol;
+import android.content.Context;
+import com.baidu.location.LocationClient;
+import com.baidu.location.LocationClientOption;
+import com.esri.android.map.LocationDisplayManager;
+import com.esri.core.geometry.Geometry;
+import com.esri.core.geometry.Point;
+import com.hotsun.mqxxgl.gis.model.GisLocationListener;
 import com.hotsun.mqxxgl.gis.model.LocationListener;
+import com.hotsun.mqxxgl.gis.view.IGisBaseView;
 
 /**
  * Created by li on 2017/10/26.
  * 定位类
  */
 
-public class LocationPresenter {
+public class LocationPresenter{
 
-    private MapView mapView;
-    private LocationDisplay display;
-    private LocationListener myLocationListener;
+    private GisLocationListener myLocationListener;
+    private IGisBaseView baseView;
 
-    public LocationPresenter(MapView mapView){
-        this.mapView = mapView;
-        myLocationListener = new LocationListener(mapView);
+    public LocationPresenter(IGisBaseView baseView){
+        this.baseView = baseView;
     }
 
-    /**
-     * 初始化定位设置
-     */
-    public void initLocation(MapView mapView) {
-        display = mapView.getLocationDisplay();
-        display.setAutoPanMode(LocationDisplay.AutoPanMode.COMPASS_NAVIGATION);
-        display.startAsync();
-        myLocationListener = new LocationListener(mapView);
-        display.addLocationChangedListener(myLocationListener);
+    public void initArcgisLocation(IGisBaseView baseView){
+        final LocationDisplayManager locationDisplayManager = baseView.getMapView().getLocationDisplayManager();
+        locationDisplayManager.setShowLocation(true);
+        locationDisplayManager.setAutoPanMode(LocationDisplayManager.AutoPanMode.LOCATION );//设置模式
+        locationDisplayManager.setShowPings(true);
+        locationDisplayManager.setAllowNetworkLocation(true);
+        locationDisplayManager.start();//开始定位
+        myLocationListener = new GisLocationListener(baseView);
+        locationDisplayManager.setLocationListener(myLocationListener);
+
+        baseView.getMapView().setExtent(locationDisplayManager.getPoint());
+        baseView.getMapView().setScale(2000);
+        baseView.getMapView().setResolution(0.53);
     }
 
     /**
      *定位到当前位置
      */
     public void zoomTolocation(){
-        Point point = display.getLocation().getPosition();
-        if(point != null && !point.isEmpty()){
-            mapView.setViewpointCenterAsync(point,3000);
-        }
+        Geometry geometry = getCurPoint();
+        baseView.getMapView().setExtent(geometry);
+        baseView.getMapView().setScale(2000);
+        baseView.getMapView().setResolution(0.53);
     }
     /**返回当前点位信息*/
     public Point getCurPoint(){
-        return display.getMapLocation();
+        return myLocationListener.getCurPoint();
     }
 
     /**返回当前点位信息*/
     public Point getCurGpsPoint(){
-        return display.getLocation().getPosition();
+        return myLocationListener.getCurGpsPoint();
+    }
+
+    /**
+     * 初始化百度定位设置
+     */
+    public LocationClient initLocation(Context context) {
+        LocationClient client = new LocationClient(context);
+        LocationListener myLocationListener = new LocationListener(baseView);
+        client.registerLocationListener(myLocationListener);
+        LocationClientOption option = new LocationClientOption();
+        option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);// 设置定位模式
+        option.setOpenGps(true); // 打开gps
+        option.setCoorType("bd09ll"); // 设置坐标类型bd09ll gcj02 GCJ-02
+        option.setScanSpan(1000);
+        client.setLocOption(option);
+        client.start();
+        return client;
     }
 
 }

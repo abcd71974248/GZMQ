@@ -1,8 +1,8 @@
 package com.hotsun.mqxxgl.gis.model;
 
-import com.esri.arcgisruntime.data.GeodatabaseFeatureTable;
-import com.esri.arcgisruntime.layers.FeatureLayer;
-import com.esri.arcgisruntime.symbology.Renderer;
+import com.esri.android.map.FeatureLayer;
+import com.esri.core.geodatabase.GeodatabaseFeatureTable;
+import com.esri.core.renderer.Renderer;
 
 import java.io.File;
 import java.io.Serializable;

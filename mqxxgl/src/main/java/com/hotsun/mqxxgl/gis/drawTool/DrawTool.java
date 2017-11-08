@@ -5,99 +5,85 @@ import android.graphics.Color;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.esri.arcgisruntime.geometry.EnvelopeBuilder;
-import com.esri.arcgisruntime.geometry.Point;
-import com.esri.arcgisruntime.geometry.PointBuilder;
-import com.esri.arcgisruntime.geometry.PointCollection;
-import com.esri.arcgisruntime.geometry.Polygon;
-import com.esri.arcgisruntime.geometry.Polyline;
-import com.esri.arcgisruntime.geometry.SpatialReference;
-import com.esri.arcgisruntime.mapping.view.DefaultMapViewOnTouchListener;
-import com.esri.arcgisruntime.mapping.view.Graphic;
-import com.esri.arcgisruntime.mapping.view.GraphicsOverlay;
-import com.esri.arcgisruntime.mapping.view.MapView;
-import com.esri.arcgisruntime.symbology.FillSymbol;
-import com.esri.arcgisruntime.symbology.LineSymbol;
-import com.esri.arcgisruntime.symbology.MarkerSymbol;
-import com.esri.arcgisruntime.symbology.SimpleFillSymbol;
-import com.esri.arcgisruntime.symbology.SimpleLineSymbol;
-import com.esri.arcgisruntime.symbology.SimpleMarkerSymbol;
-import com.hotsun.mqxxgl.gis.model.MySpatialReference;
+import com.esri.android.map.GraphicsLayer;
+import com.esri.android.map.MapOnTouchListener;
+import com.esri.android.map.MapView;
+import com.esri.core.geometry.Envelope;
+import com.esri.core.geometry.Point;
+import com.esri.core.geometry.Polygon;
+import com.esri.core.geometry.Polyline;
+import com.esri.core.map.Graphic;
+import com.esri.core.symbol.FillSymbol;
+import com.esri.core.symbol.LineSymbol;
+import com.esri.core.symbol.MarkerSymbol;
+import com.esri.core.symbol.SimpleFillSymbol;
+import com.esri.core.symbol.SimpleLineSymbol;
+import com.esri.core.symbol.SimpleMarkerSymbol;
 import com.hotsun.mqxxgl.gis.view.IDrawTool;
+import com.hotsun.mqxxgl.gis.view.IGisBaseView;
 
 /**
  * 图形勾绘工具类
  */
-public class DrawTool extends Subject implements IDrawTool{
+public class DrawTool extends Subject implements IDrawTool {
 
-    private Context mContext;
-    private MapView mapView;
-    private GraphicsOverlay tempLayer;
     private MarkerSymbol markerSymbol;
     private LineSymbol lineSymbol;
     private FillSymbol fillSymbol;
-    private int drawType;
+    private SketchCreationMode drawType;
     private boolean active;
-    private PointBuilder pointBuilder;
-    private EnvelopeBuilder envelopeBuilder;
+    private Point pointBuilder;
+    private Envelope envelopeBuilder;
     private Polyline polyline;
     private Polygon polygon;
     private Graphic drawGraphic;
     private int graphicID;
-    private PointCollection pointCollection;
+    private Point startPoint;
 
-    public static final int POINT = 1;
-    public static final int ENVELOPE = 2;
-    public static final int POLYLINE = 3;
-    public static final int POLYGON = 4;
-    public static final int CIRCLE = 5;
-    public static final int ELLIPSE = 6;
-    public static final int FREEHAND_POLYGON = 7;
-    public static final int FREEHAND_POLYLINE = 8;
+    private IGisBaseView baseView;
+    private DrawToolImpl drawToolImpl = new DrawToolImpl(this);
+    private SketchStyle sketchStyle = new SketchStyle();
 
-    public DrawTool(Context context,MapView mapView) {
-        this.mContext = context;
-        this.mapView = mapView;
-        mapView.setOnTouchListener(new MapTouchListener(context,mapView));
-        this.tempLayer = new GraphicsOverlay();
-        this.markerSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbol.Style.CIRCLE,Color.BLACK, 16);
-        this.lineSymbol = new SimpleLineSymbol(SimpleLineSymbol.Style.DASH,Color.BLACK, 2);
-        this.fillSymbol = new SimpleFillSymbol(SimpleFillSymbol.Style.CROSS,Color.BLACK,lineSymbol);
+    public DrawTool(IGisBaseView baseView) {
+        this.baseView = baseView;
+        baseView.getMapView().setOnTouchListener(new MapTouchListener(baseView.getContext(), baseView.getMapView()));
+        this.markerSymbol = new SimpleMarkerSymbol(Color.BLACK, 16, SimpleMarkerSymbol.STYLE.CIRCLE);
+        this.lineSymbol = new SimpleLineSymbol(Color.BLACK, 4, SimpleLineSymbol.STYLE.DASH);
+        this.fillSymbol = new SimpleFillSymbol(Color.BLACK);
+        this.fillSymbol.setAlpha(90);
     }
 
-    public void activate(int drawType) {
+    public void activate(SketchCreationMode drawType) {
         this.deactivate();
         this.drawType = drawType;
         this.active = true;
         switch (this.drawType) {
-            case DrawTool.POINT:
-                pointBuilder = new PointBuilder(MySpatialReference.getMapSpatialReference());
-                drawGraphic = new Graphic(this.pointBuilder.toGeometry(), this.markerSymbol);
+            case POINT:
+                pointBuilder = new Point();
+                drawGraphic = new Graphic(this.pointBuilder, this.markerSymbol);
                 break;
-            case DrawTool.ENVELOPE:
-                this.envelopeBuilder = new EnvelopeBuilder(MySpatialReference.getMapSpatialReference());
-                drawGraphic = new Graphic(this.envelopeBuilder.toGeometry(), this.fillSymbol);
+            case ENVELOPE:
+                this.envelopeBuilder = new Envelope();
+                drawGraphic = new Graphic(this.envelopeBuilder, this.fillSymbol);
                 break;
-            case DrawTool.POLYGON:
-            case DrawTool.CIRCLE:
-            case DrawTool.FREEHAND_POLYGON:
-                this.pointCollection = new PointCollection(MySpatialReference.getMapSpatialReference());
-                polygon = new Polygon(pointCollection);
+            case POLYGON:
+            case CIRCLE:
+            case FREEHAND_POLYGON:
+                this.polygon = new Polygon();
                 drawGraphic = new Graphic(this.polygon, this.fillSymbol);
                 break;
-            case DrawTool.POLYLINE:
-            case DrawTool.FREEHAND_POLYLINE:
-                this.pointCollection = new PointCollection(MySpatialReference.getMapSpatialReference());
-                polyline = new Polyline(pointCollection);
+            case POLYLINE:
+            case FREEHAND_LINE:
+                this.polyline = new Polyline();
                 drawGraphic = new Graphic(this.polyline, this.lineSymbol);
                 break;
         }
-        this.tempLayer.getGraphics().add(graphicID,drawGraphic);
+        graphicID = baseView.getGraphicsLayer().addGraphic(drawGraphic);
     }
 
     public void deactivate() {
         this.active = false;
-        this.drawType = -1;
+        this.drawType = SketchCreationMode.EMPERTY;
         this.pointBuilder = null;
         this.envelopeBuilder = null;
         this.polygon = null;
@@ -130,20 +116,19 @@ public class DrawTool extends Subject implements IDrawTool{
     }
 
     private void sendDrawEndEvent() {
-        DrawEvent e = new DrawEvent(this, DrawEvent.DRAW_END,DrawTool.this.drawGraphic);
+        DrawEvent e = new DrawEvent(this, DrawEvent.DRAW_END, DrawTool.this.drawGraphic);
         DrawTool.this.notifyEvent(e);
-        int type = this.drawType;
+        SketchCreationMode type = this.drawType;
         this.deactivate();
         this.activate(type);
     }
 
-    private Polygon getCircle(Point center, double radius) {
+    private void getCircle(Point center, double radius, Polygon circle) {
+        circle.setEmpty();
         Point[] points = getPoints(center, radius);
-        PointCollection collection = new PointCollection(SpatialReference.create(2343));
-        collection.add(points[0]);
-        for (int i = 0; i < points.length; i++)
-            collection.add(i,points[i]);
-        return new Polygon(collection);
+        circle.startPath(points[0]);
+        for (int i = 1; i < points.length; i++)
+            circle.lineTo(points[i]);
     }
 
     private Point[] getPoints(Point center, double radius) {
@@ -167,7 +152,7 @@ public class DrawTool extends Subject implements IDrawTool{
         return drawGraphic;
     }
 
-    private class MapTouchListener extends DefaultMapViewOnTouchListener {
+    private class MapTouchListener extends MapOnTouchListener {
 
         private MapTouchListener(Context context, MapView mapView) {
             super(context, mapView);
@@ -177,25 +162,30 @@ public class DrawTool extends Subject implements IDrawTool{
         public boolean onTouch(View view, MotionEvent event) {
             Point point = screenTomap(event);
             boolean isEmpty = point.isEmpty();
-            if (point == null || isEmpty ) {
+            if (isEmpty) {
                 return false;
             }
 
-            if(active && (drawType == POINT || drawType == ENVELOPE
-                    || drawType == CIRCLE
-                    || drawType == FREEHAND_POLYLINE || drawType == FREEHAND_POLYGON)
-                    && event.getAction() == MotionEvent.ACTION_DOWN){
+            if (active && (drawType == SketchCreationMode.POINT || drawType == SketchCreationMode.ENVELOPE
+                    || drawType == SketchCreationMode.CIRCLE
+                    || drawType == SketchCreationMode.FREEHAND_LINE || drawType == SketchCreationMode.FREEHAND_POLYGON)
+                    && event.getAction() == MotionEvent.ACTION_DOWN) {
                 switch (drawType) {
                     case POINT:
                         pointBuilder.setXY(point.getX(), point.getY());
                         break;
                     case ENVELOPE:
-                        envelopeBuilder.setXY(point.getX(), point.getY(),point.getX(), point.getY());
+                        envelopeBuilder.setCoords(point.getX(), point.getY(),
+                                point.getX(), point.getY());
                         break;
                     case CIRCLE:
+                        startPoint = point;
+                        break;
                     case FREEHAND_POLYGON:
-                    case FREEHAND_POLYLINE:
-                        pointCollection.add(point);
+                        polygon.startPath(point);
+                        break;
+                    case FREEHAND_LINE:
+                        polyline.startPath(point);
                         break;
                 }
                 return true;
@@ -205,21 +195,21 @@ public class DrawTool extends Subject implements IDrawTool{
         }
 
         @Override
-        public boolean onSingleTapConfirmed(MotionEvent e) {
+        public boolean onSingleTap(MotionEvent e) {
             Point point = screenTomap(e);
-            Graphic graphic = new Graphic(point,new SimpleMarkerSymbol(SimpleMarkerSymbol.Style.CIRCLE, Color.RED,20));
-            GraphicsOverlay graphicsOverlay = new GraphicsOverlay(GraphicsOverlay.RenderingMode.STATIC);
-            mapView.getGraphicsOverlays().add(graphicsOverlay);
-            graphicsOverlay.getGraphics().add(graphic);
+            Graphic graphic = new Graphic(point, new SimpleMarkerSymbol(Color.RED, 20, SimpleMarkerSymbol.STYLE.CIRCLE));
+            GraphicsLayer graphicsOverlay = new GraphicsLayer(GraphicsLayer.RenderingMode.STATIC);
+            baseView.getMapView().addLayer(graphicsOverlay);
+            graphicsOverlay.addGraphic(graphic);
 
-            return super.onSingleTapUp(e);
+            return super.onSingleTap(e);
         }
 
         @Override
         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
             if (active
-                    && (drawType == ENVELOPE || drawType == FREEHAND_POLYGON
-                    || drawType == FREEHAND_POLYLINE || drawType == CIRCLE)) {
+                    && (drawType == SketchCreationMode.ENVELOPE || drawType == SketchCreationMode.FREEHAND_POLYGON
+                    || drawType == SketchCreationMode.FREEHAND_LINE || drawType == SketchCreationMode.CIRCLE)) {
                 switch (drawType) {
 
                 }
@@ -230,15 +220,12 @@ public class DrawTool extends Subject implements IDrawTool{
 
     }
 
-    /**屏幕点转地图点*/
-    private Point screenTomap(MotionEvent event){
-        int x = Math.round(event.getX());
-        int y = Math.round(event.getY());
-        android.graphics.Point screenpoint = new android.graphics.Point(x,y);
-        Point point = mapView.screenToLocation(screenpoint);
-        return point;
+    /**
+     * 屏幕点转地图点
+     */
+    private Point screenTomap(MotionEvent event) {
+        return baseView.getMapView().toMapPoint(event.getX(), event.getY());
     }
-
 
 
 }

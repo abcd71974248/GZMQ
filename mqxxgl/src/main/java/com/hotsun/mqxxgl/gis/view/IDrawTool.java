@@ -1,6 +1,6 @@
 package com.hotsun.mqxxgl.gis.view;
 
-import com.esri.arcgisruntime.mapping.view.Graphic;
+import com.esri.core.map.Graphic;
 
 /**
  * Created by li on 2017/10/30.

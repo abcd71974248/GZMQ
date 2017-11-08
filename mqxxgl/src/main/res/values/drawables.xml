@@ -10,7 +10,7 @@
     <item name="list_background" type="drawable">#fff4f4f4</item>
     <item name="namcard_picker_bkg_normal" type="drawable">#ff272727</item>
     <item name="namcard_picker_bkg_hover" type="drawable">#ff333333</item>
-    
+
     <item name="clr_normal" type="drawable">#ffff6501</item>
     <item name="clr_pressed" type="drawable">#ffa44100</item>
     
