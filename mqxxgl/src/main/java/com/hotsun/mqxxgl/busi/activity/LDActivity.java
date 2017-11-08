@@ -83,6 +83,14 @@ public class LDActivity extends AppCompatActivity  {
                 getLdList();
             }
         });
+
+        TextView addldButton = (TextView) findViewById(R.id.ldlist_add);
+        addldButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addLd();
+            }
+        });
     }
 
     @Override
@@ -93,11 +101,14 @@ public class LDActivity extends AppCompatActivity  {
            if (requestCode == REQUESTCODE) {
                     String mCurrentDistrictName = data.getStringExtra("mCurrentDistrictName");
                     String mCurrentZipCode = data.getStringExtra("mCurrentZipCode");
+                    String mCurrentCityName = data.getStringExtra("mCurrentCityName");
                    //设置结果显示框的显示数值
                    Button qycxButton = (Button) findViewById(R.id.qycxbutton);
                    qycxButton.setText(mCurrentDistrictName);
                    TextView txtldqycxx_zcode=(TextView) findViewById(R.id.ldqycxx_zcode);
                    txtldqycxx_zcode.setText(mCurrentZipCode);
+                   TextView ldqycxCunmc=(TextView) findViewById(R.id.ldqycx_cunmc);
+                   ldqycxCunmc.setText(mCurrentCityName);
                 }
         }
 
@@ -162,4 +173,18 @@ public class LDActivity extends AppCompatActivity  {
 
     }
 
+    private void addLd(){
+        TextView qycxCunmc = (TextView) findViewById(R.id.ldqycx_cunmc);
+        Button qycxZumc = (Button) findViewById(R.id.qycxbutton);
+        TextView qycxZuid = (TextView) findViewById(R.id.ldqycxx_zcode);
+        String cunmc = String.valueOf(qycxCunmc.getText());
+        String zumc = String.valueOf(qycxZumc.getText());
+        String zuid = String.valueOf(qycxZuid.getText());
+
+        Intent intent = new Intent(LDActivity.this,AddLdActivity.class);
+        intent.putExtra("cunmc",cunmc);
+        intent.putExtra("zumc",zumc);
+        intent.putExtra("zuid",zuid);
+        startActivity(intent);
+    }
 }

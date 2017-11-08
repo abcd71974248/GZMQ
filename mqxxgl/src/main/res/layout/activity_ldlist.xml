@@ -27,6 +27,12 @@
         android:layout_height="match_parent"
         android:visibility="gone"
         android:textSize="20dp" />
+    <TextView
+        android:id="@+id/ldqycx_cunmc"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:textSize="20dp" />
 
     <include
         layout="@layout/ldtool"/>

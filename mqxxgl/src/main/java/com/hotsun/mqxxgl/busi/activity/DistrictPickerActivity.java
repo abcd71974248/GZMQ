@@ -279,6 +279,7 @@ public class DistrictPickerActivity extends BaseActivity implements View.OnClick
 
         Intent intent = new Intent();
         // 获取用户计算后的结果
+        intent.putExtra("mCurrentCityName",mCurrentCityName);//村名称
        intent.putExtra("mCurrentDistrictName", mCurrentDistrictName); //将计算的值回传回去
        intent.putExtra("mCurrentZipCode", mCurrentZipCode); //将计算的值回传回去
        //通过intent对象返回结果，必须要调用一个setResult方法，
