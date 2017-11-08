@@ -95,4 +95,5 @@
     <string name="edit">&#xf044;</string>
     <string name="icon_caret_right">&#xf0da;</string>
     <string name="icon_caret_desc">&#xf0dd;</string>
+    <string name="icon_map_marker">&#xf041;</string>
 </resources>

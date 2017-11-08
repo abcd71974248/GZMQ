@@ -3,7 +3,7 @@
     android:id="@+id/layout_titlebar"
     android:layout_width="match_parent"
     android:layout_height="52dp"
-    android:background="#333237" >
+    android:background="@drawable/ldviewtool_boder" >
 
     <TextView
         android:id="@+id/text_title"

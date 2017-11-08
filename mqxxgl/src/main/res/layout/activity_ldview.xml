@@ -7,20 +7,203 @@
     <include layout="@layout/include_header" />
 
     <TextView
-        android:id="@+id/ldq"
+        android:id="@+id/busi_ldxx_ldid"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:textSize="20dp"
         android:visibility="gone" />
 
-    <include layout="@layout/ldtool" />
+    <include layout="@layout/activity_ldviewtool" />
 
-    <ListView
+    <RelativeLayout
+        android:id="@+id/rel_userlogin"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#FFFFFF"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:paddingTop="5dp" />
+        android:layout_height="match_parent"
+        android:background="@drawable/selector_body"
+        android:padding="20dp"
+        android:layout_alignParentBottom="true">
+
+        <TextView
+            android:id="@+id/addld_cunmc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="    村名称:"
+            android:textColor="@color/text_color"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/addld_cunmctext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:paddingTop="10dp"
+            android:text="香山村四季康城社交恐惧锁库存"
+            android:textSize="14sp"
+            android:layout_toRightOf="@+id/addld_cunmc"/>
+
+        <TextView
+            android:id="@+id/addld_zumc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/addld_cunmc"
+            android:layout_marginTop="20dp"
+            android:text="    组名称:"
+            android:textColor="@color/text_color"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/addld_zumctext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/addld_cunmctext"
+            android:inputType="text"
+            android:text="得唔得"
+            android:layout_marginTop="20dp"
+            android:textSize="14sp"
+            android:layout_toRightOf="@+id/addld_zumc"/>
+
+        <TextView
+            android:id="@+id/addld_ldmc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/addld_zumc"
+            android:layout_marginTop="20dp"
+            android:text="楼栋名称:"
+            android:textColor="@color/text_color"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/addld_ldmctext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/addld_zumctext"
+            android:inputType="text"
+            android:layout_marginTop="20dp"
+            android:text="打的"
+            android:textSize="14sp"
+            android:layout_toRightOf="@+id/addld_ldmc"/>
+
+        <TextView
+            android:id="@+id/addld_lddz"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/addld_ldmc"
+            android:layout_marginTop="20dp"
+            android:text="楼栋地址:"
+            android:textColor="@color/text_color"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/addld_lddztext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/addld_ldmctext"
+            android:inputType="text"
+            android:layout_marginTop="20dp"
+            android:textSize="14sp"
+            android:layout_toRightOf="@+id/addld_lddz"/>
+
+        <TextView
+            android:id="@+id/addld_dys"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/addld_lddz"
+            android:layout_marginTop="20dp"
+            android:text="    单元数:"
+            android:textColor="@color/text_color"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/addld_dystext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/addld_lddztext"
+            android:inputType="text"
+            android:layout_marginTop="20dp"
+            android:textSize="14sp"
+            android:layout_toRightOf="@+id/addld_dys"/>
+
+        <TextView
+            android:id="@+id/addld_lcs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/addld_dys"
+            android:layout_marginTop="20dp"
+            android:text="    楼层数:"
+            android:textColor="@color/text_color"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/addld_lcstext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/addld_dystext"
+            android:inputType="text"
+            android:layout_marginTop="20dp"
+            android:textSize="14sp"
+            android:layout_toRightOf="@+id/addld_lcs"/>
+
+        <TextView
+            android:id="@+id/addld_fwjg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/addld_lcs"
+            android:layout_marginTop="20dp"
+            android:text="房屋结构"
+            android:textColor="@color/text_color"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/addld_fwjgtext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/addld_lcstext"
+            android:inputType="text"
+            android:layout_marginTop="20dp"
+            android:textSize="14sp"
+            android:layout_toRightOf="@+id/addld_fwjg"/>
+
+        <TextView
+            android:id="@+id/addld_xjrq"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/addld_fwjg"
+            android:layout_marginTop="20dp"
+            android:text="修建日期:"
+            android:textColor="@color/text_color"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/addld_xjrqtext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/addld_fwjgtext"
+            android:inputType="text"
+            android:layout_marginTop="20dp"
+            android:textSize="14sp"
+            android:layout_toRightOf="@+id/addld_xjrq"/>
+
+        <TextView
+            android:id="@+id/addld_bz"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/addld_xjrq"
+            android:layout_marginTop="20dp"
+            android:text="        备注"
+            android:textColor="@color/text_color"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/addld_bztext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/addld_xjrqtext"
+            android:inputType="text"
+            android:layout_marginTop="20dp"
+            android:textSize="14sp"
+            android:layout_toRightOf="@+id/addld_bz"/>
+
+        </RelativeLayout>
 
 </LinearLayout>

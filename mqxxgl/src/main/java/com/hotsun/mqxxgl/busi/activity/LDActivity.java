@@ -8,7 +8,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.menu.SubMenuBuilder;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -52,6 +54,9 @@ public class LDActivity extends AppCompatActivity  {
     private int requestCode = 1;
     private final static int REQUESTCODE = 1; // 返回的结果码
 
+    final int[] ldListxx = new int[] { R.id.ldga_item_ldid, R.id.ldxx_zumc, R.id.ldxx_ldname };
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +89,7 @@ public class LDActivity extends AppCompatActivity  {
             }
         });
 
-        TextView addldButton = (TextView) findViewById(R.id.ldlist_add);
+        LinearLayout addldButton = (LinearLayout) findViewById(R.id.busi_add_ldxx);
         addldButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -159,6 +164,28 @@ public class LDActivity extends AppCompatActivity  {
                 myLdListAdapter = new MyLdListAdapter(mContext,results);
                 ldListview.setAdapter(myLdListAdapter);
 
+                ldListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                      TextView txtldga=(TextView)ldListview.getChildAt(position).findViewById(R.id.activity_cunmc);
+//                      Object asas=  parent.getAdapter().getItem(position);
+//                        UIHelper.ToastMessage(mContext,"dsadad");
+
+                           Intent intent = new Intent();
+                        intent.putExtra("ldid",txtldga.getText());
+
+                           intent.setClass(LDActivity.this, LdViewActivity.class);
+
+                           startActivity(intent);
+
+
+
+
+
+                    }
+
+                });
 
 
             }
