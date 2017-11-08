@@ -45,48 +45,14 @@ public class UserLoginActivity extends AppCompatActivity  implements  View.OnCli
         setContentView(R.layout.activity_userlogin);
 
         mContext = UserLoginActivity.this;
-        edtUserbh = (EditText) this.findViewById(R.id.edtTxt_userlogin_userbh);
-        edtPassword = (EditText) this
-                .findViewById(R.id.edtTxt_userlogin_usermm);
+        edtUserbh = (EditText) findViewById(R.id.edtTxt_userlogin_userbh);
+        edtPassword = (EditText) findViewById(R.id.edtTxt_userlogin_usermm);
 
         TextView txtTab = (TextView) findViewById(R.id.left_bar);
         txtTab.setVisibility(View.INVISIBLE);
 
         Button btnSubmit = (Button) findViewById(R.id.btn_userlogin_submit);
         btnSubmit.setOnClickListener(this);
-
-
-    }
-
-
-    private void getUserinfo() {
-        Gson gson = new Gson();
-        String page = "12";
-        String start = "1";
-        String limit = "12";
-        String conditionText = "";
-
-        Log.d("mess", "进来了");
-        ConditionText condition = new ConditionText();
-        condition.setPage(page);
-        condition.setHzxm("");
-        condition.setMph("");
-        condition.setSessionID("864906032912696,864906032989942|20171027172938819");
-        condition.setUserID("35");
-        condition.setZuid("520300000000017202");
-
-        String route = gson.toJson(condition);
-
-        Map<String, Object> res = new HashMap<String, Object>();
-        res.put("userID", 35);
-        res.put("sessionID", "864906032912696,864906032989942|20171027172938819");
-        res.put("zuid", "520300000000017202");
-        res.put("page", 1);
-        res.put("hzxm", "");
-        res.put("mph", "");
-
-//        Observable<String> observer = BusiRetrofitHelper.getInstance(LDActivity.this).getServer().GetUserInfo(condition.getUserID(),condition.getSessionID(), condition.getZuid(),
-//                condition.getPage(),condition.getHzxm(),condition.getMph());
 
 
     }

@@ -44,14 +44,13 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mContext = MainActivity.this;
 
         getHomemodule();
 
-
+        initView();
     }
 
     private void initView() {
@@ -60,8 +59,6 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-
                 if (position == 0) {
 
                     Intent intent = new Intent();
@@ -80,8 +77,7 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
                     intent.putExtra("sysname",img_text[position]);
                     intent.putExtra("moduleids",moduleids);
 
-                    intent.setClass(MainActivity.this,
-                            ModulepageActivity.class);
+                    intent.setClass(MainActivity.this,ModulepageActivity.class);
                     startActivity(intent);
                 }
                else if (position == 1) {
@@ -312,17 +308,7 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
                     return;
                 }
 
-//                List<Map<String, Object>> results=responseResults.getResults();
-//                String[] imgs={};
-//                for(int i=0;i<results.size();i++)
-//                {
-//
-//                    imgs[i]=results.get(i).get("icocss").toString();
-//                }
-
-
                 initView();
-
 
             }
 

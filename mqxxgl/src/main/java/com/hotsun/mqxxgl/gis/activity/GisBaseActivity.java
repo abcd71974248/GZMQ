@@ -16,9 +16,14 @@ import com.esri.android.map.MapView;
 import com.esri.core.geometry.Point;
 import com.hotsun.mqxxgl.R;
 import com.hotsun.mqxxgl.gis.drawTool.DrawTool;
+import com.hotsun.mqxxgl.gis.drawTool.SketchCreationMode;
+import com.hotsun.mqxxgl.gis.model.ActionMode;
+import com.hotsun.mqxxgl.gis.model.LayerTemplate;
+import com.hotsun.mqxxgl.gis.model.MyFeatureLayer;
 import com.hotsun.mqxxgl.gis.presenter.BasePresenter;
 import com.hotsun.mqxxgl.gis.presenter.LayerPresenter;
 import com.hotsun.mqxxgl.gis.presenter.LocationPresenter;
+import com.hotsun.mqxxgl.gis.util.ToastUtil;
 import com.hotsun.mqxxgl.gis.util.ViewUtil;
 import com.hotsun.mqxxgl.gis.view.IGisBaseView;
 import com.hotsun.mqxxgl.permissions.PermissionsActivity;
@@ -33,6 +38,9 @@ public class GisBaseActivity extends AppCompatActivity implements IGisBaseView, 
     private LocationPresenter locationPresenter;
     private LayerPresenter layerPresenter;
     private GraphicsLayer graphicsLayer;
+    /*编辑图层数据*/
+    private MyFeatureLayer myFeatureLayers;
+    private LayerTemplate layerTemplate;
     /*动态检测权限*/
     private static final int REQUEST_CODE = 0; // 权限请求码
     // 所需的定位权限
@@ -133,11 +141,15 @@ public class GisBaseActivity extends AppCompatActivity implements IGisBaseView, 
     }
     /**添加图斑*/
     public void addFeature(View view){
+        if(layerPresenter.myFeatureLayers.size() == 0){
+            ToastUtil.setToast(mContext,"请先加载矢量数据");
+            return;
+        }
+        myFeatureLayers = layerPresenter.myFeatureLayers.get(0);
+        layerTemplate = layerPresenter.getEditSymbo(myFeatureLayers.getLayer());
+        SketchCreationMode drawType = SketchCreationMode.FREEHAND_LINE;
+        drawTool.activate(drawType, ActionMode.MODE_EDIT_ADD);
 
-        FeatureLayer layer = layerPresenter.myFeatureLayers.get(0).getLayer();
-        layerPresenter.getEditSymbo(layer);
-        int drawType = DrawTool.FREEHAND_POLYLINE;
-        drawTool.activate(drawType);
     }
 
     @Override
@@ -154,8 +166,6 @@ public class GisBaseActivity extends AppCompatActivity implements IGisBaseView, 
                 break;
         }
     }
-
-
 
     @Override
     protected void onResume() {
@@ -206,5 +216,15 @@ public class GisBaseActivity extends AppCompatActivity implements IGisBaseView, 
     @Override
     public GraphicsLayer getGraphicsLayer() {
         return graphicsLayer;
+    }
+
+    @Override
+    public MyFeatureLayer getMyFeatureLayer() {
+        return myFeatureLayers;
+    }
+
+    @Override
+    public LayerTemplate getTemplate() {
+        return layerTemplate;
     }
 }

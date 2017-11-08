@@ -9,6 +9,7 @@ import com.esri.android.map.GraphicsLayer;
 import com.esri.android.map.MapOnTouchListener;
 import com.esri.android.map.MapView;
 import com.esri.core.geometry.Envelope;
+import com.esri.core.geometry.Geometry;
 import com.esri.core.geometry.Point;
 import com.esri.core.geometry.Polygon;
 import com.esri.core.geometry.Polyline;
@@ -19,6 +20,8 @@ import com.esri.core.symbol.MarkerSymbol;
 import com.esri.core.symbol.SimpleFillSymbol;
 import com.esri.core.symbol.SimpleLineSymbol;
 import com.esri.core.symbol.SimpleMarkerSymbol;
+import com.hotsun.mqxxgl.gis.model.ActionMode;
+import com.hotsun.mqxxgl.gis.util.ArcgisUtils;
 import com.hotsun.mqxxgl.gis.view.IDrawTool;
 import com.hotsun.mqxxgl.gis.view.IGisBaseView;
 
@@ -40,22 +43,32 @@ public class DrawTool extends Subject implements IDrawTool {
     private int graphicID;
     private Point startPoint;
 
+    public IGisBaseView getBaseView() {
+        return baseView;
+    }
+
+    public void setBaseView(IGisBaseView baseView) {
+        this.baseView = baseView;
+    }
+
     private IGisBaseView baseView;
     private DrawToolImpl drawToolImpl = new DrawToolImpl(this);
     private SketchStyle sketchStyle = new SketchStyle();
+    private ActionMode actionMode;
 
     public DrawTool(IGisBaseView baseView) {
         this.baseView = baseView;
         baseView.getMapView().setOnTouchListener(new MapTouchListener(baseView.getContext(), baseView.getMapView()));
-        this.markerSymbol = new SimpleMarkerSymbol(Color.BLACK, 16, SimpleMarkerSymbol.STYLE.CIRCLE);
-        this.lineSymbol = new SimpleLineSymbol(Color.BLACK, 4, SimpleLineSymbol.STYLE.DASH);
-        this.fillSymbol = new SimpleFillSymbol(Color.BLACK);
+        this.markerSymbol = new SimpleMarkerSymbol(Color.RED, 16, SimpleMarkerSymbol.STYLE.CIRCLE);
+        this.lineSymbol = new SimpleLineSymbol(Color.RED, 4, SimpleLineSymbol.STYLE.SOLID);
+        this.fillSymbol = new SimpleFillSymbol(Color.RED);
         this.fillSymbol.setAlpha(90);
     }
 
-    public void activate(SketchCreationMode drawType) {
+    public void activate(SketchCreationMode drawType, ActionMode mode) {
         this.deactivate();
         this.drawType = drawType;
+        this.actionMode = mode;
         this.active = true;
         switch (this.drawType) {
             case POINT:
@@ -120,7 +133,7 @@ public class DrawTool extends Subject implements IDrawTool {
         DrawTool.this.notifyEvent(e);
         SketchCreationMode type = this.drawType;
         this.deactivate();
-        this.activate(type);
+        this.activate(type, actionMode);
     }
 
     private void getCircle(Point center, double radius, Polygon circle) {
@@ -161,8 +174,7 @@ public class DrawTool extends Subject implements IDrawTool {
         @Override
         public boolean onTouch(View view, MotionEvent event) {
             Point point = screenTomap(event);
-            boolean isEmpty = point.isEmpty();
-            if (isEmpty) {
+            if (point.isEmpty()) {
                 return false;
             }
 
@@ -172,11 +184,12 @@ public class DrawTool extends Subject implements IDrawTool {
                     && event.getAction() == MotionEvent.ACTION_DOWN) {
                 switch (drawType) {
                     case POINT:
-                        pointBuilder.setXY(point.getX(), point.getY());
+                        DrawTool.this.pointBuilder.setXY(point.getX(), point.getY());
+                        sendDrawEndEvent();
                         break;
                     case ENVELOPE:
-                        envelopeBuilder.setCoords(point.getX(), point.getY(),
-                                point.getX(), point.getY());
+                        startPoint = point;
+                        envelopeBuilder.setCoords(point.getX(), point.getY(), point.getX(), point.getY());
                         break;
                     case CIRCLE:
                         startPoint = point;
@@ -188,10 +201,53 @@ public class DrawTool extends Subject implements IDrawTool {
                         polyline.startPath(point);
                         break;
                 }
-                return true;
+            } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                if (drawType == SketchCreationMode.ENVELOPE || drawType == SketchCreationMode.CIRCLE || drawType == SketchCreationMode.FREEHAND_LINE)
+                {
+                    saveFeature(polyline);
+                }
+
             }
 
             return super.onTouch(view, event);
+        }
+
+        @Override
+        public boolean onDragPointerMove(MotionEvent from, MotionEvent to) {
+            if (active
+                    && (drawType == SketchCreationMode.ENVELOPE || drawType == SketchCreationMode.FREEHAND_POLYGON
+                    || drawType == SketchCreationMode.FREEHAND_LINE || drawType == SketchCreationMode.CIRCLE)) {
+                Point point = baseView.getMapView().toMapPoint(to.getX(), to.getY());
+                switch (drawType) {
+                    case ENVELOPE:
+                        envelopeBuilder.setXMin(startPoint.getX() > point.getX() ? point
+                                .getX() : startPoint.getX());
+                        envelopeBuilder.setYMin(startPoint.getY() > point.getY() ? point
+                                .getY() : startPoint.getY());
+                        envelopeBuilder.setXMax(startPoint.getX() < point.getX() ? point
+                                .getX() : startPoint.getX());
+                        envelopeBuilder.setYMax(startPoint.getY() < point.getY() ? point
+                                .getY() : startPoint.getY());
+                        baseView.getGraphicsLayer().updateGraphic(graphicID, envelopeBuilder.copy());
+                        break;
+                    case FREEHAND_POLYGON:
+                        polygon.lineTo(point);
+                        baseView.getGraphicsLayer().updateGraphic(graphicID, polygon);
+                        break;
+                    case FREEHAND_LINE:
+                        polyline.lineTo(point);
+                        baseView.getGraphicsLayer().updateGraphic(graphicID, polyline);
+                        break;
+                    case CIRCLE:
+                        double radius = Math.sqrt(Math.pow(startPoint.getX() - point.getX(), 2)
+                                + Math.pow(startPoint.getY() - point.getY(), 2));
+                        getCircle(startPoint, radius, polygon);
+                        baseView.getGraphicsLayer().updateGraphic(graphicID, polygon);
+                        break;
+                }
+                return false;
+            }
+            return super.onDragPointerMove(from, to);
         }
 
         @Override
@@ -227,5 +283,36 @@ public class DrawTool extends Subject implements IDrawTool {
         return baseView.getMapView().toMapPoint(event.getX(), event.getY());
     }
 
+
+    /**
+     * 小班保存
+     */
+    public void saveFeature(Geometry geometry) {
+        if (actionMode == ActionMode.MODE_EDIT_ADD) {
+            switch (drawType) {
+                case POINT:
+                    drawToolImpl.addFeaturePoint(pointBuilder);
+                    break;
+                case FREEHAND_LINE:
+                    if(baseView.getMyFeatureLayer().getLayer().getGeometryType().equals(Geometry.Type.POLYGON)){
+                        Polygon polygon_al = ArcgisUtils.LineToPolygon(baseView.getContext(), polyline, baseView.getMapView());
+                        drawToolImpl.addFeaturePolygon(polygon_al);
+                    }else{
+                        drawToolImpl.addFeatureLine(polyline);
+                    }
+                    break;
+                case FREEHAND_POLYGON:
+                    drawToolImpl.addFeaturePolygon(polygon);
+                    break;
+            }
+        } else if (actionMode == ActionMode.MODE_QIEGE) {
+            //saveQgFeature(polyline_all, selectGeometry);
+        } else if (actionMode == ActionMode.MODE_XIUBAN) {
+            //saveXbFeature(polyline_all);
+        } else if (actionMode == ActionMode.MODE_EDIT_ADD_GB) {
+            // addFeatureGbMian();
+        }
+
+    }
 
 }

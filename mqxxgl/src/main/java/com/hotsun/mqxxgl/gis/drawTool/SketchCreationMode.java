@@ -21,6 +21,4 @@ public enum SketchCreationMode {
     private SketchCreationMode() {
     }
 
-
-    
 }

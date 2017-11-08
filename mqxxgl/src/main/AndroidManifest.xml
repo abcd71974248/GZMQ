@@ -31,15 +31,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".gis.activity.GisBaseActivity">
-        <activity android:name=".busi.activity.DistrictPickerActivity" />
-
-
-
-        <activity android:name=".permissions.PermissionsActivity" />
-        <activity android:name=".gis.activity.PointEditeActivity"/>
-        <activity android:name=".busi.activity.MainActivity"/>
-        <activity android:name=".busi.activity.LDActivity"/>
         <activity android:name=".busi.activity.UserLoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -47,14 +38,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".busi.activity.UserLoginActivity"/>
+
         <activity android:name=".busi.activity.DistrictPickerActivity" />
         <activity android:name=".permissions.PermissionsActivity" />
         <activity android:name=".gis.activity.PointEditeActivity"/>
         <activity android:name=".busi.activity.MainActivity"/>
+        <activity android:name=".busi.activity.LDActivity"/>
+        <activity android:name=".gis.activity.GisBaseActivity"/>
         <activity android:name=".busi.activity.ModulepageActivity"/>
         <activity android:name=".gis.activity.PolygonEditeActivity"/>
-        <activity android:name=".busi.activity.LDActivity"/>
 
         <!--百度地图-->
         <meta-data
