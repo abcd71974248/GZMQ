@@ -52,17 +52,22 @@ public class GetLdxxVO {
 
 
 
-    public LdConditionText getConditionText() {
-        return conditionText;
+   String zuid;
+    String ldmc;
+
+    public String getZuid() {
+        return zuid;
     }
 
-    public void setConditionText(LdConditionText conditionText) {
-        this.conditionText = conditionText;
+    public void setZuid(String zuid) {
+        this.zuid = zuid;
     }
 
-    LdConditionText conditionText;
+    public String getLdmc() {
+        return ldmc;
+    }
 
-
-
-
+    public void setLdmc(String ldmc) {
+        this.ldmc = ldmc;
+    }
 }

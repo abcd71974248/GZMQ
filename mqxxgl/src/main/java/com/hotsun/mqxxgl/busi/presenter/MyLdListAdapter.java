@@ -64,8 +64,9 @@ public  class MyLdListAdapter extends BaseAdapter implements View.OnClickListene
 		} else {
 			vh = (MyViewHolder) convertView.getTag();
 		}
-		vh.tv_cunmc.setText(results.get(position).get("cunmc"));
+		vh.tv_cunmc.setText(results.get(position).get("ldid"));
 		vh.tv_ldmc.setText(results.get(position).get("ldmc"));
+		vh.tv_zumc.setText(results.get(position).get("zumc"));
 		//刷新adapter的时候，getview重新执行，此时对在点击中标记的position做处理
 		if (clickPosition == position) {//当条目为刚才点击的条目时
 			if (vh.selectorImg.isSelected()) {//当条目状态图标为选中时，说明该条目处于展开状态，此时让它隐藏，并切换状态图标的状态。
@@ -139,6 +140,7 @@ public  class MyLdListAdapter extends BaseAdapter implements View.OnClickListene
 		View itemView;
 		TextView tv_cunmc;
 		TextView tv_ldmc;
+		TextView tv_zumc;
 		TextView hide_1, hide_2, hide_3, hide_4, hide_5;
 		TextView selectorImg;
 		LinearLayout ll_hide;
@@ -147,6 +149,7 @@ public  class MyLdListAdapter extends BaseAdapter implements View.OnClickListene
 
 			this.itemView = itemView;
 			tv_cunmc =(TextView) itemView.findViewById(R.id.activity_cunmc);
+			tv_zumc =(TextView) itemView.findViewById(R.id.ldxx_zumc);
 			tv_ldmc=(TextView) itemView.findViewById(R.id.ldxx_ldname);
 			selectorImg = BaseViewHolder.get(itemView, R.id.btn_ldxx_desc);
 			hide_1 = (TextView) itemView.findViewById(R.id.hide_1);

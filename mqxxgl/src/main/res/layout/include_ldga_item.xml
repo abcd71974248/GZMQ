@@ -24,7 +24,7 @@
         <TextView
             android:layout_width="60dp"
             android:layout_height="wrap_content"
-            android:text="村名称："
+            android:text="楼栋ID："
             android:textColor="@color/black"
             android:textSize="13sp" />
         <TextView
@@ -50,6 +50,7 @@
             android:textSize="13sp" />
         <TextView
             android:layout_width="60dp"
+            android:id="@+id/ldxx_zumc"
             android:text="第一小区"
             android:layout_height="wrap_content"
             android:layout_weight="1"

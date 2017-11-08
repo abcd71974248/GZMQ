@@ -113,18 +113,20 @@ public class LDActivity extends AppCompatActivity  {
         GetLdxxVO getLdxxVO = new GetLdxxVO();
         getLdxxVO.setLimit(10);
         getLdxxVO.setStart(0);
-//        getLdxxVO.setPage(10);
+
         getLdxxVO.setUserID(userID);
         getLdxxVO.setSessionID(sessionID);
         TextView txt_zuid=(TextView)findViewById(R.id.ldqycxx_zcode);
+        UIHelper.ToastMessage(mContext,txt_zuid.getText().toString());
         String zuid= String.valueOf(txt_zuid.getText());
-        LdConditionText ldConditionText =new LdConditionText();
+//        LdConditionText ldConditionText =new LdConditionText();
 //        ldConditionText.setCunid(MyApplication.tSysUsers.getCunID());
-        ldConditionText.setZuid(zuid);
-        ldConditionText.setLdmc("");
-        ldConditionText.setUserID(userID);
-        getLdxxVO.setConditionText(ldConditionText);
+        getLdxxVO.setZuid(zuid);
+//        ldConditionText.setLdmc("");
+//        ldConditionText.setUserID(userID);
 
+//        getLdxxVO.setConditionText(ldConditionText);
+        getLdxxVO.setLdmc("");
         String route = gson.toJson(getLdxxVO);
 
         GetLdxxListRetrofit getLdxxListRetrofit=new GetLdxxListRetrofit(LDActivity.this);
