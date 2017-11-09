@@ -7,21 +7,7 @@
     android:orientation="horizontal"
     android:visibility="gone">
 
-<TextView
-android:id="@+id/hide_1"
-android:layout_width="0dp"
-android:layout_height="match_parent"
-android:layout_weight="1"
-android:gravity="center"
-android:text="修改" />
 
-<TextView
-android:id="@+id/hide_2"
-android:layout_width="0dp"
-android:layout_height="match_parent"
-android:layout_weight="1"
-android:gravity="center"
-android:text="采集地图" />
 
 <TextView
 android:id="@+id/hide_3"
@@ -31,13 +17,7 @@ android:layout_weight="1"
 android:gravity="center"
 android:text="删除" />
 
-<TextView
-android:id="@+id/hide_4"
-android:layout_width="0dp"
-android:layout_height="match_parent"
-android:layout_weight="1"
-android:gravity="center"
-android:text="查看" />
+
 
 
     </LinearLayout>

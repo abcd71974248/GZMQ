@@ -10,14 +10,27 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.hotsun.mqxxgl.MyApplication;
 import com.hotsun.mqxxgl.R;
 import com.hotsun.mqxxgl.busi.activity.LDActivity;
+import com.hotsun.mqxxgl.busi.activity.LdViewActivity;
+import com.hotsun.mqxxgl.busi.model.ResponseResults;
+import com.hotsun.mqxxgl.busi.model.requestParams.GetSingleDataVO;
+import com.hotsun.mqxxgl.busi.model.sysbeans.AddResponseResults;
+import com.hotsun.mqxxgl.busi.service.ldxxgl.DeleteLdxxRetrofit;
+import com.hotsun.mqxxgl.busi.service.ldxxgl.GetLdxxViewRetrofit;
+import com.hotsun.mqxxgl.busi.util.UIHelper;
 import com.hotsun.mqxxgl.busi.view.BaseViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeoutException;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static android.R.id.list;
 
@@ -96,10 +109,7 @@ public  class MyLdListAdapter extends BaseAdapter implements View.OnClickListene
 			vh.selectorImg.setText(R.string.icon_caret_right);
 
 		}
-		vh.hide_1.setOnClickListener(this);
-		vh.hide_2.setOnClickListener(this);
 		vh.hide_3.setOnClickListener(this);
-		vh.hide_4.setOnClickListener(this);
 		vh.selectorImg.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -109,6 +119,10 @@ public  class MyLdListAdapter extends BaseAdapter implements View.OnClickListene
 				//在此处需要明确的一点是，当adapter执行刷新操作时，整个getview方法会重新执行，也就是条目重新做一次初始化被填充数据。
 				//所以标记position，不会对条目产生影响，执行刷新后 ，条目重新填充当，填充至所标记的position时，我们对他处理，达到展开和隐藏的目的。
 				//明确这一点后，每次点击代码执行逻辑就是 onclick（）---》getview（）
+
+
+
+
 			}
 		});
 		return convertView;
@@ -117,17 +131,13 @@ public  class MyLdListAdapter extends BaseAdapter implements View.OnClickListene
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-			case R.id.hide_1:
-				Toast.makeText(mContext, "加密", Toast.LENGTH_SHORT).show();
-				break;
-			case R.id.hide_2:
-				Toast.makeText(mContext, "解密", Toast.LENGTH_SHORT).show();
-				break;
+
 			case R.id.hide_3:
-				Toast.makeText(mContext, "分享", Toast.LENGTH_SHORT).show();
-				break;
-			case R.id.hide_4:
-				Toast.makeText(mContext, "删除", Toast.LENGTH_SHORT).show();
+
+				deleteLdxx(results.get(clickPosition).get("ldid"));
+
+				results.remove(clickPosition);
+				notifyDataSetChanged();
 				break;
 		}
 	}
@@ -138,7 +148,7 @@ public  class MyLdListAdapter extends BaseAdapter implements View.OnClickListene
 		TextView tv_cunmc;
 		TextView tv_ldmc;
 		TextView tv_zumc;
-		TextView hide_1, hide_2, hide_3, hide_4, hide_5;
+		TextView  hide_3;
 		TextView selectorImg;
 		LinearLayout ll_hide;
 
@@ -149,12 +159,68 @@ public  class MyLdListAdapter extends BaseAdapter implements View.OnClickListene
 			tv_zumc =(TextView) itemView.findViewById(R.id.ldxx_zumc);
 			tv_ldmc=(TextView) itemView.findViewById(R.id.ldxx_ldname);
 			selectorImg = BaseViewHolder.get(itemView, R.id.btn_ldxx_desc);
-			hide_1 = (TextView) itemView.findViewById(R.id.hide_1);
-			hide_2 = (TextView) itemView.findViewById(R.id.hide_2);
 			hide_3 = (TextView) itemView.findViewById(R.id.hide_3);
-			hide_4 = (TextView) itemView.findViewById(R.id.hide_4);
 			ll_hide = (LinearLayout) itemView.findViewById(R.id.ll_hide);
 		}
+	}
+
+
+
+
+	private void deleteLdxx(String ldid) {
+
+
+		if (MyApplication.tSysUsers==null)
+		{
+			UIHelper.ToastErrorMessage(mContext,"操作失败，请重新登录!");
+			return ;
+		}
+		String userID= MyApplication.tSysUsers.getUserID();
+		String sessionID=MyApplication.tSysUsers.getSessionID();
+
+		Gson gson = new Gson();
+		GetSingleDataVO getLdxxVO = new GetSingleDataVO();
+
+
+		getLdxxVO.setUserID(userID);
+		getLdxxVO.setSessionID(sessionID);
+		getLdxxVO.setDataid(ldid);
+
+		String route = gson.toJson(getLdxxVO);
+
+
+
+		DeleteLdxxRetrofit deleteLdxxRetrofit=new DeleteLdxxRetrofit(mContext);
+
+		Call<AddResponseResults> call = deleteLdxxRetrofit.getServer(route);
+		call.enqueue(new Callback<AddResponseResults>() {
+			@Override
+			public void onResponse(Call<AddResponseResults> call, Response<AddResponseResults> response) {
+
+				AddResponseResults responseResults=(AddResponseResults)response.body();
+				if (responseResults.getStatus().equals("false"))
+				{
+					UIHelper.ToastErrorMessage(mContext, responseResults.getMsg());
+					return;
+				}
+
+				if (responseResults.getStatus().equals("success"))
+				{
+					UIHelper.ToastErrorMessage(mContext, responseResults.getMsg());
+					return;
+				}
+
+
+			}
+
+			@Override
+			public void onFailure(Call<AddResponseResults> call, Throwable t) {
+				UIHelper.ToastErrorMessage(mContext,t.getMessage());
+				return;
+			}
+		});
+
+
 	}
 
 
