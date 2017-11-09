@@ -14,6 +14,9 @@ import com.hotsun.mqxxgl.MyApplication;
 import com.hotsun.mqxxgl.R;
 import com.hotsun.mqxxgl.busi.model.ResponseResults;
 import com.hotsun.mqxxgl.busi.model.requestParams.GetSingleDataVO;
+import com.hotsun.mqxxgl.busi.model.sysbeans.AddResponseResults;
+import com.hotsun.mqxxgl.busi.service.ldxxgl.CollectLdxxMapRetrofit;
+import com.hotsun.mqxxgl.busi.service.ldxxgl.DeleteLdxxRetrofit;
 import com.hotsun.mqxxgl.busi.service.ldxxgl.GetLdxxViewRetrofit;
 import com.hotsun.mqxxgl.busi.util.UIHelper;
 import com.hotsun.mqxxgl.gis.activity.GisBaseActivity;
@@ -159,9 +162,74 @@ public class LdViewActivity extends AppCompatActivity implements View.OnClickLis
 
         if(requestCode == 0 && resultCode == 1){
             String state = data.getStringExtra("state");
+            if(state.equals("true"))
+            {
+                collectLdxxMap(ldid);
 
-           UIHelper.ToastMessage(mContext,data.getStringExtra("state"));
+            }else if(state.equals("false"))
+            {
+                UIHelper.ToastMessage(mContext,"地图数据采集失败！");
+                return;
+            }
+
+
         }
+
+    }
+
+    private void collectLdxxMap(String ldid) {
+
+
+        if (MyApplication.tSysUsers==null)
+        {
+            UIHelper.ToastErrorMessage(mContext,"操作失败，请重新登录!");
+            return ;
+        }
+        String userID= MyApplication.tSysUsers.getUserID();
+        String sessionID=MyApplication.tSysUsers.getSessionID();
+
+        Gson gson = new Gson();
+        GetSingleDataVO getLdxxVO = new GetSingleDataVO();
+
+
+        getLdxxVO.setUserID(userID);
+        getLdxxVO.setSessionID(sessionID);
+        getLdxxVO.setDataid(ldid);
+
+        String route = gson.toJson(getLdxxVO);
+
+
+
+        CollectLdxxMapRetrofit collectLdxxMapRetrofit=new CollectLdxxMapRetrofit(mContext);
+
+        Call<AddResponseResults> call = collectLdxxMapRetrofit.getServer(route);
+        call.enqueue(new Callback<AddResponseResults>() {
+            @Override
+            public void onResponse(Call<AddResponseResults> call, Response<AddResponseResults> response) {
+
+                AddResponseResults responseResults=(AddResponseResults)response.body();
+                if (responseResults.getStatus().equals("false"))
+                {
+                    UIHelper.ToastErrorMessage(mContext, responseResults.getMsg());
+                    return;
+                }
+
+                if (responseResults.getStatus().equals("success"))
+                {
+                    UIHelper.ToastGoodMessage(mContext, responseResults.getMsg());
+                    return;
+                }
+
+
+            }
+
+            @Override
+            public void onFailure(Call<AddResponseResults> call, Throwable t) {
+                UIHelper.ToastErrorMessage(mContext,t.getMessage());
+                return;
+            }
+        });
+
 
     }
 }

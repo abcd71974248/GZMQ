@@ -22,10 +22,9 @@
             android:layout_width="0dp"
             android:layout_weight="2">
         <TextView
-            android:id="@+id/ldga_item_ldid"
             android:layout_width="60dp"
             android:layout_height="wrap_content"
-            android:text="楼栋ID："
+            android:text="村名称："
             android:textColor="@color/black"
             android:textSize="13sp" />
         <TextView

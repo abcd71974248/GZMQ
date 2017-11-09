@@ -77,7 +77,7 @@ public  class MyLdListAdapter extends BaseAdapter implements View.OnClickListene
 		} else {
 			vh = (MyViewHolder) convertView.getTag();
 		}
-		vh.tv_cunmc.setText(results.get(position).get("ldid"));
+		vh.tv_cunmc.setText(results.get(position).get("cunmc"));
 		vh.tv_ldmc.setText(results.get(position).get("ldmc"));
 		vh.tv_zumc.setText(results.get(position).get("zumc"));
 		//刷新adapter的时候，getview重新执行，此时对在点击中标记的position做处理

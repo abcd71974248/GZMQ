@@ -43,9 +43,6 @@ public class LDActivity extends AppCompatActivity  {
     private int requestCode = 1;
     private final static int REQUESTCODE = 1; // 返回的结果码
 
-    final int[] ldListxx = new int[] { R.id.ldga_item_ldid, R.id.ldxx_zumc, R.id.ldxx_ldname };
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,15 +119,11 @@ public class LDActivity extends AppCompatActivity  {
         getLdxxVO.setUserID(userID);
         getLdxxVO.setSessionID(sessionID);
         TextView txt_zuid=(TextView)findViewById(R.id.ldqycxx_zcode);
-        UIHelper.ToastMessage(mContext,txt_zuid.getText().toString());
-        String zuid= String.valueOf(txt_zuid.getText());
-//        LdConditionText ldConditionText =new LdConditionText();
-//        ldConditionText.setCunid(MyApplication.tSysUsers.getCunID());
-        getLdxxVO.setZuid(zuid);
-//        ldConditionText.setLdmc("");
-//        ldConditionText.setUserID(userID);
 
-//        getLdxxVO.setConditionText(ldConditionText);
+        String zuid= String.valueOf(txt_zuid.getText());
+
+        getLdxxVO.setZuid(zuid);
+
         getLdxxVO.setLdmc("");
         String route = gson.toJson(getLdxxVO);
 
