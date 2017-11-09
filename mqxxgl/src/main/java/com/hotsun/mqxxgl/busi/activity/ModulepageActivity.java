@@ -14,18 +14,12 @@ import com.google.gson.Gson;
 import com.hotsun.mqxxgl.MyApplication;
 import com.hotsun.mqxxgl.R;
 import com.hotsun.mqxxgl.busi.model.ResponseResults;
-import com.hotsun.mqxxgl.busi.model.requestParams.HomemoduleVO;
 import com.hotsun.mqxxgl.busi.model.requestParams.ModulePagVO;
-import com.hotsun.mqxxgl.busi.model.sysbeans.TSysAppMdls;
 import com.hotsun.mqxxgl.busi.presenter.MyGridAdapter;
-import com.hotsun.mqxxgl.busi.service.HomemoduleRetrofit;
 import com.hotsun.mqxxgl.busi.service.ModulePagRetrofit;
 import com.hotsun.mqxxgl.busi.util.UIHelper;
 import com.hotsun.mqxxgl.busi.view.MyGridView;
 
-import org.w3c.dom.Text;
-
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -77,28 +71,22 @@ public class ModulepageActivity extends AppCompatActivity implements View.OnClic
                     for(int i=0;i<results.size();i++)
                     {
                         String reponseModuleid=String.valueOf(results.get(i).get("MDLID"));
-                        String reponseLimitzt=results.get(i).get("LIMITZT").toString();
+                        String reponseLimitzt=results.get(i).get("LIMITZT");
                         if (moduleids[position].equals(reponseModuleid))
                         {
                             if(reponseLimitzt.equals("1"))
                             {
                                 Intent intent = new Intent();
 
-                                intent.setClass(ModulepageActivity.this,
-                                        LDActivity.class);
+                                intent.setClass(ModulepageActivity.this,LDActivity.class);
                                 startActivity(intent);
                             }else
                             {
                                 UIHelper.ToastErrorMessage(mContext,"你还没有该模块的权限，请联系管理员！");
                             }
-
                         }
                     }
-
                 }
-
-
-
             }
 
         });

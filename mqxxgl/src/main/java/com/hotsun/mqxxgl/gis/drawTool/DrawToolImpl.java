@@ -46,7 +46,8 @@ public class DrawToolImpl {
     /**
      * 新增点
      */
-    public void addFeaturePoint(Point point_all) {
+    public void addFeaturePoint(Geometry point) {
+        Point point_all = (Point) point;
         Geometry geom = GeometryEngine.simplify(point_all, MySpatialReference.getMapSpatialReference());
         if (!geom.isValid()) {
             ToastUtil.setToast(drawTool.getBaseView().getContext(), "未选择添加位置");

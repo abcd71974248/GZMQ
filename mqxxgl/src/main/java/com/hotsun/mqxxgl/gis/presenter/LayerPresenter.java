@@ -10,6 +10,7 @@ import com.esri.android.map.GraphicsLayer;
 import com.esri.android.map.Layer;
 import com.esri.android.map.MapView;
 import com.esri.android.map.TiledLayer;
+import com.esri.android.map.ags.ArcGISFeatureLayer;
 import com.esri.android.map.ags.ArcGISLocalTiledLayer;
 import com.esri.android.map.ags.ArcGISTiledMapServiceLayer;
 import com.esri.core.geodatabase.Geodatabase;
@@ -84,6 +85,14 @@ public class LayerPresenter {
         return tiledLayer;
     }
 
+    /**添加同步要素服务*/
+    public ArcGISFeatureLayer addFeatureLayer(){
+        String fserverUrl = mContext.getResources().getString(R.string.ld_fserver);
+        ArcGISFeatureLayer arcGISFeatureLayer = new ArcGISFeatureLayer(fserverUrl, ArcGISFeatureLayer.MODE.ONDEMAND);
+        mapView.addLayer(arcGISFeatureLayer);
+        return arcGISFeatureLayer;
+    }
+
     /**
      * 移除graphiclayer
      */
@@ -97,12 +106,7 @@ public class LayerPresenter {
     }
 
     public void clearAllGraphics(){
-        Layer[] overlays = mapView.getLayers();
-        for (Layer layer : overlays) {
-            if(layer instanceof GraphicsLayer){
-                ((GraphicsLayer) layer).removeAll();
-            }
-        }
+        graphicsOverlay.removeAll();
     }
 
     /**

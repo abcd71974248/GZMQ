@@ -106,6 +106,7 @@ public class UserLoginActivity extends AppCompatActivity  implements  View.OnCli
                 else  if (tSysUsers.getStatus().equals("failure"))
                 {
                     UIHelper.ToastErrorMessage(mContext, tSysUsers.getMsg());
+
                     return;
                 }else if(tSysUsers.getStatus().equals("success")){
                     MyApplication myApplication=new MyApplication();
@@ -114,10 +115,7 @@ public class UserLoginActivity extends AppCompatActivity  implements  View.OnCli
                     Intent intent = new Intent();
                     intent.setClass(UserLoginActivity.this, MainActivity.class);
                     startActivity(intent);
-
-
                 }
-
 
             }
 

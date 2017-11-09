@@ -6,8 +6,13 @@ import android.os.Bundle;
 
 import com.esri.core.geometry.GeometryEngine;
 import com.esri.core.geometry.Point;
+import com.hotsun.mqxxgl.busi.model.DeviceUuidFactory;
+import com.hotsun.mqxxgl.gis.util.SqliteUtil;
 import com.hotsun.mqxxgl.gis.view.IGisBaseView;
 import com.hotsun.mqxxgl.gis.view.ILocationView;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by li on 2017/11/7.
@@ -26,8 +31,17 @@ public class GisLocationListener implements android.location.LocationListener,IL
     @Override
     public void onLocationChanged(Location location) {
         try {
-            gpspoint = new Point(location.getLongitude(),location.getLatitude());
-
+            this.gpspoint = new Point(location.getLongitude(),location.getLatitude());
+            if(gpspoint != null){
+                DeviceUuidFactory deviceUuidFactory = new DeviceUuidFactory(baseView.getContext());
+                String uuid = deviceUuidFactory.getDeviceUuid().toString();
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                String time = sdf.format(new Date());
+                String lon = location.getLongitude()+"";
+                String lat = location.getLatitude()+"";
+                Gjpoint gjpoint = new Gjpoint(lon,lat,uuid,time,"0");
+                SqliteUtil.addLocalPoint(baseView.getContext(),gjpoint);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -55,7 +69,7 @@ public class GisLocationListener implements android.location.LocationListener,IL
 
     @Override
     public Point getCurPoint() {
-        if(gpspoint != null){
+        if(this.gpspoint != null){
            return (Point) GeometryEngine.project(gpspoint,MySpatialReference.getGpsSpatialReference(),MySpatialReference.getMapSpatialReference());
         }
         return new Point();

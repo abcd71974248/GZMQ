@@ -10,4 +10,5 @@ import com.esri.core.map.Graphic;
 public interface IDrawTool {
 
     Graphic getDrawGraphic();
+
 }

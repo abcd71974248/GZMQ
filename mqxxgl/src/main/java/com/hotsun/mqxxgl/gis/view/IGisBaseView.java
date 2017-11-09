@@ -5,6 +5,7 @@ import android.content.Context;
 import com.esri.android.map.GraphicsLayer;
 import com.esri.android.map.Grid;
 import com.esri.android.map.MapView;
+import com.esri.android.map.ags.ArcGISFeatureLayer;
 import com.hotsun.mqxxgl.gis.model.LayerTemplate;
 import com.hotsun.mqxxgl.gis.model.MyFeatureLayer;
 
@@ -25,5 +26,8 @@ public interface IGisBaseView extends ILocationView{
 
     LayerTemplate getTemplate();
 
+    ArcGISFeatureLayer getArcGisFeatureLayer();
+
+    String getLdid();
 
 }

@@ -23,6 +23,7 @@ public class ResourcesUtil {
     private final String ROOT_MAPS = "/maps";
     public final String otitan_map = "/otitan.map";
     public final String otms = "/otms";
+    public final String db = "/db";
 
 
     public synchronized ResourcesUtil getInstance(Context context) {
@@ -57,6 +58,12 @@ public class ResourcesUtil {
     public String getBaseTitlePath(){
         String basePath = otitan_map + "/title.tpk";
         return getFilePath(basePath);
+    }
+
+    /**获取db.sqlite文件*/
+    public File getDbSqlite(){
+        String path = getFilePath(db+"/db.sqlite");
+        return new File(path);
     }
 
     /** 取文件可用地址 */

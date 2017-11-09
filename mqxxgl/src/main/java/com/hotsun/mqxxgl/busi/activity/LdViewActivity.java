@@ -2,9 +2,11 @@ package com.hotsun.mqxxgl.busi.activity;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -14,6 +16,7 @@ import com.hotsun.mqxxgl.busi.model.ResponseResults;
 import com.hotsun.mqxxgl.busi.model.requestParams.GetSingleDataVO;
 import com.hotsun.mqxxgl.busi.service.ldxxgl.GetLdxxViewRetrofit;
 import com.hotsun.mqxxgl.busi.util.UIHelper;
+import com.hotsun.mqxxgl.gis.activity.GisBaseActivity;
 
 import java.util.List;
 import java.util.Map;
@@ -23,7 +26,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class LdViewActivity extends AppCompatActivity{
+public class LdViewActivity extends AppCompatActivity implements View.OnClickListener{
 
     private Context mContext;
 
@@ -40,6 +43,8 @@ public class LdViewActivity extends AppCompatActivity{
     TextView tv_zxrq;
     TextView tv_bz;
 
+    private String ldid = "";
+    private int requestCode = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +53,7 @@ public class LdViewActivity extends AppCompatActivity{
 
         TextView txtTitle=(TextView)findViewById(R.id.text_title) ;
         txtTitle.setText("楼栋信息管理");
-        String ldid=getIntent().getStringExtra("ldid");
+        ldid=getIntent().getStringExtra("ldid");
 
         tv_cunmc=(TextView)findViewById(R.id.busi_ldxxview_cunmc);
         tv_zumc=(TextView)findViewById(R.id.busi_ldxxview_zumc);
@@ -63,6 +68,8 @@ public class LdViewActivity extends AppCompatActivity{
         tv_zxrq=(TextView)findViewById(R.id.busi_ldxxview_zxrq);
         tv_bz=(TextView)findViewById(R.id.busi_ldxxview_bz);
 
+        TextView textView =(TextView) findViewById(R.id.get_mapdata);
+        textView.setOnClickListener(this);
 
         initView(ldid);
 
@@ -133,5 +140,24 @@ public class LdViewActivity extends AppCompatActivity{
     }
 
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.get_mapdata:
+                Intent intent = new Intent(LdViewActivity.this, GisBaseActivity.class);
+                intent.putExtra("id",ldid);
+                startActivityForResult(intent,requestCode);
+                break;
+        }
+    }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == 0 && resultCode == 1){
+
+        }
+
+    }
 }

@@ -10,12 +10,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.baidu.location.LocationClient;
-import com.esri.android.map.FeatureLayer;
 import com.esri.android.map.GraphicsLayer;
 import com.esri.android.map.MapView;
+import com.esri.android.map.ags.ArcGISFeatureLayer;
+import com.esri.core.geometry.Geometry;
 import com.esri.core.geometry.Point;
+import com.esri.core.map.Graphic;
 import com.hotsun.mqxxgl.R;
 import com.hotsun.mqxxgl.gis.drawTool.DrawTool;
+import com.hotsun.mqxxgl.gis.drawTool.DrawToolImpl;
 import com.hotsun.mqxxgl.gis.drawTool.SketchCreationMode;
 import com.hotsun.mqxxgl.gis.model.ActionMode;
 import com.hotsun.mqxxgl.gis.model.LayerTemplate;
@@ -54,6 +57,10 @@ public class GisBaseActivity extends AppCompatActivity implements IGisBaseView, 
 
     /*定位client*/
     private LocationClient locationClient;
+
+    private ArcGISFeatureLayer arcGISFeatureLayer;
+
+    private String ld_id = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,10 +101,17 @@ public class GisBaseActivity extends AppCompatActivity implements IGisBaseView, 
      * 初始化数据
      */
     private void initData() {
+
         layerPresenter.addBaseLayer(mapView);
+        arcGISFeatureLayer = layerPresenter.addFeatureLayer();
         graphicsLayer = layerPresenter.addGraphicLayer();
         locationPresenter.initArcgisLocation(this);
         drawTool = new DrawTool(this);
+        if(getIntent() != null){
+            ld_id = getIntent().getStringExtra("id");//520623000084
+            drawTool.queryGraphicByLdid();
+        }
+
     }
     /**清除地图的上的所有标绘*/
     public void cleanAll(View view){
@@ -133,21 +147,31 @@ public class GisBaseActivity extends AppCompatActivity implements IGisBaseView, 
     }
     /**删除图斑*/
     public void deleteFeature(View view){
-
+        Graphic[] graphics = new Graphic[]{drawTool.getDrawGraphic()};
+        drawTool.deleteOnlineFeature(graphics);
     }
     /**复制图斑*/
     public void copyFeature(View view){
 
     }
-    /**添加图斑*/
+    /**保存按钮*/
+    public void saveFeature(View view){
+        drawTool.addGeometry();
+    }
+    /**s使用当前点位添加数据*/
+    public void addFeatureCurrut(View view){
+        drawTool.addCurPointGraphic();
+    }
+
+    /**添加数据*/
     public void addFeature(View view){
-        if(layerPresenter.myFeatureLayers.size() == 0){
+        if(arcGISFeatureLayer == null){
             ToastUtil.setToast(mContext,"请先加载矢量数据");
             return;
         }
-        myFeatureLayers = layerPresenter.myFeatureLayers.get(0);
-        layerTemplate = layerPresenter.getEditSymbo(myFeatureLayers.getLayer());
-        SketchCreationMode drawType = SketchCreationMode.FREEHAND_LINE;
+        //myFeatureLayers = layerPresenter.myFeatureLayers.get(0);
+        //layerTemplate = layerPresenter.getEditSymbo(myFeatureLayers.getLayer());
+        SketchCreationMode drawType = SketchCreationMode.POINT;
         drawTool.activate(drawType, ActionMode.MODE_EDIT_ADD);
 
     }
@@ -187,12 +211,12 @@ public class GisBaseActivity extends AppCompatActivity implements IGisBaseView, 
 
     @Override
     public Point getCurGpsPoint() {
-        return null;
+        return locationPresenter.getCurGpsPoint();
     }
 
     @Override
     public Point getCurPoint() {
-        return null;
+        return locationPresenter.getCurPoint();
     }
 
     @Override
@@ -227,4 +251,15 @@ public class GisBaseActivity extends AppCompatActivity implements IGisBaseView, 
     public LayerTemplate getTemplate() {
         return layerTemplate;
     }
+
+    @Override
+    public ArcGISFeatureLayer getArcGisFeatureLayer() {
+        return arcGISFeatureLayer;
+    }
+
+    @Override
+    public String getLdid() {
+        return ld_id;
+    }
+
 }
