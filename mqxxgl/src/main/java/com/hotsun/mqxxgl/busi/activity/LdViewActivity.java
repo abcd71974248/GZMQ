@@ -17,6 +17,7 @@ import com.hotsun.mqxxgl.busi.model.requestParams.GetSingleDataVO;
 import com.hotsun.mqxxgl.busi.service.ldxxgl.GetLdxxViewRetrofit;
 import com.hotsun.mqxxgl.busi.util.UIHelper;
 import com.hotsun.mqxxgl.gis.activity.GisBaseActivity;
+import com.hotsun.mqxxgl.gis.util.ToastUtil;
 
 import java.util.List;
 import java.util.Map;
@@ -156,7 +157,7 @@ public class LdViewActivity extends AppCompatActivity implements View.OnClickLis
         super.onActivityResult(requestCode, resultCode, data);
 
         if(requestCode == 0 && resultCode == 1){
-
+            String state = data.getStringExtra("state");
         }
 
     }

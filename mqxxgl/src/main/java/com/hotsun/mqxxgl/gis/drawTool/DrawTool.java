@@ -469,27 +469,15 @@ public class DrawTool extends Subject implements IDrawTool {
         baseView.getArcGisFeatureLayer().applyEdits(adds, deletes, updates, new CallbackListener<FeatureEditResult[][]>() {
             @Override
             public void onCallback(FeatureEditResult[][] fets) {
-                if(fets[0]!=null && fets[0][0]!=null && fets[0][0].isSuccess()){
-                    ((Activity)baseView.getContext()).runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            baseView.getArcGisFeatureLayer().refresh();
-                            baseView.getArcGisFeatureLayer().clear();
-                            baseView.getGraphicsLayer().removeAll();
-                            baseView.getMapView().invalidate();
-                            ToastUtil.setToast(baseView.getContext(),"编辑成功");
+                if(fets[2]!=null && fets[2][0]!=null && fets[2][0].isSuccess()){
+                    baseView.getArcGisFeatureLayer().refresh();
+                    baseView.getArcGisFeatureLayer().clear();
+                    baseView.getGraphicsLayer().removeAll();
+                    ToastUtil.setToast(baseView.getContext(),"编辑成功");
 
-                            Intent intent = new Intent((Activity)baseView.getContext(), LdViewActivity.class);
-                            intent.putExtra("state","true");
-                            ((Activity)baseView.getContext()).setResult(1,intent);
-                            ((Activity) baseView.getContext()).finish();
-                        }
-                    });
+                    toResultActivity("true");
                 }else{
-                    Intent intent = new Intent((Activity)baseView.getContext(), LdViewActivity.class);
-                    intent.putExtra("state","false");
-                    ((Activity)baseView.getContext()).setResult(1,intent);
-                    ((Activity) baseView.getContext()).finish();
+                    toResultActivity("false");
                 }
             }
 
@@ -498,6 +486,13 @@ public class DrawTool extends Subject implements IDrawTool {
                 Log.e("=============",""+throwable.getMessage());
             }
         });
+    }
+
+    private void toResultActivity(String state){
+        Intent intent = new Intent(baseView.getContext(), LdViewActivity.class);
+        intent.putExtra("state",state);
+        ((Activity)baseView.getContext()).setResult(1,intent);
+        ((Activity) baseView.getContext()).finish();
     }
 
 }
