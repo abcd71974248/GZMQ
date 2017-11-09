@@ -3,6 +3,7 @@ package com.hotsun.mqxxgl.busi.service;
 import com.hotsun.mqxxgl.busi.model.ConditionText;
 import com.hotsun.mqxxgl.busi.model.FwLdxx;
 import com.hotsun.mqxxgl.busi.model.ResponseResults;
+import com.hotsun.mqxxgl.busi.model.sysbeans.AddResponseResults;
 import com.hotsun.mqxxgl.busi.model.sysbeans.TSysUsers;
 
 import java.util.Map;
