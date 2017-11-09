@@ -10,16 +10,25 @@
         android:layout_height="match_parent"
         android:background="@drawable/selector_body"
         android:padding="20dp"
-        android:layout_alignParentBottom="true">
+        android:layout_alignParentBottom="true"
+        >
+
+        <TextView
+            android:id="@+id/addld_zuidtext"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            android:textSize="20dp" />
 
         <TextView
             android:id="@+id/addld_cunmc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="40dp"
             android:text="    村名称"
             android:textColor="@color/text_color"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            />
 
         <EditText
             android:id="@+id/addld_cunmctext"
@@ -27,11 +36,15 @@
             android:layout_height="wrap_content"
             android:inputType="text"
             android:singleLine="true"
+            android:layout_marginTop="30dp"
             android:textColor="@color/text_color"
             android:textColorHint="@color/light_gray"
             android:textCursorDrawable="@null"
             android:textSize="16sp"
-            android:layout_toRightOf="@+id/addld_cunmc"/>
+            android:layout_toRightOf="@+id/addld_cunmc"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"/>
 
         <TextView
             android:id="@+id/addld_zumc"
@@ -54,7 +67,10 @@
             android:textColorHint="@color/light_gray"
             android:textCursorDrawable="@null"
             android:textSize="16sp"
-            android:layout_toRightOf="@+id/addld_zumc"/>
+            android:layout_toRightOf="@+id/addld_zumc"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"/>
 
         <TextView
             android:id="@+id/addld_ldmc"
@@ -220,7 +236,28 @@
     </RelativeLayout>
 
 
-    <include layout="@layout/include_header_addld"
-        android:id="@+id/include2" />
+    <include layout="@layout/include_header_addld"/>
 
+    <Button
+        android:id="@+id/addld_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="100dp"
+        android:layout_marginLeft="86dp"
+        android:layout_marginStart="86dp"
+        android:text="取消" />
+
+    <Button
+        android:id="@+id/addld_save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/addld_close"
+        android:layout_marginLeft="52dp"
+        android:layout_marginStart="52dp"
+        android:layout_toEndOf="@+id/addld_close"
+        android:layout_toRightOf="@+id/addld_close"
+        android:text="保存" />
 </RelativeLayout>

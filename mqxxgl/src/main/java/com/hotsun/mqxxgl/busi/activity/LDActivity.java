@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.google.gson.Gson;
@@ -193,6 +194,11 @@ public class LDActivity extends AppCompatActivity  {
         String cunmc = String.valueOf(qycxCunmc.getText());
         String zumc = String.valueOf(qycxZumc.getText());
         String zuid = String.valueOf(qycxZuid.getText());
+
+        if(("区域查询").equals(zumc)){
+            Toast.makeText(LDActivity.this, "请先选择到组", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         Intent intent = new Intent(LDActivity.this,AddLdActivity.class);
         intent.putExtra("cunmc",cunmc);

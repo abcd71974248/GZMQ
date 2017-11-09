@@ -123,7 +123,7 @@ public class DistrictPickerActivity extends BaseActivity implements View.OnClick
                                     cunmc = listsZubm.get(j).get("cunname").toString();
                                     if(j == 0){
                                         mCurrentDistrictName = listsZubm.get(j).get("zuname").toString();
-                                        mCurrentZipCode = listsZubm.get(j).get("zubm").toString();
+                                        mCurrentZipCode = listsZubm.get(j).get("zuid").toString();
                                     }
                                     mZipcodeDatasMap.put(listsZubm.get(j).get("zuname").toString(),listsZubm.get(j).get("zuid").toString());
                                 }

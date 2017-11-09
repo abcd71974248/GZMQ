@@ -10,51 +10,39 @@ import java.util.Date;
  */
 public class FwLdxx  implements Serializable{
 
-	private long ldid;
-	private long cunid;
-	private long zuid;
+	private String ldid;
+	private String cunid;
+	private String zuid;
 	private String ldmc;
 	private String ldaddr;
-	private short cellnum;
-	private short floornum;
+	private String cellnum;
+	private String floornum;
 	private String zxlxdm;
-	private Date zxrq;
+	private String zxrq;
 	private String bz;
 	private String qrztdm;
-	private Date qrsj;
-	private String qrrxm;
-	private Date adddatetime;
-	private String adduser;
-	private Date chgdatetime;
-	private String chguser;
-	private Date lastupddt;
-	
-	private Date xjrq;
-	private String fwjgdm;
 
-	public FwLdxx() {
-	}
-	public long getLdid() {
+	public String getLdid() {
 		return ldid;
 	}
 
-	public void setLdid(long ldid) {
+	public void setLdid(String ldid) {
 		this.ldid = ldid;
 	}
 
-	public long getCunid() {
+	public String getCunid() {
 		return cunid;
 	}
 
-	public void setCunid(long cunid) {
+	public void setCunid(String cunid) {
 		this.cunid = cunid;
 	}
 
-	public long getZuid() {
+	public String getZuid() {
 		return zuid;
 	}
 
-	public void setZuid(long zuid) {
+	public void setZuid(String zuid) {
 		this.zuid = zuid;
 	}
 
@@ -74,19 +62,19 @@ public class FwLdxx  implements Serializable{
 		this.ldaddr = ldaddr;
 	}
 
-	public short getCellnum() {
+	public String getCellnum() {
 		return cellnum;
 	}
 
-	public void setCellnum(short cellnum) {
+	public void setCellnum(String cellnum) {
 		this.cellnum = cellnum;
 	}
 
-	public short getFloornum() {
+	public String getFloornum() {
 		return floornum;
 	}
 
-	public void setFloornum(short floornum) {
+	public void setFloornum(String floornum) {
 		this.floornum = floornum;
 	}
 
@@ -98,11 +86,11 @@ public class FwLdxx  implements Serializable{
 		this.zxlxdm = zxlxdm;
 	}
 
-	public Date getZxrq() {
+	public String getZxrq() {
 		return zxrq;
 	}
 
-	public void setZxrq(Date zxrq) {
+	public void setZxrq(String zxrq) {
 		this.zxrq = zxrq;
 	}
 
@@ -122,11 +110,11 @@ public class FwLdxx  implements Serializable{
 		this.qrztdm = qrztdm;
 	}
 
-	public Date getQrsj() {
+	public String getQrsj() {
 		return qrsj;
 	}
 
-	public void setQrsj(Date qrsj) {
+	public void setQrsj(String qrsj) {
 		this.qrsj = qrsj;
 	}
 
@@ -138,11 +126,11 @@ public class FwLdxx  implements Serializable{
 		this.qrrxm = qrrxm;
 	}
 
-	public Date getAdddatetime() {
+	public String getAdddatetime() {
 		return adddatetime;
 	}
 
-	public void setAdddatetime(Date adddatetime) {
+	public void setAdddatetime(String adddatetime) {
 		this.adddatetime = adddatetime;
 	}
 
@@ -154,11 +142,11 @@ public class FwLdxx  implements Serializable{
 		this.adduser = adduser;
 	}
 
-	public Date getChgdatetime() {
+	public String getChgdatetime() {
 		return chgdatetime;
 	}
 
-	public void setChgdatetime(Date chgdatetime) {
+	public void setChgdatetime(String chgdatetime) {
 		this.chgdatetime = chgdatetime;
 	}
 
@@ -170,19 +158,19 @@ public class FwLdxx  implements Serializable{
 		this.chguser = chguser;
 	}
 
-	public Date getLastupddt() {
+	public String getLastupddt() {
 		return lastupddt;
 	}
 
-	public void setLastupddt(Date lastupddt) {
+	public void setLastupddt(String lastupddt) {
 		this.lastupddt = lastupddt;
 	}
 
-	public Date getXjrq() {
+	public String getXjrq() {
 		return xjrq;
 	}
 
-	public void setXjrq(Date xjrq) {
+	public void setXjrq(String xjrq) {
 		this.xjrq = xjrq;
 	}
 
@@ -193,6 +181,19 @@ public class FwLdxx  implements Serializable{
 	public void setFwjgdm(String fwjgdm) {
 		this.fwjgdm = fwjgdm;
 	}
+
+	private String qrsj;
+	private String qrrxm;
+	private String adddatetime;
+	private String adduser;
+	private String chgdatetime;
+	private String chguser;
+	private String lastupddt;
+	
+	private String xjrq;
+	private String fwjgdm;
+
+
 
 
 }
