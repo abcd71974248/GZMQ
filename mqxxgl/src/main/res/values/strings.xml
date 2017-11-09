@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">mqxxgl</string>
+    <string name="app_name">民情管理</string>
 
     <string name="serverurl">http://98.52.9.129:6080/arcgis/rest/services/SampleWorldCities/MapServer</string>
     <string name="gzserver">http://98.52.9.129:6080/arcgis/rest/services/gzfp/gzfp/MapServer</string>

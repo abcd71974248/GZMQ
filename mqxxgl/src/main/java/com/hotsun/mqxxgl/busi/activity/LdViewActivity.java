@@ -51,6 +51,7 @@ public class LdViewActivity extends AppCompatActivity implements View.OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.busi_activity_ldview);
+        mContext = LdViewActivity.this;
 
         TextView txtTitle=(TextView)findViewById(R.id.text_title) ;
         txtTitle.setText("楼栋信息管理");
@@ -158,6 +159,8 @@ public class LdViewActivity extends AppCompatActivity implements View.OnClickLis
 
         if(requestCode == 0 && resultCode == 1){
             String state = data.getStringExtra("state");
+
+           UIHelper.ToastMessage(mContext,data.getStringExtra("state"));
         }
 
     }
