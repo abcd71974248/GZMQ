@@ -482,12 +482,14 @@ public class DrawTool extends Subject implements IDrawTool {
                             Intent intent = new Intent((Activity)baseView.getContext(), LdViewActivity.class);
                             intent.putExtra("state","true");
                             ((Activity)baseView.getContext()).setResult(1,intent);
+                            ((Activity) baseView.getContext()).finish();
                         }
                     });
                 }else{
                     Intent intent = new Intent((Activity)baseView.getContext(), LdViewActivity.class);
                     intent.putExtra("state","false");
                     ((Activity)baseView.getContext()).setResult(1,intent);
+                    ((Activity) baseView.getContext()).finish();
                 }
             }
 
