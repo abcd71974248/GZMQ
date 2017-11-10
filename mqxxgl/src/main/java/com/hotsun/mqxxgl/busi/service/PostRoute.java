@@ -66,6 +66,10 @@ public interface PostRoute {
     Call<ResponseResults> addLdPostRoute(@Body RequestBody route);//传入的参数为RequestBody
 
     @Headers({ "Content-Type: application/json; charset=utf-8","Accept: application/json"})
+    @POST("/cpimAppService/ldfwxxgl/ldxx/android_edit.do")
+    Call<ResponseResults> editLdPostRoute(@Body RequestBody route);//传入的参数为RequestBody
+
+    @Headers({ "Content-Type: application/json; charset=utf-8","Accept: application/json"})
     @POST("/cpimAppService/ldfwxxgl/ldxx/android_collectLdxxMap.do")
     Call<AddResponseResults> collectLdxxMap(@Body RequestBody route);//传入的参数为RequestBody
 

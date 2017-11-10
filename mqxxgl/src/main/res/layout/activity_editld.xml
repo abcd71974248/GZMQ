@@ -13,15 +13,15 @@
         android:layout_alignParentBottom="true"
         >
 
-        <TextView
-            android:id="@+id/addld_zuidtext"
+        <EditText
+            android:id="@+id/editld_ldidtext"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="gone"
             android:textSize="20dp" />
 
         <TextView
-            android:id="@+id/addld_cunmc"
+            android:id="@+id/editld_cunmc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
@@ -31,7 +31,7 @@
             />
 
         <EditText
-            android:id="@+id/addld_cunmctext"
+            android:id="@+id/editld_cunmctext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
@@ -41,269 +41,269 @@
             android:textColorHint="@color/light_gray"
             android:textCursorDrawable="@null"
             android:textSize="16sp"
-            android:layout_toRightOf="@+id/addld_cunmc"
+            android:layout_toRightOf="@+id/editld_cunmc"
             android:cursorVisible="false"
             android:focusable="false"
             android:focusableInTouchMode="false"/>
 
         <TextView
-            android:id="@+id/addld_zumc"
+            android:id="@+id/editld_zumc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/addld_cunmc"
+            android:layout_below="@+id/editld_cunmc"
             android:layout_marginTop="20dp"
             android:text="    组名称"
             android:textColor="@color/text_color"
             android:textSize="16sp" />
 
         <EditText
-            android:id="@+id/addld_zumctext"
+            android:id="@+id/editld_zumctext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/addld_cunmctext"
+            android:layout_below="@+id/editld_cunmctext"
             android:inputType="text"
             android:singleLine="true"
             android:textColor="@color/text_color"
             android:textColorHint="@color/light_gray"
             android:textCursorDrawable="@null"
             android:textSize="16sp"
-            android:layout_toRightOf="@+id/addld_zumc"
+            android:layout_toRightOf="@+id/editld_zumc"
             android:cursorVisible="false"
             android:focusable="false"
             android:focusableInTouchMode="false"/>
 
         <TextView
-            android:id="@+id/addld_ldmc"
+            android:id="@+id/editld_ldmc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/addld_zumc"
+            android:layout_below="@+id/editld_zumc"
             android:layout_marginTop="20dp"
             android:text="楼栋名称"
             android:textColor="@color/text_color"
             android:textSize="16sp" />
 
         <EditText
-            android:id="@+id/addld_ldmctext"
+            android:id="@+id/editld_ldmctext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/addld_zumctext"
+            android:layout_below="@+id/editld_zumctext"
             android:inputType="text"
             android:singleLine="true"
             android:textColor="@color/text_color"
             android:textColorHint="@color/light_gray"
             android:textCursorDrawable="@null"
             android:textSize="16sp"
-            android:layout_toRightOf="@+id/addld_ldmc"/>
+            android:layout_toRightOf="@+id/editld_ldmc"/>
 
         <TextView
-            android:id="@+id/addld_lddz"
+            android:id="@+id/editld_lddz"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/addld_ldmc"
+            android:layout_below="@+id/editld_ldmc"
             android:layout_marginTop="20dp"
             android:text="楼栋地址"
             android:textColor="@color/text_color"
             android:textSize="16sp" />
 
         <EditText
-            android:id="@+id/addld_lddztext"
+            android:id="@+id/editld_lddztext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/addld_ldmctext"
+            android:layout_below="@+id/editld_ldmctext"
             android:inputType="text"
             android:singleLine="true"
             android:textColor="@color/text_color"
             android:textColorHint="@color/light_gray"
             android:textCursorDrawable="@null"
             android:textSize="16sp"
-            android:layout_toRightOf="@+id/addld_lddz"/>
+            android:layout_toRightOf="@+id/editld_lddz"/>
 
         <TextView
-            android:id="@+id/addld_dys"
+            android:id="@+id/editld_dys"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/addld_lddz"
+            android:layout_below="@+id/editld_lddz"
             android:layout_marginTop="20dp"
             android:text="    单元数"
             android:textColor="@color/text_color"
             android:textSize="16sp" />
 
         <EditText
-            android:id="@+id/addld_dystext"
+            android:id="@+id/editld_dystext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/addld_lddztext"
+            android:layout_below="@+id/editld_lddztext"
             android:inputType="text"
             android:singleLine="true"
             android:textColor="@color/text_color"
             android:textColorHint="@color/light_gray"
             android:textCursorDrawable="@null"
             android:textSize="16sp"
-            android:layout_toRightOf="@+id/addld_dys"/>
+            android:layout_toRightOf="@+id/editld_dys"/>
 
         <TextView
-            android:id="@+id/addld_lcs"
+            android:id="@+id/editld_lcs"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/addld_dys"
+            android:layout_below="@+id/editld_dys"
             android:layout_marginTop="20dp"
             android:text="    楼层数"
             android:textColor="@color/text_color"
             android:textSize="16sp" />
 
         <EditText
-            android:id="@+id/addld_lcstext"
+            android:id="@+id/editld_lcstext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/addld_dystext"
+            android:layout_below="@+id/editld_dystext"
             android:inputType="text"
             android:singleLine="true"
             android:textColor="@color/text_color"
             android:textColorHint="@color/light_gray"
             android:textCursorDrawable="@null"
             android:textSize="16sp"
-            android:layout_toRightOf="@+id/addld_lcs"/>
+            android:layout_toRightOf="@+id/editld_lcs"/>
 
         <TextView
-            android:id="@+id/addld_fwjg"
+            android:id="@+id/editld_fwjg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/addld_lcs"
+            android:layout_below="@+id/editld_lcs"
             android:layout_marginTop="20dp"
             android:text="房屋结构"
             android:textColor="@color/text_color"
             android:textSize="16sp" />
 
         <EditText
-            android:id="@+id/addld_fwjgtext"
+            android:id="@+id/editld_fwjgtext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/addld_lcstext"
+            android:layout_below="@+id/editld_lcstext"
             android:inputType="text"
             android:singleLine="true"
             android:textColor="@color/text_color"
             android:textColorHint="@color/light_gray"
             android:textCursorDrawable="@null"
             android:textSize="16sp"
-            android:layout_toRightOf="@+id/addld_fwjg"/>
+            android:layout_toRightOf="@+id/editld_fwjg"/>
 
         <TextView
-            android:id="@+id/addld_xjrq"
+            android:id="@+id/editld_xjrq"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/addld_fwjg"
+            android:layout_below="@+id/editld_fwjg"
             android:layout_marginTop="20dp"
             android:text="修建日期"
             android:textColor="@color/text_color"
             android:textSize="16sp" />
 
         <EditText
-            android:id="@+id/addld_xjrqtext"
+            android:id="@+id/editld_xjrqtext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/addld_fwjgtext"
+            android:layout_below="@+id/editld_fwjgtext"
             android:inputType="text"
             android:singleLine="true"
             android:textColor="@color/text_color"
             android:textColorHint="@color/light_gray"
             android:textCursorDrawable="@null"
             android:textSize="16sp"
-            android:layout_toRightOf="@+id/addld_xjrq"/>
+            android:layout_toRightOf="@+id/editld_xjrq"/>
 
         <TextView
-            android:id="@+id/addld_bz"
+            android:id="@+id/editld_bz"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/addld_xjrq"
+            android:layout_below="@+id/editld_xjrq"
             android:layout_marginTop="20dp"
             android:text="        备注"
             android:textColor="@color/text_color"
             android:textSize="16sp" />
 
         <EditText
-            android:id="@+id/addld_bztext"
+            android:id="@+id/editld_bztext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/addld_xjrqtext"
+            android:layout_below="@+id/editld_xjrqtext"
             android:inputType="text"
             android:singleLine="true"
             android:textColor="@color/text_color"
             android:textColorHint="@color/light_gray"
             android:textCursorDrawable="@null"
             android:textSize="16sp"
-            android:layout_toRightOf="@+id/addld_bz"/>
+            android:layout_toRightOf="@+id/editld_bz"/>
 
         <TextView
-            android:id="@+id/addld_zxlx"
+            android:id="@+id/editld_zxlx"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/addld_bz"
+            android:layout_below="@+id/editld_bz"
             android:layout_marginTop="20dp"
             android:text="注销类型"
             android:textColor="@color/text_color"
             android:textSize="16sp" />
 
         <EditText
-            android:id="@+id/addld_zxlxtext"
+            android:id="@+id/editld_zxlxtext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/addld_bztext"
+            android:layout_below="@+id/editld_bztext"
             android:inputType="text"
             android:singleLine="true"
             android:textColor="@color/text_color"
             android:textColorHint="@color/light_gray"
             android:textCursorDrawable="@null"
             android:textSize="16sp"
-            android:layout_toRightOf="@+id/addld_zxlx"/>
+            android:layout_toRightOf="@+id/editld_zxlx"/>
 
         <TextView
-            android:id="@+id/addld_zxrq"
+            android:id="@+id/editld_zxrq"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/addld_zxlx"
+            android:layout_below="@+id/editld_zxlx"
             android:layout_marginTop="20dp"
             android:text="注销日期"
             android:textColor="@color/text_color"
             android:textSize="16sp" />
 
         <EditText
-            android:id="@+id/addld_zxrqtext"
+            android:id="@+id/editld_zxrqtext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/addld_zxlxtext"
+            android:layout_below="@+id/editld_zxlxtext"
             android:inputType="text"
             android:singleLine="true"
             android:textColor="@color/text_color"
             android:textColorHint="@color/light_gray"
             android:textCursorDrawable="@null"
             android:textSize="16sp"
-            android:layout_toRightOf="@+id/addld_zxrq"/>
+            android:layout_toRightOf="@+id/editld_zxrq"/>
 
     </RelativeLayout>
 
 
-    <include layout="@layout/include_header_addld"/>
+    <include layout="@layout/include_header_editld"/>
 
     <Button
-        android:id="@+id/addld_close"
+        android:id="@+id/editld_close"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="23dp"
-        android:layout_marginLeft="86dp"
-        android:layout_marginStart="86dp"
+        android:layout_marginBottom="18dp"
+        android:layout_marginLeft="83dp"
+        android:layout_marginStart="83dp"
         android:text="取消"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
     <Button
-        android:id="@+id/addld_save"
+        android:id="@+id/editld_save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/addld_close"
+        android:layout_alignBottom="@+id/editld_close"
         android:layout_marginLeft="52dp"
         android:layout_marginStart="52dp"
-        android:layout_toEndOf="@+id/addld_close"
-        android:layout_toRightOf="@+id/addld_close"
+        android:layout_toEndOf="@+id/editld_close"
+        android:layout_toRightOf="@+id/editld_close"
         android:text="保存" />
 </RelativeLayout>

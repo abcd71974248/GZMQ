@@ -48,6 +48,7 @@
         <activity android:name=".busi.activity.ModulepageActivity"/>
         <activity android:name=".gis.activity.PolygonEditeActivity"/>
         <activity android:name=".busi.activity.AddLdActivity"/>
+        <activity android:name=".busi.activity.EditLdActivity"/>
         <activity android:name=".busi.activity.LdViewActivity"/>
 
         <!--百度地图-->

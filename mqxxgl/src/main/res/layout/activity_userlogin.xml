@@ -35,7 +35,7 @@
             android:textColorHint="@color/light_gray"
             android:textCursorDrawable="@null"
             android:textSize="16sp"
-            android:text="18285112916"/>
+            android:text="18786794543"/>
 
         <TextView
             android:id="@+id/tv_title_usermm"
@@ -60,7 +60,7 @@
             android:textColorHint="@color/light_gray"
             android:textCursorDrawable="@null"
             android:textSize="16sp"
-            android:text="yuanlei816"/>
+            android:text="yzl123456"/>
 
         <Button
             android:id="@+id/btn_userlogin_submit"

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -78,6 +79,15 @@ public class LdViewActivity extends AppCompatActivity implements View.OnClickLis
 
         initView(ldid);
 
+        TextView editLdBtn = (TextView) findViewById(R.id.ldlist_edit);
+        editLdBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LdViewActivity.this,EditLdActivity.class);
+                intent.putExtra("ldid",ldid);
+                startActivity(intent);
+            }
+        });
     }
     private void initView(String ldid) {
 

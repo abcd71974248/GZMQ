@@ -23,6 +23,7 @@
             android:layout_centerHorizontal="true"
             android:text="@string/edit" />
     <TextView
+        android:id="@+id/ldlist_edit"
         android:padding="3dp"
         android:text="修改"
         android:textSize="18dp"

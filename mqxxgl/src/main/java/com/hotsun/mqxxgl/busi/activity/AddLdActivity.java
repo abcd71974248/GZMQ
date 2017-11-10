@@ -29,7 +29,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class AddLdActivity extends AppCompatActivity{
+public class AddLdActivity extends AppCompatActivity implements View.OnClickListener{
 
     private Context mContext;
 
@@ -38,6 +38,9 @@ public class AddLdActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_addld);
+
+        TextView left_bar=(TextView)findViewById(R.id.left_bar);
+        left_bar.setOnClickListener(this);
 
         mContext = AddLdActivity.this;
         Intent intent = getIntent();
@@ -96,6 +99,12 @@ public class AddLdActivity extends AppCompatActivity{
         EditText bzText = (EditText) findViewById(R.id.addld_bztext);
         String bz = String.valueOf(bzText.getText());
 
+        EditText zxlxText = (EditText) findViewById(R.id.addld_zxlxtext);
+        String zxlx = String.valueOf(zxlxText.getText());
+
+        EditText zxrqText = (EditText) findViewById(R.id.addld_zxrqtext);
+        String zxrq = "2017-11-11";
+
 
         FwLdxx fwLdxx = new FwLdxx();
         fwLdxx.setZuid(zuid);
@@ -106,6 +115,8 @@ public class AddLdActivity extends AppCompatActivity{
         fwLdxx.setFwjgdm(fwjg);
         fwLdxx.setXjrq(xjrq);
         fwLdxx.setBz(bz);
+        fwLdxx.setZxlxdm(zxlx);
+        fwLdxx.setZxrq(zxrq);
 
         AddLd addLd = new AddLd();
         addLd.setSessionID(MyApplication.tSysUsers.getSessionID());
@@ -135,5 +146,17 @@ public class AddLdActivity extends AppCompatActivity{
                 Log.i("sssss",t.getMessage());
             }
         });
+    }
+
+    @Override
+    public void onClick(View v) {
+
+        switch(v.getId()){
+            case R.id.left_bar:
+                finish();
+                break;
+
+        }
+
     }
 }
