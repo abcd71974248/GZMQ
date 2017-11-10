@@ -1,6 +1,7 @@
 package com.hotsun.mqxxgl.busi.activity;
 
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,6 +22,7 @@ import com.hotsun.mqxxgl.busi.model.FwLdxx;
 import com.hotsun.mqxxgl.busi.model.ResponseResults;
 import com.hotsun.mqxxgl.busi.service.ldxxgl.AddLdRetrofit;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -33,6 +36,10 @@ public class AddLdActivity extends AppCompatActivity implements View.OnClickList
 
     private Context mContext;
 
+    private TextView xjrqDialog;
+    private TextView zxrqDialog;
+    private Calendar cal;
+    private int year,month,day;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +77,21 @@ public class AddLdActivity extends AppCompatActivity implements View.OnClickList
                 addLd();
             }
         });
+
+        getDate();
+
+        xjrqDialog=(TextView) findViewById(R.id.addld_xjrqtext);
+        xjrqDialog.setOnClickListener(this);
+        zxrqDialog=(TextView) findViewById(R.id.addld_zxrqtext);
+        zxrqDialog.setOnClickListener(this);
+    }
+
+    //获取当前日期
+    private void getDate() {
+        cal= Calendar.getInstance();
+        year=cal.get(Calendar.YEAR);       //获取年月日时分秒
+        month=cal.get(Calendar.MONTH);   //获取到的月份是从0开始计数
+        day=cal.get(Calendar.DAY_OF_MONTH);
     }
 
     private void addLd(){
@@ -94,7 +116,7 @@ public class AddLdActivity extends AppCompatActivity implements View.OnClickList
         String fwjg = String.valueOf(fwjgText.getText());
 
         EditText xjrqText = (EditText) findViewById(R.id.addld_xjrqtext);
-        String xjrq = "2017-11-11";
+        String xjrq = String.valueOf(xjrqText.getText());
 
         EditText bzText = (EditText) findViewById(R.id.addld_bztext);
         String bz = String.valueOf(bzText.getText());
@@ -103,7 +125,7 @@ public class AddLdActivity extends AppCompatActivity implements View.OnClickList
         String zxlx = String.valueOf(zxlxText.getText());
 
         EditText zxrqText = (EditText) findViewById(R.id.addld_zxrqtext);
-        String zxrq = "2017-11-11";
+        String zxrq = String.valueOf(zxrqText.getText());
 
 
         FwLdxx fwLdxx = new FwLdxx();
@@ -156,7 +178,35 @@ public class AddLdActivity extends AppCompatActivity implements View.OnClickList
                 finish();
                 break;
 
+            case R.id.addld_xjrqtext:
+                DatePickerDialog.OnDateSetListener listener=new DatePickerDialog.OnDateSetListener() {
+
+                    @Override
+                    public void onDateSet(DatePicker arg0, int year, int month, int day) {
+                        xjrqDialog.setText(year+"-"+(++month)+"-"+day);      //将选择的日期显示到TextView中,因为之前获取month直接使用，所以不需要+1，这个地方需要显示，所以+1
+                    }
+                };
+                DatePickerDialog dialog=new DatePickerDialog(AddLdActivity.this, 0,listener,year,month,day);//后边三个参数为显示dialog时默认的日期，月份从0开始，0-11对应1-12个月
+                dialog.show();
+                break;
+
+            case R.id.addld_zxrqtext:
+                listener=new DatePickerDialog.OnDateSetListener() {
+
+                    @Override
+                    public void onDateSet(DatePicker arg0, int year, int month, int day) {
+                        zxrqDialog.setText(year+"-"+(++month)+"-"+day);      //将选择的日期显示到TextView中,因为之前获取month直接使用，所以不需要+1，这个地方需要显示，所以+1
+                    }
+                };
+                dialog=new DatePickerDialog(AddLdActivity.this, 0,listener,year,month,day);//后边三个参数为显示dialog时默认的日期，月份从0开始，0-11对应1-12个月
+                dialog.show();
+                break;
+
+            default:
+                break;
         }
+
+
 
     }
 }

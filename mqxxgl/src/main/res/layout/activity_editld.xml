@@ -208,7 +208,10 @@
             android:textColorHint="@color/light_gray"
             android:textCursorDrawable="@null"
             android:textSize="16sp"
-            android:layout_toRightOf="@+id/editld_xjrq"/>
+            android:layout_toRightOf="@+id/editld_xjrq"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"/>
 
         <TextView
             android:id="@+id/editld_bz"
@@ -277,7 +280,10 @@
             android:textColorHint="@color/light_gray"
             android:textCursorDrawable="@null"
             android:textSize="16sp"
-            android:layout_toRightOf="@+id/editld_zxrq"/>
+            android:layout_toRightOf="@+id/editld_zxrq"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"/>
 
     </RelativeLayout>
 
