@@ -8,19 +8,30 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
+    android:background="#FF8542"
     android:orientation="horizontal">
     <Button
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="2dp"
         android:id="@+id/qycxbutton"
         android:layout_width="0dp"
         android:layout_weight="5"
         android:layout_height="wrap_content"
-        android:text="区域查询" />
-    <Button
+        android:text="区域选择"
+        android:textColor="#F0F0F0"
+        android:textSize="18dp"
+        android:background="@drawable/buttonstyle"/>
+    <com.hotsun.mqxxgl.busi.view.IconFontTextview
         android:id="@+id/qycxbutton_onclick"
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:layout_height="wrap_content"
-        android:text="查询" />
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:textSize="23sp"
+        android:textColor="@color/green_light"
+        android:layout_centerHorizontal="true"
+        android:text="@string/icon_search"
+        />
     </LinearLayout>
     <TextView
         android:id="@+id/ldqycxx_zcode"

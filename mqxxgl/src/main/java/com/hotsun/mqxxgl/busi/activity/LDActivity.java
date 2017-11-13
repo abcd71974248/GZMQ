@@ -67,7 +67,7 @@ public class LDActivity extends AppCompatActivity  {
                 startActivityForResult(qycxIntent,REQUESTCODE);
             }
         });
-        Button qycxButton_onClick = (Button) findViewById(R.id.qycxbutton_onclick);
+        TextView qycxButton_onClick = (TextView) findViewById(R.id.qycxbutton_onclick);
         qycxButton_onClick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
