@@ -76,4 +76,8 @@ public interface PostRoute {
     @Headers({ "Content-Type: application/json; charset=utf-8","Accept: application/json"})
     @POST("/cpimAppService/ldfwxxgl/ldxx/android_deleteLdxx.do")
     Call<AddResponseResults> deleteLdxx(@Body RequestBody route);//传入的参数为RequestBody
+
+    @Headers({ "Content-Type: application/json; charset=utf-8","Accept: application/json"})
+    @POST("/cpimAppService/basicplat/dmcode/android_getcodelist.do")
+    Call<ResponseResults> getCodelistPostRoute(@Body RequestBody route);//传入的参数为RequestBody
 }
