@@ -2,12 +2,17 @@ package com.hotsun.mqxxgl.busi.activity;
 
 
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -21,6 +26,9 @@ import com.hotsun.mqxxgl.busi.model.AddLd;
 import com.hotsun.mqxxgl.busi.model.FwLdxx;
 import com.hotsun.mqxxgl.busi.model.ResponseResults;
 import com.hotsun.mqxxgl.busi.service.ldxxgl.AddLdRetrofit;
+import com.hotsun.mqxxgl.busi.util.BmcodeUtil;
+import com.hotsun.mqxxgl.widget.WheelView;
+import com.hotsun.mqxxgl.widget.adapters.ArrayWheelAdapter;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -50,7 +58,7 @@ public class AddLdActivity extends AppCompatActivity implements View.OnClickList
         left_bar.setOnClickListener(this);
 
         mContext = AddLdActivity.this;
-        Intent intent = getIntent();
+        final Intent intent = getIntent();
         String cunmc = intent.getStringExtra("cunmc");
         String zumc = intent.getStringExtra("zumc");
         String zuid = intent.getStringExtra("zuid");
@@ -67,7 +75,9 @@ public class AddLdActivity extends AppCompatActivity implements View.OnClickList
             @Override
             public void onClick(View view) {
                 finish();
+
             }
+
         });
 
         Button saveBtn = (Button) findViewById(R.id.addld_save);
@@ -84,6 +94,11 @@ public class AddLdActivity extends AppCompatActivity implements View.OnClickList
         xjrqDialog.setOnClickListener(this);
         zxrqDialog=(TextView) findViewById(R.id.addld_zxrqtext);
         zxrqDialog.setOnClickListener(this);
+
+        EditText fwjgText = (EditText) findViewById(R.id.addld_fwjgtext);
+        fwjgText.setOnClickListener(this);
+        EditText zxlxText = (EditText) findViewById(R.id.addld_zxlxtext);
+        zxlxText.setOnClickListener(this);
     }
 
     //获取当前日期
@@ -112,7 +127,7 @@ public class AddLdActivity extends AppCompatActivity implements View.OnClickList
         EditText lcsText = (EditText) findViewById(R.id.addld_lcstext);
         String lcs = String.valueOf(lcsText.getText());
 
-        EditText fwjgText = (EditText) findViewById(R.id.addld_fwjgtext);
+        TextView fwjgText = (TextView) findViewById(R.id.addld_fwjgdm);
         String fwjg = String.valueOf(fwjgText.getText());
 
         EditText xjrqText = (EditText) findViewById(R.id.addld_xjrqtext);
@@ -121,7 +136,7 @@ public class AddLdActivity extends AppCompatActivity implements View.OnClickList
         EditText bzText = (EditText) findViewById(R.id.addld_bztext);
         String bz = String.valueOf(bzText.getText());
 
-        EditText zxlxText = (EditText) findViewById(R.id.addld_zxlxtext);
+        TextView zxlxText = (TextView) findViewById(R.id.addld_zxlxdm);
         String zxlx = String.valueOf(zxlxText.getText());
 
         EditText zxrqText = (EditText) findViewById(R.id.addld_zxrqtext);
@@ -201,7 +216,18 @@ public class AddLdActivity extends AppCompatActivity implements View.OnClickList
                 dialog=new DatePickerDialog(AddLdActivity.this, 0,listener,year,month,day);//后边三个参数为显示dialog时默认的日期，月份从0开始，0-11对应1-12个月
                 dialog.show();
                 break;
-
+            case R.id.addld_fwjgtext:
+                BmcodeUtil bmcodeUtil = new BmcodeUtil();
+                EditText dmname = (EditText) findViewById(R.id.addld_fwjgtext);
+                TextView dmcode = (TextView) findViewById(R.id.addld_fwjgdm);
+                bmcodeUtil.loadBm(mContext,dmname,dmcode,"3007");
+                break;
+            case R.id.addld_zxlxtext:
+                bmcodeUtil = new BmcodeUtil();
+                dmname = (EditText) findViewById(R.id.addld_zxlxtext);
+                dmcode = (TextView) findViewById(R.id.addld_zxlxdm);
+                bmcodeUtil.loadBm(mContext,dmname,dmcode,"3017");
+                break;
             default:
                 break;
         }

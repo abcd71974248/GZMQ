@@ -24,6 +24,7 @@ import com.hotsun.mqxxgl.busi.model.requestParams.GetSingleDataVO;
 import com.hotsun.mqxxgl.busi.service.ldxxgl.AddLdRetrofit;
 import com.hotsun.mqxxgl.busi.service.ldxxgl.EditLdRetrofit;
 import com.hotsun.mqxxgl.busi.service.ldxxgl.GetLdxxViewRetrofit;
+import com.hotsun.mqxxgl.busi.util.BmcodeUtil;
 import com.hotsun.mqxxgl.busi.util.UIHelper;
 
 import java.util.Calendar;
@@ -57,6 +58,9 @@ public class EditLdActivity extends AppCompatActivity implements View.OnClickLis
     EditText zxlxText ;
     EditText zxrqText ;
 
+    TextView fwjgdm;
+    TextView zxlxdm;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,6 +85,9 @@ public class EditLdActivity extends AppCompatActivity implements View.OnClickLis
         bzText = (EditText) findViewById(R.id.editld_bztext);
         zxlxText = (EditText) findViewById(R.id.editld_zxlxtext);
         zxrqText = (EditText) findViewById(R.id.editld_zxrqtext);
+
+        fwjgdm = (TextView) findViewById(R.id.editld_fwjgdm);
+        zxlxdm = (TextView) findViewById(R.id.editld_zxlxdm);
 
         initView(ldid);
 
@@ -107,6 +114,9 @@ public class EditLdActivity extends AppCompatActivity implements View.OnClickLis
         xjrqDialog.setOnClickListener(this);
         zxrqDialog=(TextView) findViewById(R.id.editld_zxrqtext);
         zxrqDialog.setOnClickListener(this);
+
+        fwjgText.setOnClickListener(this);
+        zxlxText.setOnClickListener(this);
     }
 
     //获取当前日期
@@ -169,7 +179,8 @@ public class EditLdActivity extends AppCompatActivity implements View.OnClickLis
                 zxrqText.setText(results.get(0).get("zxrq"));
                 bzText.setText(results.get(0).get("bz"));
 
-
+                fwjgdm.setText(results.get(0).get("fwjgdm"));
+                zxlxdm.setText(results.get(0).get("zxlxdm"));
             }
 
             @Override
@@ -199,7 +210,7 @@ public class EditLdActivity extends AppCompatActivity implements View.OnClickLis
         EditText lcsText = (EditText) findViewById(R.id.editld_lcstext);
         String lcs = String.valueOf(lcsText.getText());
 
-        EditText fwjgText = (EditText) findViewById(R.id.editld_fwjgtext);
+        TextView fwjgText = (TextView) findViewById(R.id.editld_fwjgdm);
         String fwjg = String.valueOf(fwjgText.getText());
 
         EditText xjrqText = (EditText) findViewById(R.id.editld_xjrqtext);
@@ -208,7 +219,7 @@ public class EditLdActivity extends AppCompatActivity implements View.OnClickLis
         EditText bzText = (EditText) findViewById(R.id.editld_bztext);
         String bz = String.valueOf(bzText.getText());
 
-        EditText zxlxText = (EditText) findViewById(R.id.editld_zxlxtext);
+        TextView zxlxText = (TextView) findViewById(R.id.editld_zxlxdm);
         String zxlx = String.valueOf(zxlxText.getText());
 
         EditText zxrqText = (EditText) findViewById(R.id.editld_zxrqtext);
@@ -288,7 +299,18 @@ public class EditLdActivity extends AppCompatActivity implements View.OnClickLis
                 dialog=new DatePickerDialog(EditLdActivity.this, 0,listener,year,month,day);//后边三个参数为显示dialog时默认的日期，月份从0开始，0-11对应1-12个月
                 dialog.show();
                 break;
-
+            case R.id.editld_fwjgtext:
+                BmcodeUtil bmcodeUtil = new BmcodeUtil();
+                EditText dmname = (EditText) findViewById(R.id.editld_fwjgtext);
+                TextView dmcode = (TextView) findViewById(R.id.editld_fwjgdm);
+                bmcodeUtil.loadBm(mContext,dmname,dmcode,"3007");
+                break;
+            case R.id.editld_zxlxtext:
+                bmcodeUtil = new BmcodeUtil();
+                dmname = (EditText) findViewById(R.id.editld_zxlxtext);
+                dmcode = (TextView) findViewById(R.id.editld_zxlxdm);
+                bmcodeUtil.loadBm(mContext,dmname,dmcode,"3017");
+                break;
             default:
                 break;
 

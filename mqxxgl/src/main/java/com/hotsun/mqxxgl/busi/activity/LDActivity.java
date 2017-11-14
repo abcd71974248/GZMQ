@@ -188,7 +188,7 @@ public class LDActivity extends AppCompatActivity  {
         String zumc = String.valueOf(qycxZumc.getText());
         String zuid = String.valueOf(qycxZuid.getText());
 
-        if(("区域查询").equals(zumc)){
+        if(("区域选择").equals(zumc)){
             Toast.makeText(LDActivity.this, "请先选择到组", Toast.LENGTH_SHORT).show();
             return;
         }

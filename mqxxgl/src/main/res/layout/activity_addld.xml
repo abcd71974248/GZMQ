@@ -185,7 +185,17 @@
             android:textColorHint="@color/light_gray"
             android:textCursorDrawable="@null"
             android:textSize="16sp"
-            android:layout_toRightOf="@+id/addld_fwjg"/>
+            android:layout_toRightOf="@+id/addld_fwjg"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"/>
+
+        <TextView
+            android:id="@+id/addld_fwjgdm"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            android:textSize="20dp" />
 
         <TextView
             android:id="@+id/addld_xjrq"
@@ -257,7 +267,17 @@
             android:textColorHint="@color/light_gray"
             android:textCursorDrawable="@null"
             android:textSize="16sp"
-            android:layout_toRightOf="@+id/addld_zxlx"/>
+            android:layout_toRightOf="@+id/addld_zxlx"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"/>
+
+        <TextView
+            android:id="@+id/addld_zxlxdm"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            android:textSize="20dp" />
 
         <TextView
             android:id="@+id/addld_zxrq"

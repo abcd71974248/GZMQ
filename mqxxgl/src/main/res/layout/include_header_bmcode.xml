@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_titlebar"
+    android:layout_width="match_parent"
+    android:layout_height="52dp"
+    android:background="#333237" >
+
+
+    <Button
+        android:id="@+id/bmcode_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="取消"
+        android:background="#333237"
+        android:textColor="#f0f0f0"
+         />
+
+    <Button
+        android:id="@+id/bmcode_save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="确认"
+        android:background="#333237"
+        android:textColor="#f0f0f0"
+        android:layout_marginLeft="270dp"
+        />
+
+    <!--<Button-->
+        <!--android:id="@+id/button_backward"-->
+        <!--android:layout_width="60dp"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:background="@drawable/title_button_selector"-->
+        <!--android:drawableLeft="@drawable/back_arrow"-->
+        <!--android:drawablePadding="6dp"-->
+        <!--android:ellipsize="end"-->
+        <!--android:gravity="center"-->
+        <!--android:onClick="onClick"-->
+        <!--android:paddingLeft="5dp"-->
+        <!--android:singleLine="true"-->
+        <!--android:text="返回"-->
+        <!--android:textColor="#ffffffff"-->
+        <!--android:textSize="18dp"-->
+        <!--android:visibility="invisible" />-->
+
+
+
+</RelativeLayout>
