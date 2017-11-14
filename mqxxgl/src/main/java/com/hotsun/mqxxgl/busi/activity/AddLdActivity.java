@@ -201,7 +201,7 @@ public class AddLdActivity extends AppCompatActivity implements View.OnClickList
                         xjrqDialog.setText(year+"-"+(++month)+"-"+day);      //将选择的日期显示到TextView中,因为之前获取month直接使用，所以不需要+1，这个地方需要显示，所以+1
                     }
                 };
-                DatePickerDialog dialog=new DatePickerDialog(AddLdActivity.this, 0,listener,year,month,day);//后边三个参数为显示dialog时默认的日期，月份从0开始，0-11对应1-12个月
+                DatePickerDialog dialog=new DatePickerDialog(AddLdActivity.this, R.style.ThemeDialog,listener,year,month,day);//后边三个参数为显示dialog时默认的日期，月份从0开始，0-11对应1-12个月
                 dialog.show();
                 break;
 
@@ -213,7 +213,7 @@ public class AddLdActivity extends AppCompatActivity implements View.OnClickList
                         zxrqDialog.setText(year+"-"+(++month)+"-"+day);      //将选择的日期显示到TextView中,因为之前获取month直接使用，所以不需要+1，这个地方需要显示，所以+1
                     }
                 };
-                dialog=new DatePickerDialog(AddLdActivity.this, 0,listener,year,month,day);//后边三个参数为显示dialog时默认的日期，月份从0开始，0-11对应1-12个月
+                dialog=new DatePickerDialog(AddLdActivity.this, R.style.ThemeDialog,listener,year,month,day);//后边三个参数为显示dialog时默认的日期，月份从0开始，0-11对应1-12个月
                 dialog.show();
                 break;
             case R.id.addld_fwjgtext:

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="ThemeDialog" parent="android:Theme.Material.Light.Dialog" type="text/css">
+        <item name="android:colorAccent">@color/DeepSkyBlue</item>
+        <item name="android:colorPrimary">@color/DeepSkyBlue</item>
+        <item name="android:colorPrimaryDark">@color/DeepSkyBlue</item>
+    </style>
+</resources>
