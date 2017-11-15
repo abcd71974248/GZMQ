@@ -2,14 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal" android:layout_width="match_parent"
     android:background="#FF8542"
-    android:layout_height="40dp">
+    android:layout_height="45dp">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="horizontal"
         android:id="@+id/edit_ldxx"
         android:layout_width="wrap_content"
         android:layout_marginTop="5dp"
-        android:background="@drawable/boder"
+        android:background="@drawable/tool_button_selector"
         android:layout_height="wrap_content">
 
         <com.hotsun.mqxxgl.busi.view.IconFontTextview
@@ -39,7 +39,7 @@
         android:layout_width="wrap_content"
         android:layout_marginTop="5dp"
         android:layout_marginLeft="5dp"
-        android:background="@drawable/boder"
+        android:background="@drawable/tool_button_selector"
         android:layout_height="wrap_content">
 
         <com.hotsun.mqxxgl.busi.view.IconFontTextview
