@@ -23,7 +23,9 @@ import com.hotsun.mqxxgl.busi.model.requestParams.GetLdxxVO;
 import com.hotsun.mqxxgl.busi.presenter.MyLdListAdapter;
 import com.hotsun.mqxxgl.busi.service.GetLdxxListRetrofit;
 import com.hotsun.mqxxgl.busi.util.UIHelper;
+import com.hotsun.mqxxgl.busi.view.RefreshListView;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,11 +36,12 @@ import retrofit2.Response;
 
 
 
-public class LDActivity extends AppCompatActivity  {
+public class LDActivity extends AppCompatActivity implements RefreshListView.OnRefreshListener ,RefreshListView.OnPaginationListener {
 
     private Context mContext;
 
-    private ListView ldListview;
+    List<Map<String, String>> results=new ArrayList<Map<String, String>>();
+    private RefreshListView refreshLv;
     private MyLdListAdapter myLdListAdapter;
     private int requestCode = 1;
     private final static int REQUESTCODE = 1; // 返回的结果码
@@ -52,10 +55,12 @@ public class LDActivity extends AppCompatActivity  {
 
         String mid = getIntent().getStringExtra("mid");
 
-        ldListview = (ListView) findViewById(R.id.ld_list);
+        refreshLv = (RefreshListView) findViewById(R.id.refresh_lv);
         TextView txtTitle=(TextView)findViewById(R.id.text_title) ;
         txtTitle.setText("楼栋清单");
 
+        refreshLv.setOnRefreshListener(this);
+        refreshLv.setOnPaginationListener(this);
 
 
 
@@ -71,7 +76,7 @@ public class LDActivity extends AppCompatActivity  {
         qycxButton_onClick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getLdList();
+                getLdList(0);
             }
         });
 
@@ -106,15 +111,14 @@ public class LDActivity extends AppCompatActivity  {
 
     }
 
-    private boolean getLdList() {
+    private boolean getLdList(final int page) {
 
         String userID= MyApplication.tSysUsers.getUserID();
         String sessionID=MyApplication.tSysUsers.getSessionID();
 
         Gson gson = new Gson();
         GetLdxxVO getLdxxVO = new GetLdxxVO();
-        getLdxxVO.setLimit(10);
-        getLdxxVO.setStart(0);
+        getLdxxVO.setPage(page);
 
         getLdxxVO.setUserID(userID);
         getLdxxVO.setSessionID(sessionID);
@@ -141,12 +145,35 @@ public class LDActivity extends AppCompatActivity  {
                     return;
                 }
 
-                final List<Map<String, String>> results=responseResults.getResults();
+                List<Map<String, String>> newResultList=responseResults.getResults();
+
+
+                if (results.size()>0)
+
+                {
+                    if(newResultList.size()==0)
+                    {
+                        UIHelper.ToastMessage(mContext,"没有更多的数据了！");
+                        return;
+                    }
+                    for (int i=0;i<newResultList.size();i++)
+                    {
+                        results.add(newResultList.get(i));
+                    }
+
+                }
+
+                if(page==0)
+                {
+                    results=newResultList;
+                }
 
                 myLdListAdapter = new MyLdListAdapter(mContext,results);
-                ldListview.setAdapter(myLdListAdapter);
+                refreshLv.setAdapter(myLdListAdapter);
 
-                ldListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+
+                refreshLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
@@ -198,5 +225,40 @@ public class LDActivity extends AppCompatActivity  {
         intent.putExtra("zumc",zumc);
         intent.putExtra("zuid",zuid);
         startActivity(intent);
+    }
+
+    @Override
+    public void onRefresh() {
+
+        getLdList(0);
+        refreshLv.refreshComplete();
+
+    }
+
+    @Override
+    public void onPagination() {
+
+        if (results==null)
+        {
+            UIHelper.ToastErrorMessage(mContext,"请先查询数据，才能加载更多数据！");
+            return;
+        }
+        int listCount=results.size();
+        if (listCount<10)
+        {
+            LinearLayout footpage=(LinearLayout)findViewById(R.id.page_footer) ;
+            footpage.setVisibility(View.GONE);
+        }
+//        if(listCount==10)
+//        {
+//            LinearLayout footpage=(LinearLayout)findViewById(R.id.page_footer) ;
+//            footpage.setVisibility(View.VISIBLE);
+//            TextView textView=(TextView)findViewById(R.id.page_footer_tv);
+//            textView.setText("没有更多的数据了");
+//        }
+        int page= (int) Math.floor(listCount/10);
+        getLdList(page);
+        refreshLv.refreshComplete();
+
     }
 }

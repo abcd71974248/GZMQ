@@ -52,6 +52,11 @@ public  class MyLdListAdapter extends BaseAdapter implements View.OnClickListene
         this.results=results;
 		this.mContext = mContext;
 	}
+	public void updateView( List<Map<String, String>> results ){
+		this.results = results;
+		this.notifyDataSetChanged();
+	}
+
 	@Override
 	public int getCount() {
 		return results.size();

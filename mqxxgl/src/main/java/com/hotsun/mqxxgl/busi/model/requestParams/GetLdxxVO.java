@@ -7,24 +7,17 @@ package com.hotsun.mqxxgl.busi.model.requestParams;
 public class GetLdxxVO {
 
 
-    int start;
-    int limit;
+    int page;
 
-    public int getStart() {
-        return start;
+    public int getPage() {
+        return page;
     }
 
-    public void setStart(int start) {
-        this.start = start;
+    public void setPage(int page) {
+        this.page = page;
     }
 
-    public int getLimit() {
-        return limit;
-    }
 
-    public void setLimit(int limit) {
-        this.limit = limit;
-    }
 
     String userID;
 
