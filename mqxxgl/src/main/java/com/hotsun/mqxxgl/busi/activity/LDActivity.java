@@ -64,6 +64,14 @@ public class LDActivity extends AppCompatActivity implements RefreshListView.OnR
 
 
 
+        TextView left_bar = (TextView) findViewById(R.id.left_bar);
+        left_bar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
         Button qycxButton = (Button) findViewById(R.id.qycxbutton);
         qycxButton.setOnClickListener(new View.OnClickListener() {
             @Override
