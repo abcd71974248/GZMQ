@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -21,5 +22,6 @@
             android:stretchMode="columnWidth"
             android:verticalSpacing="0.0dip" />
     </ScrollView>
+    <include layout="@layout/activity_maintab"/>
 
 </LinearLayout>

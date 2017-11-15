@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RadioGroup
+        android:id="@+id/radio_group"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <RadioButton
+
+            android:id="@+id/rb_home"
+            style="@style/radiobutton_style"
+            android:checked="true"
+            android:drawableTop="@drawable/shouye"
+            android:text="首页"
+            />
+
+        <RadioButton
+            android:id="@+id/rb_location"
+            style="@style/radiobutton_style"
+            android:drawableTop="@drawable/changyong"
+            android:text="常用功能"/>
+
+        <RadioButton
+            android:id="@+id/rb_like"
+            style="@style/radiobutton_style"
+            android:drawableTop="@drawable/wode"
+            android:text="我的"/>
+
+
+
+    </RadioGroup>
+</RelativeLayout>
