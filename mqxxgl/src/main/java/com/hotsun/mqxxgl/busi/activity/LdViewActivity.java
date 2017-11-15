@@ -77,6 +77,9 @@ public class LdViewActivity extends AppCompatActivity implements View.OnClickLis
         TextView textView =(TextView) findViewById(R.id.get_mapdata);
         textView.setOnClickListener(this);
 
+        TextView left_bar = (TextView) findViewById(R.id.left_bar);
+        left_bar.setOnClickListener(this);
+
         initView(ldid);
 
         TextView editLdBtn = (TextView) findViewById(R.id.ldlist_edit);
@@ -162,6 +165,9 @@ public class LdViewActivity extends AppCompatActivity implements View.OnClickLis
                 Intent intent = new Intent(LdViewActivity.this, GisBaseActivity.class);
                 intent.putExtra("id",ldid);
                 startActivityForResult(intent,requestCode);
+                break;
+            case R.id.left_bar:
+                finish();
                 break;
         }
     }
