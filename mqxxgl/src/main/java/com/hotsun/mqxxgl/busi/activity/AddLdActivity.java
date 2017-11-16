@@ -77,7 +77,6 @@ public class AddLdActivity extends AppCompatActivity implements View.OnClickList
                 finish();
 
             }
-
         });
 
         Button saveBtn = (Button) findViewById(R.id.addld_save);

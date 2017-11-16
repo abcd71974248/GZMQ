@@ -17,7 +17,7 @@
             android:id="@+id/rb_home"
             style="@style/radiobutton_style"
             android:checked="true"
-            android:drawableTop="@drawable/shouye"
+            android:drawableTop="@drawable/shouye2"
             android:text="首页"
             />
 

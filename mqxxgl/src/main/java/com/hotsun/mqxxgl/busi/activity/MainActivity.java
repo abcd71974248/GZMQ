@@ -1,13 +1,19 @@
 package com.hotsun.mqxxgl.busi.activity;
 
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.hotsun.mqxxgl.MyApplication;
@@ -16,6 +22,7 @@ import com.hotsun.mqxxgl.busi.model.ResponseResults;
 import com.hotsun.mqxxgl.busi.model.requestParams.HomemoduleVO;
 import com.hotsun.mqxxgl.busi.presenter.MyGridAdapter;
 import com.hotsun.mqxxgl.busi.service.HomemoduleRetrofit;
+import com.hotsun.mqxxgl.busi.util.BmcodeUtil;
 import com.hotsun.mqxxgl.busi.util.UIHelper;
 import com.hotsun.mqxxgl.busi.view.MyGridView;
 
@@ -42,6 +49,10 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
             R.color.fwda_color, R.color.qygk_color,R.color.pjjy_color,R.color.ldjy_color,R.color.shbz_color,
             R.color.jhsy_color,R.color.cyfw_color,R.color.zzgl_color};
 
+    private RadioButton home;
+    private RadioButton location;
+    private RadioButton like;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +62,13 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
         gridview=(MyGridView) findViewById(R.id.gridview);
         getHomemodule();
 
+        home = (RadioButton) findViewById(R.id.rb_home);
+        location = (RadioButton) findViewById(R.id.rb_location);
+        like = (RadioButton) findViewById(R.id.rb_like);
+
+        home.setOnClickListener(this);
+        location.setOnClickListener(this);
+        like.setOnClickListener(this);
     }
 
     private void initView() {
@@ -326,7 +344,55 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
     @Override
     public void onClick(View v) {
 
-        UIHelper.ToastMessage(mContext,"我进来了"+v);
+        switch(v.getId()){
+            case R.id.rb_home:
+                Drawable homePic = getResources().getDrawable(R.drawable.shouye2);
+                homePic.setBounds(0, 0, homePic.getMinimumWidth(), homePic.getMinimumHeight());
+                home.setCompoundDrawables(null, homePic, null, null);
+
+                Drawable locationPic = getResources().getDrawable(R.drawable.changyong);
+                locationPic.setBounds(0, 0, locationPic.getMinimumWidth(), locationPic.getMinimumHeight());
+                location.setCompoundDrawables(null, locationPic, null, null);
+
+
+                Drawable likePic = getResources().getDrawable(R.drawable.wode);
+                likePic.setBounds(0, 0, likePic.getMinimumWidth(), likePic.getMinimumHeight());
+                like.setCompoundDrawables(null, likePic, null, null);
+                break;
+            case R.id.rb_location:
+                UIHelper.ToastErrorMessage(mContext, "该功能正在开发中,敬请期待！");
+                homePic = getResources().getDrawable(R.drawable.shouye);
+                homePic.setBounds(0, 0, homePic.getMinimumWidth(), homePic.getMinimumHeight());
+                home.setCompoundDrawables(null, homePic, null, null);
+
+                locationPic = getResources().getDrawable(R.drawable.changyong2);
+                locationPic.setBounds(0, 0, locationPic.getMinimumWidth(), locationPic.getMinimumHeight());
+                location.setCompoundDrawables(null, locationPic, null, null);
+
+
+                likePic = getResources().getDrawable(R.drawable.wode);
+                likePic.setBounds(0, 0, likePic.getMinimumWidth(), likePic.getMinimumHeight());
+                like.setCompoundDrawables(null, likePic, null, null);
+                break;
+            case R.id.rb_like:
+                UIHelper.ToastErrorMessage(mContext, "该功能正在开发中,敬请期待！");
+                homePic = getResources().getDrawable(R.drawable.shouye);
+                homePic.setBounds(0, 0, homePic.getMinimumWidth(), homePic.getMinimumHeight());
+                home.setCompoundDrawables(null, homePic, null, null);
+
+                locationPic = getResources().getDrawable(R.drawable.changyong);
+                locationPic.setBounds(0, 0, locationPic.getMinimumWidth(), locationPic.getMinimumHeight());
+                location.setCompoundDrawables(null, locationPic, null, null);
+
+
+                likePic = getResources().getDrawable(R.drawable.wode2);
+                likePic.setBounds(0, 0, likePic.getMinimumWidth(), likePic.getMinimumHeight());
+                like.setCompoundDrawables(null, likePic, null, null);
+                break;
+            default:
+                break;
+        }
+
 
 
     }
