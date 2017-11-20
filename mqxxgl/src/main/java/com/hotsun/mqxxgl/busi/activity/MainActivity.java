@@ -10,11 +10,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.esri.core.geometry.Line;
 import com.google.gson.Gson;
 import com.hotsun.mqxxgl.MyApplication;
 import com.hotsun.mqxxgl.R;
@@ -35,6 +40,12 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity  implements View.OnClickListener {
     private MyGridView gridview;
     private Context mContext;
+
+    private ScrollView scrollView ;
+    private LinearLayout myLayout ;
+    private LinearLayout myLayoutBottom ;
+    private TextView about;
+
     public int[] imgs = { R.string.jtda_icon, R.string.ldda_icon,
             R.string.fwda_icon, R.string.qygk_icon,R.string.pjjy_icon,R.string.ldjy_icon,R.string.shbz_icon,
             R.string.jhsy_icon,R.string.cyfw_icon,R.string.zzgl_icon};
@@ -61,6 +72,13 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
 
         gridview=(MyGridView) findViewById(R.id.gridview);
         getHomemodule();
+
+        scrollView = (ScrollView) findViewById(R.id.main_scroll);
+        myLayout = (LinearLayout) findViewById(R.id.main_mylayout);
+        myLayoutBottom = (LinearLayout) findViewById(R.id.main_mylayout_bottom);
+        about = (TextView) findViewById(R.id.main_mylayout_about);
+
+        about.setOnClickListener(this);
 
         home = (RadioButton) findViewById(R.id.rb_home);
         location = (RadioButton) findViewById(R.id.rb_location);
@@ -358,6 +376,11 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
                 Drawable likePic = getResources().getDrawable(R.drawable.wode);
                 likePic.setBounds(0, 0, likePic.getMinimumWidth(), likePic.getMinimumHeight());
                 like.setCompoundDrawables(null, likePic, null, null);
+
+                scrollView.setVisibility(View.VISIBLE);
+                myLayout.setVisibility(View.GONE);
+                myLayoutBottom.setVisibility(View.GONE);
+
                 break;
             case R.id.rb_location:
                 UIHelper.ToastErrorMessage(mContext, "该功能正在开发中,敬请期待！");
@@ -375,7 +398,7 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
                 like.setCompoundDrawables(null, likePic, null, null);
                 break;
             case R.id.rb_like:
-                UIHelper.ToastErrorMessage(mContext, "该功能正在开发中,敬请期待！");
+//                UIHelper.ToastErrorMessage(mContext, "该功能正在开发中,敬请期待！");
                 homePic = getResources().getDrawable(R.drawable.shouye);
                 homePic.setBounds(0, 0, homePic.getMinimumWidth(), homePic.getMinimumHeight());
                 home.setCompoundDrawables(null, homePic, null, null);
@@ -388,6 +411,22 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
                 likePic = getResources().getDrawable(R.drawable.wode2);
                 likePic.setBounds(0, 0, likePic.getMinimumWidth(), likePic.getMinimumHeight());
                 like.setCompoundDrawables(null, likePic, null, null);
+
+                TextView username = (TextView) findViewById(R.id.main_mylayout_username);
+                TextView userxzname = (TextView) findViewById(R.id.main_mylayout_userxzname);
+
+                username.setText(MyApplication.tSysUsers.getUserName());
+                userxzname.setText(MyApplication.tSysUsers.getXzName()+MyApplication.tSysUsers.getCunName()+MyApplication.tSysUsers.getZuName());
+
+
+                scrollView.setVisibility(View.GONE);
+                myLayout.setVisibility(View.VISIBLE);
+                myLayoutBottom.setVisibility(View.VISIBLE);
+
+                break;
+            case R.id.main_mylayout_about:
+                Intent intent = new Intent(MainActivity.this,AboutActivity.class);
+                startActivity(intent);
                 break;
             default:
                 break;

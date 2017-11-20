@@ -100,4 +100,6 @@
     <string name="icon_caret_desc">&#xf0dd;</string>
     <string name="icon_map_marker">&#xf041;</string>
     <string name="icon_search">&#xe987;</string>
+    <string name="icon_user">&#xf2be;</string>
+    <string name="icon_info">&#xea0d;</string>
 </resources>

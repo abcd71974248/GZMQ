@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/rel_userlogin"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="55dp"
+        android:background="@drawable/selector_body"
+        >
+
+        <TextView
+            android:layout_marginLeft="140dp"
+            android:drawableTop="@drawable/appicon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+             />
+        <TextView
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="100dp"
+            android:textSize="20dp"
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="民情信息管理系统手机APP(1.0.0)"
+            />
+        <TextView
+            android:layout_marginTop="170dp"
+            android:textSize="18dp"
+            android:textColor="@color/gray"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="民情信息管理系统手机APP是由贵阳华升科技发展有限公司开发。"
+            />
+        <TextView
+            android:layout_marginTop="215dp"
+            android:textSize="18dp"
+            android:textColor="@color/gray"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="使用民情信息管理系统手机APP，可通过手机随时查看村（居）中楼栋信息。目前的版本为v1.0.0，今后随着版本更新，APP中将会开放更多的功能。"
+            />
+
+    </RelativeLayout>
+
+
+    <include layout="@layout/include_header"/>
+</RelativeLayout>
