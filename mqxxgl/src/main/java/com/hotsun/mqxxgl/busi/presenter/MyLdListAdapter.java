@@ -211,7 +211,7 @@ public  class MyLdListAdapter extends BaseAdapter implements View.OnClickListene
 
 				if (responseResults.getStatus().equals("success"))
 				{
-					UIHelper.ToastErrorMessage(mContext, responseResults.getMsg());
+					UIHelper.ToastGoodMessage(mContext, responseResults.getMsg());
 					return;
 				}
 

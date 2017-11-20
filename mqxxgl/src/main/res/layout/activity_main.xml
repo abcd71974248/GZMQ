@@ -8,9 +8,9 @@
     <ScrollView
         android:id="@+id/main_scroll"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="500dp"
         android:fillViewport="true"
-        android:scrollbars="none" >
+        android:scrollbars="vertical" >
 
         <com.hotsun.mqxxgl.busi.view.MyGridView
             android:id="@+id/gridview"

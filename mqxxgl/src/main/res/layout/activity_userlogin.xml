@@ -35,7 +35,7 @@
             android:textColorHint="@color/light_gray"
             android:textCursorDrawable="@null"
             android:textSize="16sp"
-            android:text="18786794543"/>
+            android:text="18620076495"/>
 
         <TextView
             android:id="@+id/tv_title_usermm"
@@ -60,7 +60,15 @@
             android:textColorHint="@color/light_gray"
             android:textCursorDrawable="@null"
             android:textSize="16sp"
-            android:text="yzl123456"/>
+            android:text="ybq123456"/>
+        <Switch
+            android:id="@+id/btn_userlogin_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/btn_userlogin_submit"
+            android:layout_alignRight="@+id/btn_userlogin_submit"
+            android:layout_below="@+id/edtTxt_userlogin_usermm"
+            android:text="自动登录" />
 
         <Button
             android:id="@+id/btn_userlogin_submit"
@@ -69,7 +77,7 @@
             android:layout_below="@id/edtTxt_userlogin_usermm"
             android:layout_marginLeft="2dp"
             android:layout_marginRight="2dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="40dp"
             android:background="@drawable/button_selector"
             android:gravity="center"
             android:text="@string/lockpwd_login_submit"
@@ -80,11 +88,13 @@
             android:id="@+id/tv_set_ipconfig"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="210dp"
+            android:layout_marginTop="230dp"
             android:layout_alignParentRight="true"
             android:text="@string/login_set_ipconfig"
             android:textColor="@color/login_set_ipconfig"
             android:textSize="14sp" />
+
+
     </RelativeLayout>
 
 

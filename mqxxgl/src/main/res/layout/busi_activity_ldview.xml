@@ -3,7 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    <include layout="@layout/include_header" />
+    <include
+        layout="@layout/include_header" />
+
+
+
 
     <TextView
         android:id="@+id/busi_ldxxview_ldid"
@@ -11,9 +15,8 @@
         android:layout_height="match_parent"
         android:textSize="20sp"
         android:visibility="gone" />
-
-    <include layout="@layout/activity_ldviewtool" />
-
+    <include
+        layout="@layout/activity_ldviewtool" />
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -156,7 +159,7 @@
             android:inputType="text"
             android:layout_marginTop="20dp"
             android:textSize="14sp"
-            android:layout_toRightOf="@+id/addld_fwjg"/>
+            android:layout_toRightOf="@+id/busi_ldxxview_fwjgnameTitle"/>
 
         <TextView
             android:id="@+id/busi_ldxxview_xjrqTitle_"

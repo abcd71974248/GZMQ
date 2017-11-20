@@ -1,12 +1,14 @@
 package com.hotsun.mqxxgl.busi.service;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 
 import com.hotsun.mqxxgl.R;
 import com.hotsun.mqxxgl.busi.model.ConditionText;
 import com.hotsun.mqxxgl.busi.model.FwLdxx;
 import com.hotsun.mqxxgl.busi.model.ResponseResults;
 import com.hotsun.mqxxgl.busi.model.sysbeans.TSysUsers;
+import com.hotsun.mqxxgl.busi.util.UIHelper;
 import com.hotsun.mqxxgl.gis.service.LiveNetworkMonitor;
 import com.hotsun.mqxxgl.gis.service.NetworkMonitor;
 import com.hotsun.mqxxgl.gis.util.ToastUtil;
@@ -53,6 +55,12 @@ public  class  BusiRetrofitHelper {
     }
 
     private void resetApp() {
+        SharedPreferences autoPreferences = mContext.getSharedPreferences("ipsetinfo",
+                mContext.MODE_PRIVATE);
+        String ip=autoPreferences.getString("ip","");
+        String port=autoPreferences.getString("port","");
+
+        String baseUrl="http://"+ip+":"+port+"/";
         OkHttpClient.Builder okHttpClientBuilder = new OkHttpClient.Builder();
 
         // 看这里 ！！！ 我们添加了一个网络监听拦截器
@@ -68,7 +76,7 @@ public  class  BusiRetrofitHelper {
         okHttpClientBuilder.connectTimeout(5, TimeUnit.SECONDS);
 
         mRetrofit = new Retrofit.Builder()
-                .baseUrl(mContext.getResources().getString(R.string.serverhost))
+                .baseUrl(baseUrl)
                 .client(okHttpClientBuilder.build())
                 .addConverterFactory( GsonConverterFactory.create())
 //                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())

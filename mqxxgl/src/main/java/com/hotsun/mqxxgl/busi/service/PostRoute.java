@@ -37,6 +37,11 @@ public interface PostRoute {
 //    , @Field("hzxm") String hzxm, @Field("mph") String mph);
 
     @Headers({ "Content-Type: application/json; charset=utf-8","Accept: application/json"})
+    @POST("/cpimAppService/android_heartbeat.do")
+    Call<ResponseResults> ipconfig();//传入的参数为RequestBody
+
+
+    @Headers({ "Content-Type: application/json; charset=utf-8","Accept: application/json"})
     @POST("/cpimAppService/familyPopulation/family/getJthxxList.do")
     Call<ResponseResults> postFlyRoute(@Body RequestBody route);//传入的参数为RequestBody
 

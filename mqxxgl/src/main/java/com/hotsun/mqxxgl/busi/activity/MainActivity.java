@@ -4,6 +4,7 @@ package com.hotsun.mqxxgl.busi.activity;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -45,6 +46,7 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
     private LinearLayout myLayout ;
     private LinearLayout myLayoutBottom ;
     private TextView about;
+    private Button btn_exit;
 
     public int[] imgs = { R.string.jtda_icon, R.string.ldda_icon,
             R.string.fwda_icon, R.string.qygk_icon,R.string.pjjy_icon,R.string.ldjy_icon,R.string.shbz_icon,
@@ -79,6 +81,8 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
         about = (TextView) findViewById(R.id.main_mylayout_about);
 
         about.setOnClickListener(this);
+        btn_exit=(Button)findViewById(R.id.btn_exit);
+        btn_exit.setOnClickListener(this);
 
         home = (RadioButton) findViewById(R.id.rb_home);
         location = (RadioButton) findViewById(R.id.rb_location);
@@ -428,6 +432,20 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
                 Intent intent = new Intent(MainActivity.this,AboutActivity.class);
                 startActivity(intent);
                 break;
+            case R.id.btn_exit:
+                SharedPreferences autoPreferences = getSharedPreferences("autoUserInfo",
+                        mContext.MODE_PRIVATE);
+                SharedPreferences.Editor autoedit=autoPreferences.edit();
+                autoedit.clear();
+                autoedit.commit();
+                SharedPreferences userPreferences = getSharedPreferences("userInfo",
+                        mContext.MODE_PRIVATE);
+                SharedPreferences.Editor useredit=userPreferences.edit();
+                useredit.clear();
+                useredit.commit();
+
+                finish();
+
             default:
                 break;
         }

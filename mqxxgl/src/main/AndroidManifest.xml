@@ -50,6 +50,8 @@
         <activity android:name=".busi.activity.AddLdActivity"/>
         <activity android:name=".busi.activity.EditLdActivity"/>
         <activity android:name=".busi.activity.LdViewActivity"/>
+        <activity android:name=".busi.activity.IpconfigActivity"/>
+
         <activity android:name=".busi.activity.AboutActivity"/>
         <!--百度地图-->
         <meta-data

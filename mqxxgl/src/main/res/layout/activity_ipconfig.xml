@@ -4,12 +4,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
+    <include
+        layout="@layout/include_header" />
     <RelativeLayout
         android:id="@+id/rel_ipcfg"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
+        android:layout_marginTop="50dp"
         android:background="@drawable/selector_body"
         android:padding="20dp" >
 

@@ -176,6 +176,12 @@ public class LDActivity extends AppCompatActivity implements RefreshListView.OnR
                     results=newResultList;
                 }
 
+
+
+
+
+
+
                 myLdListAdapter = new MyLdListAdapter(mContext,results);
                 refreshLv.setAdapter(myLdListAdapter);
 
