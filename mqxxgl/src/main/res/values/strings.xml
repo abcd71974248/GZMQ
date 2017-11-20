@@ -3,7 +3,7 @@
 
     <string name="serverurl">http://98.52.9.129:6080/arcgis/rest/services/SampleWorldCities/MapServer</string>
     <string name="gzserver">http://98.52.9.129:6080/arcgis/rest/services/gzfp/gzfp/MapServer</string>
-    <string name="serverhost">http://98.52.9.124:8080/</string>
+    <string name="serverhost">http://98.52.9.127:8080/</string>
 
     <!--地图服务地址-->
     <string name="ld_fserver">http://222.85.131.179:6080/arcgis/rest/services/gzfp/lddw/FeatureServer/0</string>
