@@ -21,11 +21,20 @@
             android:textSize="20dp" />
 
         <TextView
-            android:id="@+id/editld_cunmc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
-            android:text="    村名称"
+            android:text="*"
+            android:textColor="@color/red"
+            android:textSize="16sp"
+            />
+
+        <TextView
+            android:id="@+id/editld_cunmc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="41dp"
+            android:text="       村名称"
             android:textColor="@color/text_color"
             android:textSize="16sp"
             />
@@ -47,12 +56,21 @@
             android:focusableInTouchMode="false"/>
 
         <TextView
-            android:id="@+id/editld_zumc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/editld_cunmc"
             android:layout_marginTop="20dp"
-            android:text="    组名称"
+            android:text="*"
+            android:textColor="@color/red"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/editld_zumc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/editld_cunmc"
+            android:layout_marginTop="21dp"
+            android:text="       组名称"
             android:textColor="@color/text_color"
             android:textSize="16sp" />
 
@@ -73,12 +91,21 @@
             android:focusableInTouchMode="false"/>
 
         <TextView
-            android:id="@+id/editld_ldmc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/editld_zumc"
             android:layout_marginTop="20dp"
-            android:text="楼栋名称"
+            android:text="*"
+            android:textColor="@color/red"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/editld_ldmc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/editld_zumc"
+            android:layout_marginTop="21dp"
+            android:text="   楼栋名称"
             android:textColor="@color/text_color"
             android:textSize="16sp" />
 
@@ -93,15 +120,25 @@
             android:textColorHint="@color/light_gray"
             android:textCursorDrawable="@null"
             android:textSize="16sp"
-            android:layout_toRightOf="@+id/editld_ldmc"/>
+            android:layout_toRightOf="@+id/editld_ldmc"
+            android:maxLength="40"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/editld_ldmc"
+            android:layout_marginTop="20dp"
+            android:text="*"
+            android:textColor="@color/red"
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/editld_lddz"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/editld_ldmc"
-            android:layout_marginTop="20dp"
-            android:text="楼栋地址"
+            android:layout_marginTop="21dp"
+            android:text="   楼栋地址"
             android:textColor="@color/text_color"
             android:textSize="16sp" />
 
@@ -116,15 +153,25 @@
             android:textColorHint="@color/light_gray"
             android:textCursorDrawable="@null"
             android:textSize="16sp"
-            android:layout_toRightOf="@+id/editld_lddz"/>
+            android:layout_toRightOf="@+id/editld_lddz"
+            android:maxLength="80"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/editld_lddz"
+            android:layout_marginTop="20dp"
+            android:text="*"
+            android:textColor="@color/red"
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/editld_dys"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/editld_lddz"
-            android:layout_marginTop="20dp"
-            android:text="    单元数"
+            android:layout_marginTop="21dp"
+            android:text="       单元数"
             android:textColor="@color/text_color"
             android:textSize="16sp" />
 
@@ -139,15 +186,26 @@
             android:textColorHint="@color/light_gray"
             android:textCursorDrawable="@null"
             android:textSize="16sp"
-            android:layout_toRightOf="@+id/editld_dys"/>
+            android:layout_toRightOf="@+id/editld_dys"
+            android:digits="1234567890"
+            android:maxLength="5"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/editld_dys"
+            android:layout_marginTop="20dp"
+            android:text="*"
+            android:textColor="@color/red"
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/editld_lcs"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/editld_dys"
-            android:layout_marginTop="20dp"
-            android:text="    楼层数"
+            android:layout_marginTop="21dp"
+            android:text="       楼层数"
             android:textColor="@color/text_color"
             android:textSize="16sp" />
 
@@ -162,15 +220,17 @@
             android:textColorHint="@color/light_gray"
             android:textCursorDrawable="@null"
             android:textSize="16sp"
-            android:layout_toRightOf="@+id/editld_lcs"/>
+            android:layout_toRightOf="@+id/editld_lcs"
+            android:digits="1234567890"
+            android:maxLength="5"/>
 
         <TextView
             android:id="@+id/editld_fwjg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/editld_lcs"
-            android:layout_marginTop="20dp"
-            android:text="房屋结构"
+            android:layout_marginTop="21dp"
+            android:text="   房屋结构"
             android:textColor="@color/text_color"
             android:textSize="16sp" />
 
@@ -202,8 +262,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/editld_fwjg"
-            android:layout_marginTop="20dp"
-            android:text="修建日期"
+            android:layout_marginTop="21dp"
+            android:text="   修建日期"
             android:textColor="@color/text_color"
             android:textSize="16sp" />
 
@@ -228,8 +288,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/editld_xjrq"
-            android:layout_marginTop="20dp"
-            android:text="        备注"
+            android:layout_marginTop="21dp"
+            android:text="           备注"
             android:textColor="@color/text_color"
             android:textSize="16sp" />
 
@@ -244,15 +304,16 @@
             android:textColorHint="@color/light_gray"
             android:textCursorDrawable="@null"
             android:textSize="16sp"
-            android:layout_toRightOf="@+id/editld_bz"/>
+            android:layout_toRightOf="@+id/editld_bz"
+            android:maxLength="30"/>
 
         <TextView
             android:id="@+id/editld_zxlx"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/editld_bz"
-            android:layout_marginTop="20dp"
-            android:text="注销类型"
+            android:layout_marginTop="21dp"
+            android:text="   注销类型"
             android:textColor="@color/text_color"
             android:textSize="16sp" />
 
@@ -284,8 +345,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/editld_zxlx"
-            android:layout_marginTop="20dp"
-            android:text="注销日期"
+            android:layout_marginTop="21dp"
+            android:text="   注销日期"
             android:textColor="@color/text_color"
             android:textSize="16sp" />
 

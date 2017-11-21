@@ -225,6 +225,26 @@ public class EditLdActivity extends AppCompatActivity implements View.OnClickLis
         EditText zxrqText = (EditText) findViewById(R.id.editld_zxrqtext);
         String zxrq = String.valueOf(zxrqText.getText());
 
+        if(ldmc.length() == 0){
+            Toast.makeText(EditLdActivity.this, "楼栋名称不能为空!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if(lddz.length() == 0){
+            Toast.makeText(EditLdActivity.this, "楼栋地址不能为空!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if(dys.length() == 0){
+            Toast.makeText(EditLdActivity.this, "单元数不能为空!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if(lcs.length() == 0){
+            Toast.makeText(EditLdActivity.this, "楼层数不能为空!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
 
         FwLdxx fwLdxx = new FwLdxx();
 
