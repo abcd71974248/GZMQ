@@ -102,4 +102,5 @@
     <string name="icon_search">&#xe987;</string>
     <string name="icon_user">&#xf2be;</string>
     <string name="icon_info">&#xea0d;</string>
+    <string name="icon_clear">&#xf057;</string>
 </resources>

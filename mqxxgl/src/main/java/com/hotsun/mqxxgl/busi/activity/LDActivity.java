@@ -116,6 +116,12 @@ public class LDActivity extends AppCompatActivity implements RefreshListView.OnR
                 }
         }
 
+        if(resultCode == 1){
+            if(requestCode == REQUESTCODE){
+                getLdList(0);
+            }
+        }
+
 
     }
 
@@ -238,7 +244,7 @@ public class LDActivity extends AppCompatActivity implements RefreshListView.OnR
         intent.putExtra("cunmc",cunmc);
         intent.putExtra("zumc",zumc);
         intent.putExtra("zuid",zuid);
-        startActivity(intent);
+        startActivityForResult(intent,REQUESTCODE);
     }
 
     @Override

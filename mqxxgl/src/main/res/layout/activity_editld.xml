@@ -269,7 +269,7 @@
 
         <EditText
             android:id="@+id/editld_xjrqtext"
-            android:layout_width="match_parent"
+            android:layout_width="215dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/editld_fwjgtext"
             android:inputType="text"
@@ -282,6 +282,16 @@
             android:cursorVisible="false"
             android:focusable="false"
             android:focusableInTouchMode="false"/>
+
+        <com.hotsun.mqxxgl.busi.view.IconFontTextview
+            android:id="@+id/editld_xjrqclear"
+            android:layout_toRightOf="@+id/editld_xjrqtext"
+            android:layout_below="@+id/editld_fwjgtext"
+            android:layout_width="30.0dip"
+            android:layout_height="30.0dip"
+            android:textSize="30sp"
+            android:textColor="@color/red"
+            android:text="@string/icon_clear" />
 
         <TextView
             android:id="@+id/editld_bz"
@@ -352,7 +362,7 @@
 
         <EditText
             android:id="@+id/editld_zxrqtext"
-            android:layout_width="match_parent"
+            android:layout_width="215dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/editld_zxlxtext"
             android:inputType="text"
@@ -365,6 +375,16 @@
             android:cursorVisible="false"
             android:focusable="false"
             android:focusableInTouchMode="false"/>
+
+        <com.hotsun.mqxxgl.busi.view.IconFontTextview
+            android:id="@+id/editld_zxrqclear"
+            android:layout_toRightOf="@+id/editld_zxrqtext"
+            android:layout_below="@+id/editld_zxlxtext"
+            android:layout_width="30.0dip"
+            android:layout_height="30.0dip"
+            android:textSize="30sp"
+            android:textColor="@color/red"
+            android:text="@string/icon_clear" />
 
     </RelativeLayout>
 

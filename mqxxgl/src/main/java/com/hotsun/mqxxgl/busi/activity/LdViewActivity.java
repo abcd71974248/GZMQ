@@ -88,7 +88,7 @@ public class LdViewActivity extends AppCompatActivity implements View.OnClickLis
             public void onClick(View view) {
                 Intent intent = new Intent(LdViewActivity.this,EditLdActivity.class);
                 intent.putExtra("ldid",ldid);
-                startActivity(intent);
+                startActivityForResult(intent,1);
             }
         });
     }
@@ -158,6 +158,7 @@ public class LdViewActivity extends AppCompatActivity implements View.OnClickLis
     }
 
 
+
     @Override
     public void onClick(View v) {
         switch (v.getId()){
@@ -175,6 +176,10 @@ public class LdViewActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+        if(resultCode == 2){
+            initView(ldid);
+        }
 
         if(requestCode == 0 && resultCode == 1){
             String state = data.getStringExtra("state");

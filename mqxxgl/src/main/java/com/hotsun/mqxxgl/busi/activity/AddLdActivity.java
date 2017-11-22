@@ -91,8 +91,10 @@ public class AddLdActivity extends AppCompatActivity implements View.OnClickList
 
         xjrqDialog=(TextView) findViewById(R.id.addld_xjrqtext);
         xjrqDialog.setOnClickListener(this);
+        findViewById(R.id.addld_xjrqclear).setOnClickListener(this);
         zxrqDialog=(TextView) findViewById(R.id.addld_zxrqtext);
         zxrqDialog.setOnClickListener(this);
+        findViewById(R.id.addld_zxrqclear).setOnClickListener(this);
 
         EditText fwjgText = (EditText) findViewById(R.id.addld_fwjgtext);
         fwjgText.setOnClickListener(this);
@@ -190,6 +192,7 @@ public class AddLdActivity extends AppCompatActivity implements View.OnClickList
                     @Override
                     public void run() {
                         Toast.makeText(AddLdActivity.this, "保存成功", Toast.LENGTH_SHORT).show();
+                        setResult(1);
                         finish();
                     }
                 });
@@ -245,6 +248,12 @@ public class AddLdActivity extends AppCompatActivity implements View.OnClickList
                 dmname = (EditText) findViewById(R.id.addld_zxlxtext);
                 dmcode = (TextView) findViewById(R.id.addld_zxlxdm);
                 bmcodeUtil.loadBm(mContext,dmname,dmcode,"3017");
+                break;
+            case R.id.addld_xjrqclear:
+                xjrqDialog.setText("");
+                break;
+            case R.id.addld_zxrqclear:
+                zxrqDialog.setText("");
                 break;
             default:
                 break;
