@@ -389,7 +389,7 @@
     </RelativeLayout>
 
 
-    <include layout="@layout/include_header_editld"/>
+    <include layout="@layout/include_header"/>
 
     <Button
         android:id="@+id/editld_close"

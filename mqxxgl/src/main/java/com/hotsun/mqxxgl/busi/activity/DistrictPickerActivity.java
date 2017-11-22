@@ -186,7 +186,7 @@ public class DistrictPickerActivity extends BaseActivity implements View.OnClick
         });
 
 
-        String[] cities = {"1"};
+        String[] cities = {""};
         if (cities == null) {
             cities = new String[] { "" };
         }
@@ -194,7 +194,7 @@ public class DistrictPickerActivity extends BaseActivity implements View.OnClick
         mViewCity.setViewAdapter(new ArrayWheelAdapter<String>(this, cities));
         mViewCity.setCurrentItem(0);
 
-        String[] areas = {"2"};
+        String[] areas = {""};
 
         if (areas == null) {
             areas = new String[] { "" };

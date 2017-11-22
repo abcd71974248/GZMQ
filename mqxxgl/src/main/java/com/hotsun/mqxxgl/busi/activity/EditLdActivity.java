@@ -66,6 +66,8 @@ public class EditLdActivity extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editld);
 
+        TextView txtTitle= (TextView)findViewById(R.id.text_title);
+        txtTitle.setText("修改楼栋信息");
         TextView left_bar=(TextView)findViewById(R.id.left_bar);
         left_bar.setOnClickListener(this);
 

@@ -388,7 +388,7 @@
     </RelativeLayout>
 
 
-    <include layout="@layout/include_header_addld"/>
+    <include layout="@layout/include_header"/>
 
     <Button
         android:id="@+id/addld_close"

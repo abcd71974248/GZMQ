@@ -54,6 +54,8 @@ public class AddLdActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_addld);
 
+        TextView txtTitle= (TextView)findViewById(R.id.text_title);
+        txtTitle.setText("增加楼栋信息");
         TextView left_bar=(TextView)findViewById(R.id.left_bar);
         left_bar.setOnClickListener(this);
 
