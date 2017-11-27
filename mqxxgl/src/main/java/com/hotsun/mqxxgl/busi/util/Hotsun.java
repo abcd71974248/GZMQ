@@ -24,6 +24,17 @@ import java.util.UUID;
 
 public class Hotsun
 {
+    public static boolean fileIsExists(String filepath) {
+
+        File f = new File(filepath);
+        if (!f.exists()) {
+            return false;
+        }
+        return  true;
+    }
+
+            // }
+
 //	// 操作类型查询
 //	public final static String OPERTYPE_QUERY = "query";
 //
@@ -169,31 +180,31 @@ public class Hotsun
 //		return null;
 //	}
 //
-//	/**
-//	 * 根据参数日期的值，转换为YYYY-MM-DD字符串格式返回
-//	 *
-//	 * @param date
-//	 * @return
-//	 */
-//	public static String dateToString(Date date)
-//	{
-//		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-//		String _date = formatter.format(date);
-//		return _date;
-//	}
-//
-//	/**
-//	 * 根据参数日期的值，转换为yyyy-MM-dd HH:mmss:SSS字符串格式返回
-//	 *
-//	 * @param date
-//	 * @return
-//	 */
-//	public static String timestampToString(Date date)
-//	{
-//		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//		String _date = formatter.format(date);
-//		return _date;
-//	}
+	/**
+	 * 根据参数日期的值，转换为YYYY-MM-DD字符串格式返回
+	 *
+	 * @param date
+	 * @return
+	 */
+	public static String dateToString(Date date)
+	{
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		String _date = formatter.format(date);
+		return _date;
+	}
+
+	/**
+	 * 根据参数日期的值，转换为yyyy-MM-dd HH:mmss:SSS字符串格式返回
+	 *
+	 * @param date
+	 * @return
+	 */
+	public static String timestampToString(Date date)
+	{
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String _date = formatter.format(date);
+		return _date;
+	}
 //
 //	public static String timestampToString2(Date date)
 //	{
@@ -665,4 +676,5 @@ public class Hotsun
 //
 //		return time;
 //	}
-}
+
+    }

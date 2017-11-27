@@ -16,9 +16,7 @@ import java.util.List;
 
 public class ResourcesUtil {
 
-
-    private Context mContext;
-    private ResourcesUtil resourcesUtil;
+    private static ResourcesUtil resourcesUtil;
 
     private final String ROOT_MAPS = "/maps";
     public final String otitan_map = "/otitan.map";
@@ -26,10 +24,10 @@ public class ResourcesUtil {
     public final String db = "/db";
 
 
-    public synchronized ResourcesUtil getInstance(Context context) {
+    public static synchronized ResourcesUtil getInstance() {
         if (resourcesUtil == null) {
             try {
-                resourcesUtil = new ResourcesUtil(context);
+                resourcesUtil = new ResourcesUtil();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -37,13 +35,8 @@ public class ResourcesUtil {
         return resourcesUtil;
     }
 
-    public ResourcesUtil(Context context){
-        mContext = context;
-    }
-
-
     /** 获取手机内部存储地址和外部存储地址 */
-    private String[] getMemoryPath() {
+    private String[] getMemoryPath(Context mContext) {
         StorageManager sm = (StorageManager) mContext.getSystemService(Context.STORAGE_SERVICE);
         String[] paths = null;
         try {
@@ -54,22 +47,45 @@ public class ResourcesUtil {
         return paths;
     }
 
+    public void creatFolder(Context context){
+        String[] str = getMemoryPath(context);
+
+        if(!new File(str[0]+ROOT_MAPS).exists()){
+            boolean flag = new File(str[0]+ROOT_MAPS).mkdirs();
+        }
+        if(!new File(str[0]+ROOT_MAPS+otitan_map).exists()){
+            boolean flag = new File(str[0]+ROOT_MAPS+otitan_map).mkdirs();
+        }
+        if(!new File(str[0]+ROOT_MAPS+db).exists()){
+            boolean flag = new File(str[0]+ROOT_MAPS+db).mkdirs();
+        }
+        if(!new File(str[0]+ROOT_MAPS+otms).exists()){
+            boolean flag = new File(str[0]+ROOT_MAPS+otms).mkdirs();
+        }
+    }
+
     /**获取基础离线地图数据path*/
-    public String getBaseTitlePath(){
+    public String getBaseTitlePath(Context context){
         String basePath = otitan_map + "/title.tpk";
-        return getFilePath(basePath);
+        return getFilePath(context,basePath);
     }
 
     /**获取db.sqlite文件*/
-    public File getDbSqlite(){
-        String path = getFilePath(db+"/db.sqlite");
+    public File getDbSqlite(Context context){
+        String path = getFilePath(context,db+"/db.sqlite");
+        return new File(path);
+    }
+
+    /**获取db.sqlite文件*/
+    public File getYwSqlite(Context context,String dbname){
+        String path = getFilePath(context,db+"/"+dbname);
         return new File(path);
     }
 
     /** 取文件可用地址 */
-    public String getFilePath(String path) {
+    public String getFilePath(Context context,String path) {
         String dataPath = "文件可用地址";
-        String[] memoryPath = getMemoryPath();
+        String[] memoryPath = getMemoryPath(context);
         for(int i = 0; i < memoryPath.length; i++) {
             File file = new File(memoryPath[i] + ROOT_MAPS + path);
             if (file.exists() && file.isFile()) {
@@ -80,26 +96,25 @@ public class ResourcesUtil {
         return dataPath;
     }
     /**获取文件夹的名字*/
-    public String getFolderPath(String foldername){
+    public String getFolderPath(Context context,String foldername){
+
         String dataPath = "文件夹可用地址";
-        String[] memoryPath = getMemoryPath();
+        String[] memoryPath = getMemoryPath(context);
         for (int i = 0; i < memoryPath.length; i++) {
             File file = new File(memoryPath[i] + ROOT_MAPS + foldername);
             if (file.exists() && file.isDirectory()) {
                 dataPath = memoryPath[i] + ROOT_MAPS + foldername;
                 break;
             } else {
-                if (foldername.equals("")) {
-                    file.mkdirs();
-                }
+                file.mkdirs();
             }
         }
         return dataPath;
     }
     /**获取otms下的文件夹*/
-    public List<File> getOtmsFiles(){
+    public List<File> getOtmsFiles(Context context){
         List<File> folds = new ArrayList<>();
-        String otmspath = getFolderPath(otms);
+        String otmspath = getFolderPath(context,otms);
         File[] files = new File(otmspath).listFiles();
         if(files == null ){
             return folds;

@@ -22,9 +22,14 @@ import com.hotsun.mqxxgl.busi.model.ResponseResults;
 import com.hotsun.mqxxgl.busi.model.requestParams.GetLdxxVO;
 import com.hotsun.mqxxgl.busi.presenter.MyLdListAdapter;
 import com.hotsun.mqxxgl.busi.service.GetLdxxListRetrofit;
+import com.hotsun.mqxxgl.busi.util.Hotsun;
 import com.hotsun.mqxxgl.busi.util.UIHelper;
 import com.hotsun.mqxxgl.busi.view.RefreshListView;
+import com.hotsun.mqxxgl.gis.util.ResourcesUtil;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -49,9 +54,11 @@ public class LDActivity extends AppCompatActivity implements RefreshListView.OnR
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ldlist);
         mContext = LDActivity.this;
+        copyAssets();
 
         String mid = getIntent().getStringExtra("mid");
 
@@ -280,5 +287,46 @@ public class LDActivity extends AppCompatActivity implements RefreshListView.OnR
         getLdList(page);
         refreshLv.refreshComplete();
 
+    }
+
+    /**
+     * 复制asset文件到指定目录
+     */
+    private void copyAssets() {
+        try {
+            String sdpath = ResourcesUtil.getInstance().getFolderPath(this,ResourcesUtil.getInstance().db);
+            String filename=sdpath+"/LDFWGL.db";
+            boolean isexitfile= Hotsun.fileIsExists(filename);
+            if(!isexitfile)
+            {
+                copyDatabase(sdpath,"LDFWGL.db","LDFWGL.db");
+            }
+
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    /** 复制默认数据到本地 */
+    private void copyDatabase(String fileDir,String assetPath, String filename) {
+        try {
+            InputStream db = getResources().getAssets().open(assetPath);
+            if(db == null){
+                return;
+            }
+            FileOutputStream fos = new FileOutputStream(fileDir + "/"+ filename);
+            byte[] buffer = new byte[1024];//8129
+            int count = 0;
+
+            while ((count = db.read(buffer)) >= 0) {
+                fos.write(buffer, 0, count);
+            }
+
+            fos.close();
+            db.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

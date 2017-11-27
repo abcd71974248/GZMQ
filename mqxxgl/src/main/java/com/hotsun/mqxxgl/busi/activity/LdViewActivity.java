@@ -19,6 +19,7 @@ import com.hotsun.mqxxgl.busi.model.sysbeans.AddResponseResults;
 import com.hotsun.mqxxgl.busi.service.ldxxgl.CollectLdxxMapRetrofit;
 import com.hotsun.mqxxgl.busi.service.ldxxgl.DeleteLdxxRetrofit;
 import com.hotsun.mqxxgl.busi.service.ldxxgl.GetLdxxViewRetrofit;
+import com.hotsun.mqxxgl.busi.service.localstore.ldfwxx.LdxxglService;
 import com.hotsun.mqxxgl.busi.util.UIHelper;
 import com.hotsun.mqxxgl.gis.activity.GisBaseActivity;
 import com.hotsun.mqxxgl.gis.util.ToastUtil;
@@ -185,6 +186,9 @@ public class LdViewActivity extends AppCompatActivity implements View.OnClickLis
             String state = data.getStringExtra("state");
             if(state.equals("true"))
             {
+                LdxxglService.collectLdxxMap(mContext,ldid);
+
+
                 collectLdxxMap(ldid);
 
             }else if(state.equals("false"))

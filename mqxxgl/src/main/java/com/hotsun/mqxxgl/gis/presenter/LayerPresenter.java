@@ -67,8 +67,8 @@ public class LayerPresenter {
      * 获取离线地图
      */
     private TiledLayer getTitleLayer(Context context) {
-        ResourcesUtil resourcesUtil = new ResourcesUtil(context);
-        String titlepath = resourcesUtil.getBaseTitlePath();
+        ResourcesUtil resourcesUtil = ResourcesUtil.getInstance();
+        String titlepath = resourcesUtil.getBaseTitlePath(context);
         TiledLayer tiledLayer;
         if (new File(titlepath).exists()) {
             //离线数据存在
@@ -179,8 +179,8 @@ public class LayerPresenter {
     }
     /**绑定ExpandableListView数据*/
     private void initExpandableListView(LayerPresenter presenter,ExpandableListView listView){
-        ResourcesUtil util = new ResourcesUtil(mContext);
-        List<File> folds = util.getOtmsFiles();
+        ResourcesUtil util = ResourcesUtil.getInstance();
+        List<File> folds = util.getOtmsFiles(mContext);
         HashMap<String, List<File>> map = util.getOtmsFoldesFile(folds);
         ExpandableAdapter adapter = new ExpandableAdapter(mContext,folds,map,checkStates,presenter);
         listView.setAdapter(adapter);

@@ -1,11 +1,8 @@
 package com.hotsun.mqxxgl.gis.util;
 
 import android.content.Context;
-
 import com.hotsun.mqxxgl.gis.model.Gjpoint;
-
 import java.io.File;
-
 import jsqlite.Database;
 
 /**
@@ -20,8 +17,8 @@ public class SqliteUtil {
      */
     public static boolean addLocalPoint(Context context, Gjpoint gjpoint) {
         try {
-            ResourcesUtil resourcesUtil = new ResourcesUtil(context);
-            File databaseName = resourcesUtil.getDbSqlite();
+            ResourcesUtil resourcesUtil = ResourcesUtil.getInstance();
+            File databaseName = resourcesUtil.getDbSqlite(context);
             Class.forName("jsqlite.JDBCDriver").newInstance();
             Database db = new jsqlite.Database();
             db.open(databaseName.getPath(), jsqlite.Constants.SQLITE_OPEN_READWRITE);

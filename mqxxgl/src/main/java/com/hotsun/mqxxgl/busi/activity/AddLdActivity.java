@@ -5,7 +5,9 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
@@ -26,7 +28,11 @@ import com.hotsun.mqxxgl.busi.model.AddLd;
 import com.hotsun.mqxxgl.busi.model.FwLdxx;
 import com.hotsun.mqxxgl.busi.model.ResponseResults;
 import com.hotsun.mqxxgl.busi.service.ldxxgl.AddLdRetrofit;
+import com.hotsun.mqxxgl.busi.service.localstore.ldfwxx.LdxxglService;
 import com.hotsun.mqxxgl.busi.util.BmcodeUtil;
+import com.hotsun.mqxxgl.busi.util.DataDao;
+import com.hotsun.mqxxgl.busi.util.Hotsun;
+import com.hotsun.mqxxgl.busi.util.SqliteDBHelper;
 import com.hotsun.mqxxgl.widget.WheelView;
 import com.hotsun.mqxxgl.widget.adapters.ArrayWheelAdapter;
 
@@ -48,6 +54,7 @@ public class AddLdActivity extends AppCompatActivity implements View.OnClickList
     private TextView zxrqDialog;
     private Calendar cal;
     private int year,month,day;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -181,6 +188,26 @@ public class AddLdActivity extends AppCompatActivity implements View.OnClickList
         addLd.setSessionID(MyApplication.tSysUsers.getSessionID());
         addLd.setUserID(MyApplication.tSysUsers.getUserID());
         addLd.setFwLdxx(fwLdxx);
+        SharedPreferences sharedPreferences = getSharedPreferences("userInfo", mContext.MODE_PRIVATE);
+        String username=sharedPreferences.getString("userName","");
+
+
+
+        String qrztdm="21";
+        String nowDate= Hotsun.dateToString(new Date());
+        String nowDateTime= Hotsun.timestampToString(new Date());
+
+
+
+
+
+
+        String strSQL = "insert into FW_LDXX (cunid, zuid,ldmc,ldaddr,cellnum,floornum,fwjgdm,xjrq,zxlxdm,zxrq,bz,QRZTDM,ADDDATETIME,ADDUSER,LASTTS,RFLAG,RFROMDM,RFROMUPDDT) values(" + zuid + ","+ zuid + ",'"+ ldmc + "','"+ lddz + "',"+ dys + ","+ lcs + ","
+                +"'"+ fwjg + "','"+ xjrq + "','" + zxlx + "','" + zxrq + "','"+ bz +"','"+qrztdm+ "','"+nowDateTime+"','"+username+"','"+nowDateTime+"','0','12','"+nowDateTime+"')";
+        boolean falag = LdxxglService.addLdData(this,strSQL);
+
+        List<FwLdxx> ldxxList= LdxxglService.findLdxxList(this);
+
 
         Gson gson = new Gson();
         String route = gson.toJson(addLd);
