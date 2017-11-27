@@ -19,19 +19,25 @@ import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.esri.core.geometry.Line;
 import com.google.gson.Gson;
 import com.hotsun.mqxxgl.MyApplication;
 import com.hotsun.mqxxgl.R;
+import com.hotsun.mqxxgl.busi.model.GetOftenModule;
 import com.hotsun.mqxxgl.busi.model.ResponseResults;
 import com.hotsun.mqxxgl.busi.model.requestParams.HomemoduleVO;
 import com.hotsun.mqxxgl.busi.presenter.MyGridAdapter;
+import com.hotsun.mqxxgl.busi.service.GetOftenModuleRetrofit;
 import com.hotsun.mqxxgl.busi.service.HomemoduleRetrofit;
 import com.hotsun.mqxxgl.busi.util.BmcodeUtil;
 import com.hotsun.mqxxgl.busi.util.UIHelper;
 import com.hotsun.mqxxgl.busi.view.MyGridView;
 
+
+import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -43,10 +49,12 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
     private Context mContext;
 
     private ScrollView scrollView ;
+    private ScrollView ofscrollView ;
     private LinearLayout myLayout ;
     private LinearLayout myLayoutBottom ;
     private TextView about;
     private Button btn_exit;
+    private Button btn_set;
 
     public int[] imgs = { R.string.jtda_icon, R.string.ldda_icon,
             R.string.fwda_icon, R.string.qygk_icon,R.string.pjjy_icon,R.string.ldjy_icon,R.string.shbz_icon,
@@ -76,11 +84,16 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
         getHomemodule();
 
         scrollView = (ScrollView) findViewById(R.id.main_scroll);
+        ofscrollView = (ScrollView) findViewById(R.id.often_scroll);
         myLayout = (LinearLayout) findViewById(R.id.main_mylayout);
         myLayoutBottom = (LinearLayout) findViewById(R.id.main_mylayout_bottom);
-        about = (TextView) findViewById(R.id.main_mylayout_about);
 
+        about = (TextView) findViewById(R.id.main_mylayout_about);
         about.setOnClickListener(this);
+
+        btn_set=(Button)findViewById(R.id.btn_set);
+        btn_set.setOnClickListener(this);
+
         btn_exit=(Button)findViewById(R.id.btn_exit);
         btn_exit.setOnClickListener(this);
 
@@ -362,6 +375,209 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
 
     }
 
+    private void initOftenView(final List<Map<String, String>> results){
+        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) ofscrollView.getLayoutParams();
+        if(results.size() <= 3){
+            params.height = 212;
+        }else if(results.size() > 3&&results.size() <= 6){
+            params.height = 424;
+        }else if(results.size() > 6&&results.size() <= 9){
+            params.height = 636;
+        }else{
+            params.height = 850;
+        }
+        ofscrollView.setLayoutParams(params);
+
+        MyGridView oftenView = (MyGridView) findViewById(R.id.often_gridview);
+        int[] imgs = new int[results.size()];
+        String[] imgs_text = new String[results.size()];
+        int[] imgs_color = new int[results.size()];
+        for (int i = 0;i < results.size();i++){
+            String mdlid = results.get(i).get("MDLID");
+            imgs_text[i] = results.get(i).get("MDLNAME");
+            if(mdlid.equals("10010001")){
+                imgs[i] = R.string.jtrkgl_icon;
+                imgs_color[i] = R.color.jtrkgl_color;
+            }else if(mdlid.equals("10010002")){
+                imgs[i] = R.string.lset_icon;
+                imgs_color[i] = R.color.lset_color;
+            }else if(mdlid.equals("10010003")){
+                imgs[i] = R.string.kclr_icon;
+                imgs_color[i] = R.color.kclr_color;
+            }else if(mdlid.equals("10010004")){
+                imgs[i] = R.string.cjrq_icon;
+                imgs_color[i] = R.color.cjrq_color;
+            }else if(mdlid.equals("10020001")){
+                imgs[i] = R.string.ldxxgl_icon;
+                imgs_color[i] = R.color.ldxxgl_color;
+            }else if(mdlid.equals("10020002")){
+                imgs[i] = R.string.ldssgl_icon;
+                imgs_color[i] = R.color.ldssgl_color;
+            }else if(mdlid.equals("10030001")){
+                imgs[i] = R.string.fwxxgl_icon;
+                imgs_color[i] = R.color.fwxxgl_color;
+            }else if(mdlid.equals("10030002")){
+                imgs[i] = R.string.shhjgl_icon;
+                imgs_color[i] = R.color.shhjgl_color;
+            }else if(mdlid.equals("10040001")){
+                imgs[i] = R.string.qygk_jbxx_icon;
+                imgs_color[i] = R.color.qygk_jbxx_color;
+            }else if(mdlid.equals("10040002")){
+                imgs[i] = R.string.qygk_fwry_icon;
+                imgs_color[i] = R.color.qygk_fwry_color;
+            }else if(mdlid.equals("10040003")){
+                imgs[i] = R.string.qygk_xxxx_icon;
+                imgs_color[i] = R.color.qygk_xxxx_color;
+            }else if(mdlid.equals("10040004")){
+                imgs[i] = R.string.qygk_rkqk_icon;
+                imgs_color[i] = R.color.qygk_rkqk_color;
+            }else if(mdlid.equals("10040005")){
+                imgs[i] = R.string.qygk_sdxx_icon;
+                imgs_color[i] = R.color.qygk_sdxx_color;
+            }else if(mdlid.equals("10040006")){
+                imgs[i] = R.string.qygk_cgxx_icon;
+                imgs_color[i] = R.color.qygk_cgxx_color;
+            }else if(mdlid.equals("10040007")){
+                imgs[i] = R.string.qygk_jtjj_icon;
+                imgs_color[i] = R.color.qygk_jtjj_color;
+            }else if(mdlid.equals("10040008")){
+                imgs[i] = R.string.qygk_tsfw_icon;
+                imgs_color[i] = R.color.qygk_tsfw_color;
+            }else if(mdlid.equals("10050001")){
+                imgs[i] = R.string.pjjy_snrq_icon;
+                imgs_color[i] = R.color.pjjy_snrq_color;
+            }else if(mdlid.equals("10050002")){
+                imgs[i] = R.string.pjjy_jycd_icon;
+                imgs_color[i] = R.color.pjjy_jycd_color;
+            }else if(mdlid.equals("10050003")){
+                imgs[i] = R.string.pjjy_pkxs_icon;
+                imgs_color[i] = R.color.pjjy_pkxs_color;
+            }else if(mdlid.equals("10060001")){
+                imgs[i] = R.string.ldjy_jyzk_icon;
+                imgs_color[i] = R.color.ldjy_jyzk_color;
+            }else if(mdlid.equals("10060002")){
+                imgs[i] = R.string.ldjy_ssll_icon;
+                imgs_color[i] = R.color.ldjy_ssll_color;
+            }else if(mdlid.equals("10060003")){
+                imgs[i] = R.string.ldjy_wcwg_icon;
+                imgs_color[i] = R.color.ldjy_wcwg_color;
+            }else if(mdlid.equals("10060004")){
+                imgs[i] = R.string.ldjy_ldjn_icon;
+                imgs_color[i] = R.color.ldjy_ldjn_color;
+            }else if(mdlid.equals("10060005")){
+                imgs[i] = R.string.ldjy_qzxq_icon;
+                imgs_color[i] = R.color.ldjy_qzxq_color;
+            }else if(mdlid.equals("10060006")){
+                imgs[i] = R.string.ldjy_pxxq_icon;
+                imgs_color[i] = R.color.ldjy_pxxq_color;
+            }else if(mdlid.equals("10070001")){
+                imgs[i] = R.string.shbz_ylaobx_icon;
+                imgs_color[i] = R.color.shbz_ylaobx_color;
+            }else if(mdlid.equals("10070002")){
+                imgs[i] = R.string.shbz_ylbx_icon;
+                imgs_color[i] = R.color.shbz_ylbx_color;
+            }else if(mdlid.equals("10080001")){
+                imgs[i] = R.string.jhsy_syqk_icon;
+                imgs_color[i] = R.color.jhsy_syqk_color;
+            }else if(mdlid.equals("10080002")){
+                imgs[i] = R.string.jhsy_hydx_icon;
+                imgs_color[i] = R.color.jhsy_hydx_color;
+            }else if(mdlid.equals("10080003")){
+                imgs[i] = R.string.jhsy_cssd_icon;
+                imgs_color[i] = R.color.jhsy_cssd_color;
+            }else if(mdlid.equals("10080004")){
+                imgs[i] = R.string.jhsy_dszn_icon;
+                imgs_color[i] = R.color.jhsy_dszn_color;
+            }else if(mdlid.equals("10080005")){
+                imgs[i] = R.string.jhsy_cszn_icon;
+                imgs_color[i] = R.color.jhsy_cszn_color;
+            }else if(mdlid.equals("10080006")){
+                imgs[i] = R.string.jhsy_cjzn_icon;
+                imgs_color[i] = R.color.jhsy_cjzn_color;
+            }else if(mdlid.equals("10090001")){
+                imgs[i] = R.string.cyfw_mbhz_icon;
+                imgs_color[i] = R.color.cyfw_mbhz_color;
+            }else if(mdlid.equals("10090002")){
+                imgs[i] = R.string.cyfw_xyrq_icon;
+                imgs_color[i] = R.color.cyfw_xyrq_color;
+            }else if(mdlid.equals("10090003")){
+                imgs[i] = R.string.cyfw_yjrq_icon;
+                imgs_color[i] = R.color.cyfw_yjrq_color;
+            }else if(mdlid.equals("10090004")){
+                imgs[i] = R.string.cyfw_mykh_icon;
+                imgs_color[i] = R.color.cyfw_mykh_color;
+            }else if(mdlid.equals("10090005")){
+                imgs[i] = R.string.cyfw_jkxc_icon;
+                imgs_color[i] = R.color.cyfw_jkxc_color;
+            }else if(mdlid.equals("10100001")){
+                imgs[i] = R.string.zzgl_jfdj_icon;
+                imgs_color[i] = R.color.zzgl_jfdj_color;
+            }else if(mdlid.equals("10100002")){
+                imgs[i] = R.string.zzgl_jftj_icon;
+                imgs_color[i] = R.color.zzgl_jftj_color;
+            }else if(mdlid.equals("10100003")){
+                imgs[i] = R.string.zzgl_tjsf_icon;
+                imgs_color[i] = R.color.zzgl_tjsf_color;
+            }else if(mdlid.equals("10100004")){
+                imgs[i] = R.string.zzgl_sjbg_icon;
+                imgs_color[i] = R.color.zzgl_sjbg_color;
+            }else if(mdlid.equals("10100005")){
+                imgs[i] = R.string.zzgl_rwdd_icon;
+                imgs_color[i] = R.color.zzgl_rwdd_color;
+            }
+        }
+
+        oftenView.setAdapter(new MyGridAdapter(this,imgs,imgs_text,imgs_color));
+
+        oftenView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Intent intent = new Intent();
+
+                intent.setClass(MainActivity.this,LDActivity.class);
+                startActivity(intent);
+            }
+
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+
+        if(resultCode == 1){
+            Gson gson = new Gson();
+            GetOftenModule getOftenModule = new GetOftenModule();
+            getOftenModule.setUserID(MyApplication.tSysUsers.getUserID());
+            getOftenModule.setSessionID(MyApplication.tSysUsers.getSessionID());
+
+            String route = gson.toJson(getOftenModule);
+
+            GetOftenModuleRetrofit getOftenModuleRetrofit = new GetOftenModuleRetrofit(MainActivity.this);
+            Call<ResponseResults> call = getOftenModuleRetrofit.getServer(route);
+            call.enqueue(new Callback<ResponseResults>() {
+                @Override
+                public void onResponse(Call<ResponseResults> call, Response<ResponseResults> response) {
+
+                    ResponseResults responseResults=(ResponseResults)response.body();
+
+                    List<Map<String, String>> results=responseResults.getResults();
+                    if(results.size() > 0){
+                        initOftenView(results);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseResults> call, Throwable t) {
+                    Log.i("sssss",t.getMessage());
+                }
+            });
+        }
+
+
+    }
 
     @Override
     public void onClick(View v) {
@@ -382,12 +598,13 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
                 like.setCompoundDrawables(null, likePic, null, null);
 
                 scrollView.setVisibility(View.VISIBLE);
+                ofscrollView.setVisibility(View.GONE);
+                btn_set.setVisibility(View.GONE);
                 myLayout.setVisibility(View.GONE);
                 myLayoutBottom.setVisibility(View.GONE);
 
                 break;
             case R.id.rb_location:
-                UIHelper.ToastErrorMessage(mContext, "该功能正在开发中,敬请期待！");
                 homePic = getResources().getDrawable(R.drawable.shouye);
                 homePic.setBounds(0, 0, homePic.getMinimumWidth(), homePic.getMinimumHeight());
                 home.setCompoundDrawables(null, homePic, null, null);
@@ -400,6 +617,40 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
                 likePic = getResources().getDrawable(R.drawable.wode);
                 likePic.setBounds(0, 0, likePic.getMinimumWidth(), likePic.getMinimumHeight());
                 like.setCompoundDrawables(null, likePic, null, null);
+
+                scrollView.setVisibility(View.GONE);
+                ofscrollView.setVisibility(View.VISIBLE);
+                btn_set.setVisibility(View.VISIBLE);
+                myLayout.setVisibility(View.GONE);
+                myLayoutBottom.setVisibility(View.GONE);
+
+                Gson gson = new Gson();
+                GetOftenModule getOftenModule = new GetOftenModule();
+                getOftenModule.setUserID(MyApplication.tSysUsers.getUserID());
+                getOftenModule.setSessionID(MyApplication.tSysUsers.getSessionID());
+
+                String route = gson.toJson(getOftenModule);
+
+                GetOftenModuleRetrofit getOftenModuleRetrofit = new GetOftenModuleRetrofit(MainActivity.this);
+                Call<ResponseResults> call = getOftenModuleRetrofit.getServer(route);
+                call.enqueue(new Callback<ResponseResults>() {
+                    @Override
+                    public void onResponse(Call<ResponseResults> call, Response<ResponseResults> response) {
+
+                        ResponseResults responseResults=(ResponseResults)response.body();
+
+                        List<Map<String, String>> results=responseResults.getResults();
+                        if(results.size() > 0){
+                            initOftenView(results);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseResults> call, Throwable t) {
+                        Log.i("sssss",t.getMessage());
+                    }
+                });
+
                 break;
             case R.id.rb_like:
 //                UIHelper.ToastErrorMessage(mContext, "该功能正在开发中,敬请期待！");
@@ -424,6 +675,8 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
 
 
                 scrollView.setVisibility(View.GONE);
+                ofscrollView.setVisibility(View.GONE);
+                btn_set.setVisibility(View.GONE);
                 myLayout.setVisibility(View.VISIBLE);
                 myLayoutBottom.setVisibility(View.VISIBLE);
 
@@ -445,7 +698,10 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
                 useredit.commit();
 
                 finish();
-
+            case R.id.btn_set:
+                intent = new Intent(MainActivity.this,OftenUseActivity.class);
+                startActivityForResult(intent,1);
+                break;
             default:
                 break;
         }

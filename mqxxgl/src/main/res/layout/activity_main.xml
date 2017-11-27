@@ -24,6 +24,44 @@
             android:verticalSpacing="0.0dip" />
     </ScrollView>
 
+
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="425dp"
+        android:fillViewport="true"
+        android:scrollbars="none"
+        android:visibility="gone"
+        android:id="@+id/often_scroll">
+
+        <com.hotsun.mqxxgl.busi.view.MyGridView
+            android:id="@+id/often_gridview"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:horizontalSpacing="0.0dip"
+            android:listSelector="@null"
+            android:numColumns="3"
+            android:scrollbars="vertical"
+            android:stretchMode="columnWidth"
+            android:verticalSpacing="0.0dip" />
+    </ScrollView>
+
+        <Button
+            android:id="@+id/btn_set"
+            android:layout_below="@+id/often_scroll"
+            android:layout_marginLeft="80dp"
+            android:layout_width="200dp"
+            android:layout_height="45dp"
+            android:background="@drawable/button_selector"
+            android:gravity="center"
+            android:text="设置"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:visibility="gone"
+            />
+
+
+
     <LinearLayout
         android:id="@+id/main_mylayout"
         android:layout_width="match_parent"
@@ -68,6 +106,8 @@
 
 
     </LinearLayout>
+
+
 
     <LinearLayout
         android:id="@+id/main_mylayout_bottom"

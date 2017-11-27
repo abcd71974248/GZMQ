@@ -1,6 +1,7 @@
 package com.hotsun.mqxxgl.busi.service;
 
 import com.hotsun.mqxxgl.busi.model.ResponseResults;
+import com.hotsun.mqxxgl.busi.model.sysbeans.AddResponseResults;
 import com.hotsun.mqxxgl.busi.model.sysbeans.TSysUsers;
 
 import java.util.List;
@@ -34,4 +35,20 @@ public interface SyncPostRoute {
     @Headers({ "Content-Type: application/json; charset=utf-8","Accept: application/json"})
     @POST("/cpimAppService/basicplat/userRight/getAPPModuleList.do")
     Call<ResponseResults> getModulePostRoute(@Body RequestBody route);//传入的参数为RequestBody
+
+    @Headers({ "Content-Type: application/json; charset=utf-8","Accept: application/json"})
+    @POST("/cpimAppService/basicplat/userRight/android_getOftenmoduleList.do")
+    Call<ResponseResults> getOftenModulePostRoute(@Body RequestBody route);//传入的参数为RequestBody
+
+    @Headers({ "Content-Type: application/json; charset=utf-8","Accept: application/json"})
+    @POST("/cpimAppService/basicplat/userRight/android_getOftenmoduleNoLimits.do")
+    Call<ResponseResults> getNoOftenModulePostRoute(@Body RequestBody route);//传入的参数为RequestBody
+
+    @Headers({ "Content-Type: application/json; charset=utf-8","Accept: application/json"})
+    @POST("/cpimAppService/basicplat/userRight/android_insertOftenmdl.do")
+    Call<ResponseResults> addOftenModulePostRoute(@Body RequestBody route);//传入的参数为RequestBody
+
+    @Headers({ "Content-Type: application/json; charset=utf-8","Accept: application/json"})
+    @POST("/cpimAppService/basicplat/userRight/android_deleteOftenmdl.do")
+    Call<AddResponseResults> deleteModulePostRoute(@Body RequestBody route);//传入的参数为RequestBody
 }

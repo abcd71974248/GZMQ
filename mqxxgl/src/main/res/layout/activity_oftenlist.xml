@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <include layout="@layout/include_header" />
+
+    <TextView
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/base_end_color_pressed"
+        android:textSize="14dp"
+        android:text="我的应用"/>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <ListView
+        android:id="@+id/refresh_oftenlist"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fadeScrollbars="false"
+        />
+
+    <TextView
+        android:id="@+id/nopickapp"
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/base_end_color_pressed"
+        android:layout_below="@+id/refresh_oftenlist"
+        android:textSize="14dp"
+        android:text="待选择的应用"/>
+
+    <ListView
+        android:layout_below="@+id/nopickapp"
+        android:id="@+id/refresh_oftenlistno"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fadeScrollbars="false"
+        />
+    <View
+        android:layout_below="@+id/refresh_oftenlistno"
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="@color/cp_bg_line_c" />
+    <Button
+        android:layout_marginTop="8dp"
+        android:id="@+id/oftenlist_btn_save"
+        android:layout_below="@+id/refresh_oftenlistno"
+        android:layout_marginLeft="80dp"
+        android:layout_width="200dp"
+        android:layout_height="45dp"
+        android:background="@drawable/button_selector"
+        android:gravity="center"
+        android:text="保存"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        />
+    </RelativeLayout>
+</LinearLayout>
