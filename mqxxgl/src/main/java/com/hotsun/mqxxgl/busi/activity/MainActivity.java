@@ -376,6 +376,12 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
     }
 
     private void initOftenView(final List<Map<String, String>> results){
+        MyGridView oftenView = (MyGridView) findViewById(R.id.often_gridview);
+        if(results.size() == 0){
+            oftenView.setAdapter(null);
+            return;
+        }
+
         LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) ofscrollView.getLayoutParams();
         if(results.size() <= 3){
             params.height = 212;
@@ -388,7 +394,6 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
         }
         ofscrollView.setLayoutParams(params);
 
-        MyGridView oftenView = (MyGridView) findViewById(R.id.often_gridview);
         int[] imgs = new int[results.size()];
         String[] imgs_text = new String[results.size()];
         int[] imgs_color = new int[results.size()];
@@ -564,9 +569,7 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
                     ResponseResults responseResults=(ResponseResults)response.body();
 
                     List<Map<String, String>> results=responseResults.getResults();
-                    if(results.size() > 0){
-                        initOftenView(results);
-                    }
+                    initOftenView(results);
                 }
 
                 @Override
