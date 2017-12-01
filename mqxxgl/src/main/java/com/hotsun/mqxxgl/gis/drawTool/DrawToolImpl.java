@@ -1,5 +1,8 @@
 package com.hotsun.mqxxgl.gis.drawTool;
 
+import android.app.Activity;
+import android.content.Intent;
+
 import com.esri.android.map.FeatureLayer;
 import com.esri.core.geodatabase.GeodatabaseFeature;
 import com.esri.core.geodatabase.GeodatabaseFeatureTable;
@@ -15,6 +18,7 @@ import com.esri.core.map.Field;
 import com.esri.core.map.Graphic;
 import com.esri.core.symbol.Symbol;
 import com.esri.core.table.TableException;
+import com.hotsun.mqxxgl.busi.activity.LdViewActivity;
 import com.hotsun.mqxxgl.gis.model.MySpatialReference;
 import com.hotsun.mqxxgl.gis.util.ToastUtil;
 
@@ -43,6 +47,33 @@ public class DrawToolImpl {
         this.drawTool = drawTool;
     }
 
+    /**添加点位数据*/
+    public boolean addCurGraphic(Graphic graphic) {
+        Geometry geom = graphic.getGeometry();
+        if (!geom.isValid()) {
+            ToastUtil.setToast(drawTool.getBaseView().getContext(), "点位无效");
+            return false;
+        }
+        GeodatabaseFeatureTable table = drawTool.getBaseView().getMyFeatureLayer().getTable();
+        try {
+            long id = table.addFeature(graphic);
+            Feature feature = table.getFeature(id);
+            Geometry geometry = feature.getGeometry();
+            if (geometry == null || geometry.isEmpty() || !geometry.isValid()) {
+                table.deleteFeature(id);
+                return false;
+            } else {
+				/* 添加小班后 记录添加小班的id 备撤销时删除 */
+                //record(id, "add", editAttributes, geom,drawTool.getBaseView().getMyFeatureLayer().getLayer());
+            }
+            drawTool.getBaseView().getGraphicsLayer().removeAll();
+        } catch (TableException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
     /**
      * 新增点
      */
@@ -53,7 +84,6 @@ public class DrawToolImpl {
             ToastUtil.setToast(drawTool.getBaseView().getContext(), "未选择添加位置");
             return;
         }
-
         try {
             DecimalFormat format = new DecimalFormat("0.000000");
             GeodatabaseFeatureTable table = drawTool.getBaseView().getMyFeatureLayer().getTable();
@@ -99,6 +129,48 @@ public class DrawToolImpl {
         Geometry geom = GeometryEngine.simplify(multiPath, MySpatialReference.getMapSpatialReference());
         addFeatureOnLayer(geom, drawTool.getBaseView().getTemplate().getLayerAttributes());
 
+    }
+
+    /**删除数据*/
+    public void deleteFeature(long[] ids){
+        try {
+
+            GeodatabaseFeatureTable table = drawTool.getBaseView().getMyFeatureLayer().getTable();
+            for(long id : ids){
+                table.deleteFeature(id);
+                 /* 添加小班后 记录添加小班的id 备撤销时删除 */
+                record(id, "delete", null, null,drawTool.getBaseView().getMyFeatureLayer().getLayer());
+            }
+            drawTool.getBaseView().getGraphicsLayer().removeAll();
+        } catch (TableException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**更新数据*/
+    public void updateFeature(Geometry geom,Feature feature){
+        try {
+            if (geom.isEmpty() || !geom.isValid()) {
+                return;
+            }
+
+            Envelope envelope = new Envelope();
+            geom.queryEnvelope(envelope);
+            if (envelope.isEmpty() || !envelope.isValid()) {
+                return;
+            }
+
+            GeodatabaseFeatureTable table = drawTool.getBaseView().getMyFeatureLayer().getTable();
+            Symbol symbol = drawTool.getBaseView().getTemplate().getLayerSymbol();
+            Graphic graphic = new Graphic(geom,symbol,feature.getAttributes());
+            table.updateFeature(feature.getId(),graphic);
+
+           /* 添加小班后 记录添加小班的id 备撤销时删除 */
+            record(feature.getId(), "add", feature.getAttributes(), geom,drawTool.getBaseView().getMyFeatureLayer().getLayer());
+            drawTool.getBaseView().getGraphicsLayer().removeAll();
+        } catch (TableException e) {
+            e.printStackTrace();
+        }
     }
 
     /**

@@ -62,4 +62,5 @@ dependencies {
     compile 'io.reactivex:rxandroid:1.2.0'
     testCompile 'junit:junit:4.12'
     compile files('libs/BaiduLBS_Android.jar')
+    compile 'com.github.dfqin:grantor:2.1.0'
 }

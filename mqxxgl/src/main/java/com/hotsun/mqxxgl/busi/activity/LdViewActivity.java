@@ -83,7 +83,7 @@ public class LdViewActivity extends AppCompatActivity implements View.OnClickLis
 
         initView(ldid);
 
-        TextView editLdBtn = (TextView) findViewById(R.id.ldlist_edit);
+        View editLdBtn = findViewById(R.id.collect_ldxx);
         editLdBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

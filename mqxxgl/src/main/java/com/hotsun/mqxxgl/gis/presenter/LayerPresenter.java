@@ -187,6 +187,11 @@ public class LayerPresenter {
         checkStates = adapter.getCheckStates();
     }
 
+    /**图层选择*/
+    public void showLayerSelect(){
+
+    }
+
     public interface ICheckBox{
         HashMap<String,Boolean> getCheckStates();
     }

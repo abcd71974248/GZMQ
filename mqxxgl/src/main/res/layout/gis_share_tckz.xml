@@ -2,10 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginTop="100dp"
     android:layout_gravity="right"
-    android:gravity="right"
+    android:layout_marginTop="100dp"
     android:background="@drawable/background_view_rounded_blue"
+    android:gravity="right"
     android:orientation="vertical">
 
     <LinearLayout
@@ -19,9 +19,9 @@
             android:id="@+id/titleTextView"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:gravity="center|left"
             android:text="图层控制"
-            android:layout_weight="1"
             android:textColor="@android:color/white"
             android:textSize="20sp" />
 
@@ -30,6 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:background="@drawable/background_view_image"
             android:contentDescription="@null"
             android:padding="7dp"
             android:src="@drawable/close" />
@@ -71,6 +72,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right|center"
+                android:background="@drawable/background_view_image"
                 android:contentDescription="@null"
                 android:padding="7dp" />
         </LinearLayout>
@@ -107,6 +109,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right|center"
+                android:background="@drawable/background_view_image"
                 android:contentDescription="@null"
                 android:padding="7dp" />
         </LinearLayout>
@@ -143,6 +146,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right|center"
+                android:background="@drawable/background_view_image"
                 android:contentDescription="@null"
                 android:padding="7dp" />
         </LinearLayout>
@@ -158,7 +162,7 @@
             android:id="@+id/tc_expandlistview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:cacheColorHint="@color/ccc_white"/>
+            android:cacheColorHint="@color/ccc_white" />
     </LinearLayout>
 
 </LinearLayout>

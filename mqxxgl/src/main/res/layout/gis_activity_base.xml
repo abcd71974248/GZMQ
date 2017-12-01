@@ -11,12 +11,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+    <!--左侧工具栏-->
     <include
         layout="@layout/gis_left_tools" />
 
+    <!--底部小班编辑工具栏-->
     <include
         layout="@layout/gis_geometry_edite_tool" />
 
+    <!--顶部工具栏-->
     <include
         layout="@layout/gis_share_topbar" />
 

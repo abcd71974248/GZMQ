@@ -1,5 +1,6 @@
 package com.hotsun.mqxxgl.gis.view;
 
+import android.app.Activity;
 import android.content.Context;
 
 import com.esri.android.map.GraphicsLayer;
@@ -15,6 +16,8 @@ import com.hotsun.mqxxgl.gis.model.MyFeatureLayer;
  */
 
 public interface IGisBaseView extends ILocationView{
+
+    Activity getActivity();
 
     MapView getMapView();
 

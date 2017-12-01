@@ -2,19 +2,13 @@ package com.hotsun.mqxxgl.busi.activity;
 
 
 import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -30,16 +24,11 @@ import com.hotsun.mqxxgl.busi.model.ResponseResults;
 import com.hotsun.mqxxgl.busi.service.ldxxgl.AddLdRetrofit;
 import com.hotsun.mqxxgl.busi.service.localstore.ldfwxx.LdxxglService;
 import com.hotsun.mqxxgl.busi.util.BmcodeUtil;
-import com.hotsun.mqxxgl.busi.util.DataDao;
 import com.hotsun.mqxxgl.busi.util.Hotsun;
-import com.hotsun.mqxxgl.busi.util.SqliteDBHelper;
-import com.hotsun.mqxxgl.widget.WheelView;
-import com.hotsun.mqxxgl.widget.adapters.ArrayWheelAdapter;
 
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;

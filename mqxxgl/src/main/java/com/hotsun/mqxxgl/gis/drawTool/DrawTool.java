@@ -10,14 +10,17 @@ import android.view.View;
 
 import com.esri.android.map.MapOnTouchListener;
 import com.esri.android.map.MapView;
+import com.esri.core.geodatabase.GeodatabaseFeature;
 import com.esri.core.geometry.Envelope;
 import com.esri.core.geometry.Geometry;
 import com.esri.core.geometry.Point;
 import com.esri.core.geometry.Polygon;
 import com.esri.core.geometry.Polyline;
 import com.esri.core.map.CallbackListener;
+import com.esri.core.map.Feature;
 import com.esri.core.map.FeatureEditResult;
 import com.esri.core.map.FeatureSet;
+import com.esri.core.map.FeatureTemplate;
 import com.esri.core.map.Graphic;
 import com.esri.core.symbol.FillSymbol;
 import com.esri.core.symbol.LineSymbol;
@@ -26,10 +29,14 @@ import com.esri.core.symbol.SimpleFillSymbol;
 import com.esri.core.symbol.SimpleLineSymbol;
 import com.esri.core.symbol.SimpleMarkerSymbol;
 import com.esri.core.symbol.Symbol;
+import com.esri.core.table.TableException;
 import com.esri.core.tasks.ags.query.Query;
+import com.esri.core.tasks.query.QueryParameters;
 import com.hotsun.mqxxgl.busi.activity.LdViewActivity;
 import com.hotsun.mqxxgl.gis.model.ActionMode;
+import com.hotsun.mqxxgl.gis.presenter.LayerPresenter;
 import com.hotsun.mqxxgl.gis.util.ArcgisUtils;
+import com.hotsun.mqxxgl.gis.util.NetworkUtil;
 import com.hotsun.mqxxgl.gis.util.ToastUtil;
 import com.hotsun.mqxxgl.gis.view.IDrawTool;
 import com.hotsun.mqxxgl.gis.view.IGisBaseView;
@@ -59,7 +66,8 @@ public class DrawTool extends Subject implements IDrawTool {
     private int ADDS = 0;
     private int DELETES = 1;
     private int UPDTATES = 2;
-
+    private int EMPERTY = 4;
+    private int EDITSTATE = EMPERTY;
     public int getEDITSTATE() {
         return EDITSTATE;
     }
@@ -67,8 +75,6 @@ public class DrawTool extends Subject implements IDrawTool {
     public void setEDITSTATE(int EDITSTATE) {
         this.EDITSTATE = EDITSTATE;
     }
-
-    private int EDITSTATE=0;
 
     public Graphic[] getuGraphics() {
         return uGraphics;
@@ -82,10 +88,6 @@ public class DrawTool extends Subject implements IDrawTool {
 
     public IGisBaseView getBaseView() {
         return baseView;
-    }
-
-    public void setBaseView(IGisBaseView baseView) {
-        this.baseView = baseView;
     }
 
     private IGisBaseView baseView;
@@ -293,26 +295,19 @@ public class DrawTool extends Subject implements IDrawTool {
                 Point point = baseView.getMapView().toMapPoint(e.getX(), e.getY());
                 if(!pointBuilder.isEmpty()){
                     pointBuilder.setXY(point.getX(), point.getY());
-                    baseView.getGraphicsLayer().updateGraphic(graphicID,pointBuilder);
+                    Graphic graphic = baseView.getGraphicsLayer().getGraphic(graphicID);
+                    if(graphic != null){
+                        baseView.getGraphicsLayer().updateGraphic(graphicID,pointBuilder);
+                    }else{
+                        graphic = new Graphic(pointBuilder,markerSymbol);
+                        baseView.getGraphicsLayer().addGraphic(graphic);
+                    }
                 }else{
                     pointBuilder.setXY(point.getX(), point.getY());
                 }
 
             }
             return super.onSingleTap(e);
-        }
-
-        @Override
-        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-            if (active
-                    && (drawType == SketchCreationMode.ENVELOPE || drawType == SketchCreationMode.FREEHAND_POLYGON
-                    || drawType == SketchCreationMode.FREEHAND_LINE || drawType == SketchCreationMode.CIRCLE)) {
-                switch (drawType) {
-
-                }
-                return false;
-            }
-            return super.onFling(e1, e2, velocityX, velocityY);
         }
 
     }
@@ -372,7 +367,7 @@ public class DrawTool extends Subject implements IDrawTool {
                 if(count == 0){
                     //新增
                     setEDITSTATE(ADDS);
-                }else if(count == 1){
+                }else{
                     //更新
                     Graphic[] graphics = featureSet.getGraphics();
                     int[] ids = new int[count];
@@ -398,16 +393,21 @@ public class DrawTool extends Subject implements IDrawTool {
             ToastUtil.setToast(baseView.getContext(),"未选定点位位置");
             return;
         }
-        if(EDITSTATE == ADDS){
-            addOnlineFeature(pointBuilder);
-        }else if(EDITSTATE == UPDTATES){
-            int count = this.getuGraphics().length;
-            if(count > 1){
-                deleteOnlineFeature(getuGraphics());
+        if(NetworkUtil.hasInternet(baseView.getActivity())){
+            if(EDITSTATE == ADDS){
                 addOnlineFeature(pointBuilder);
-            }else if(count == 1){
-                updateOnlineFeature(getuGraphics()[0],pointBuilder);
+            }else if(EDITSTATE == UPDTATES){
+                int count = this.getuGraphics().length;
+                if(count > 1){
+                    deleteOnlineFeature(getuGraphics());
+                    addOnlineFeature(pointBuilder);
+                }else if(count == 1){
+                    updateOnlineFeature(getuGraphics()[0],pointBuilder);
+                }
             }
+        }else{
+            String where = "LDID = '"+baseView.getLdid()+"'";
+            outlineQuery(where);
         }
     }
     /**以当前点为点位信息*/
@@ -424,16 +424,11 @@ public class DrawTool extends Subject implements IDrawTool {
 
     /**添加在线的点位数据*/
     public void addOnlineFeature(Geometry point){
-        Map<String, Object> objectMap = new HashMap<>();
-        Symbol symbol=null;
-        int[] ids = baseView.getArcGisFeatureLayer().getGraphicIDs();
-        for(int id : ids){
-            objectMap = baseView.getArcGisFeatureLayer().getGraphic(id).getAttributes();
-            symbol = baseView.getArcGisFeatureLayer().getGraphic(id).getSymbol();
-            if(objectMap != null && symbol != null){
-                break;
-            }
-        }
+        FeatureTemplate template = baseView.getArcGisFeatureLayer().getTemplates()[0];
+        Graphic g = baseView.getArcGisFeatureLayer().createFeatureWithTemplate(template,null);
+        Map<String, Object> objectMap = g.getAttributes();
+        Symbol symbol = g.getSymbol();
+
         objectMap.put("LDID",baseView.getLdid());
         Graphic graphic = new Graphic(point,symbol,objectMap);
         Graphic[] graphics = new Graphic[]{graphic};
@@ -455,7 +450,7 @@ public class DrawTool extends Subject implements IDrawTool {
     }
 
     /**编辑点位数据*/
-    private void applyEdits(int type,Graphic[] graphics){
+    private void applyEdits(final int type, final Graphic[] graphics){
         Graphic[] adds = null;
         Graphic[] deletes = null;
         Graphic[] updates = null;
@@ -469,15 +464,34 @@ public class DrawTool extends Subject implements IDrawTool {
         baseView.getArcGisFeatureLayer().applyEdits(adds, deletes, updates, new CallbackListener<FeatureEditResult[][]>() {
             @Override
             public void onCallback(FeatureEditResult[][] fets) {
-                if(fets[2]!=null && fets[2][0]!=null && fets[2][0].isSuccess()){
-                    baseView.getArcGisFeatureLayer().refresh();
-                    baseView.getArcGisFeatureLayer().clear();
-                    baseView.getGraphicsLayer().removeAll();
-                    ToastUtil.setToast(baseView.getContext(),"编辑成功");
-
-                    toResultActivity("true");
-                }else{
-                    toResultActivity("false");
+                if(fets != null){
+                    boolean flag = true;
+                    for(FeatureEditResult[] result:fets){
+                        if(result != null){
+                            for(FeatureEditResult res : result){
+                                if(res != null && res.isSuccess()){
+                                    ToastUtil.setToast(baseView.getContext(),"编辑成功");
+                                    baseView.getGraphicsLayer().removeAll();
+                                    baseView.getArcGisFeatureLayer().refresh();
+                                    if(type == ADDS){
+                                        //添加成功后只能更新
+                                        EDITSTATE = UPDTATES;
+                                        int oid =(int) res.getObjectId();
+                                        int uid = baseView.getArcGisFeatureLayer().getGraphicIDWithOID(oid);
+                                        Graphic graphic = baseView.getArcGisFeatureLayer().getGraphic(uid);
+                                        Graphic[] graphics1 = new Graphic[]{graphic};
+                                        setuGraphics(graphics1);
+                                    }
+                                    flag = false;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    if(flag) {
+                        ToastUtil.setToast(baseView.getContext(), "编辑失败");
+                        toResultActivity("false");
+                    }
                 }
             }
 
@@ -493,6 +507,53 @@ public class DrawTool extends Subject implements IDrawTool {
         intent.putExtra("state",state);
         ((Activity)baseView.getContext()).setResult(1,intent);
         ((Activity) baseView.getContext()).finish();
+    }
+
+    private void outlineQuery(String where){
+        QueryParameters parameters = new QueryParameters();
+        parameters.setOutFields(new String[]{"*"});
+        parameters.setWhere(where);
+        baseView.getMyFeatureLayer().getTable().queryIds(parameters, new CallbackListener<long[]>() {
+            @Override
+            public void onCallback(long[] longs) {
+                if(longs.length == 0){
+                    Map objmap = baseView.getTemplate().getLayerAttributes();
+                    objmap.put("LDID",baseView.getLdid());
+                    Graphic graphic = new Graphic(pointBuilder,baseView.getTemplate().getLayerSymbol(),objmap);
+                    boolean flag = drawToolImpl.addCurGraphic(graphic);
+                    if(flag){
+                        toResultActivity("true");
+                    }else{
+                        toResultActivity("false");
+                    }
+                }else if(longs.length == 1){
+                    try {
+                        Feature feature = baseView.getMyFeatureLayer().getTable().getFeature(longs[0]);
+                        drawToolImpl.updateFeature(pointBuilder,feature);
+                        toResultActivity("true");
+                    } catch (TableException e) {
+                        e.printStackTrace();
+                        toResultActivity("false");
+                    }
+                }else if(longs.length > 1){
+                    drawToolImpl.deleteFeature(longs);
+                    Map objmap = baseView.getTemplate().getLayerAttributes();
+                    objmap.put("LDID",baseView.getLdid());
+                    Graphic graphic = new Graphic(pointBuilder,baseView.getTemplate().getLayerSymbol(),objmap);
+                    boolean flag = drawToolImpl.addCurGraphic(graphic);
+                    if(flag){
+                        toResultActivity("true");
+                    }else{
+                        toResultActivity("false");
+                    }
+                }
+            }
+
+            @Override
+            public void onError(Throwable throwable) {
+                Log.e("===============",throwable.getMessage());
+            }
+        });
     }
 
 }

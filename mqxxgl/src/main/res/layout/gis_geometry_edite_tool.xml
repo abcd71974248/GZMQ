@@ -50,7 +50,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:layout_weight="1"
-            android:background="@drawable/xbbj_add"
+            android:background="@drawable/xbbj_current_add"
             android:button="@null"
             android:onClick="addFeatureCurrut"/>
 
@@ -83,6 +83,7 @@
             android:layout_weight="1"
             android:background="@drawable/xbbj_delete"
             android:button="@null"
+            android:visibility="gone"
             android:onClick="deleteFeature"/>
 
         <RadioButton
@@ -126,6 +127,7 @@
             android:layout_weight="1"
             android:background="@drawable/xbbj_attribte"
             android:button="@null"
+            android:visibility="gone"
             android:onClick="attributeFeture"/>
 
         <RadioButton
@@ -136,6 +138,7 @@
             android:layout_weight="1"
             android:background="@drawable/xbbj_select"
             android:button="@null"
+            android:visibility="gone"
             android:onClick="selectFeatures"/>
 
         <RadioButton
@@ -145,6 +148,7 @@
             android:layout_weight="1"
             android:background="@drawable/xbbj_mapremove"
             android:button="@null"
+            android:visibility="gone"
             android:onClick="mapReInitial"/>
 
         <RadioButton
