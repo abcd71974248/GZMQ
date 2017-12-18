@@ -125,6 +125,11 @@ public class OftenUseActivity extends AppCompatActivity  implements  View.OnClic
                         params.height = results.size() * 85;
                     }
                 }
+
+                if(params.height >= 430&&oftensize >= 4){
+                    params.height = 430;
+                }
+
                 oftenlistno.setLayoutParams(params);
                 oftenlistno.setAdapter(oftenlistnoAdapt);
             }
